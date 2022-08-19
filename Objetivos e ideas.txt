@@ -1,0 +1,40 @@
+Book Lovers website
+
+1)home
+-Ultimos agregados
+-Top valued
+-Hot trenders
+-Hacerla al final por practicidad
+
+2)el foro como tal donde se visualizan los post
+*cada post lleva imagen, titulo y nombre del libro
+
+3)El post
+
+
+4)Generos disponibles
+
+5)Agregar post
+*Nombre del libro(buscador de existentes)
+*Titulo del post
+*imagen del libro
+*reseña
+
+5.1)Editar post
+
+6)Agregar comentario a post(Pensar como implementar esta)
+*Potencialmente en el fondo de post, con un click arriba mandandote ahi
+*Editables?
+
+7)Login/Register
+
+8)User Page
+*Con sus post hechos
+
+9)About
+
+Referencias:
+https://www.bookclubforum.co.uk/community/
+https://www.forumbooksshop.com/
+https://www.goodreads.com/
+https://www.royalroad.com/
