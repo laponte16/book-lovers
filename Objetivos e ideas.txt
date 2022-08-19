@@ -38,3 +38,9 @@ https://www.bookclubforum.co.uk/community/
 https://www.forumbooksshop.com/
 https://www.goodreads.com/
 https://www.royalroad.com/
+
+Referencias de NodeJS:
+Video tutorial de NodeJs en una hora:
+https://www.youtube.com/watch?v=TlB_eWDSMt4
+Tutorial escrito para incluir html en nodejs:
+https://vegibit.com/render-html-in-node-js/
