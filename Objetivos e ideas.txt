@@ -40,6 +40,8 @@ https://www.goodreads.com/
 https://www.royalroad.com/
 
 Referencias de NodeJS:
+Referencia de oro:
+https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
 Video tutorial de NodeJs en una hora:
 https://www.youtube.com/watch?v=TlB_eWDSMt4
 Tutorial escrito para incluir html en nodejs:
