@@ -44,3 +44,5 @@ Video tutorial de NodeJs en una hora:
 https://www.youtube.com/watch?v=TlB_eWDSMt4
 Tutorial escrito para incluir html en nodejs:
 https://vegibit.com/render-html-in-node-js/
+Express JS in 35 minutes (express, html y form):
+https://www.youtube.com/watch?v=SccSCuHhOw0
