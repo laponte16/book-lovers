@@ -8,6 +8,11 @@ app.listen(3000, () => {
 app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/test.html");
+  res.sendFile(__dirname + "/api/test.html");
+  return;
+});
+
+app.get("/api/test2.html", (req, res) => {
+  res.sendFile(__dirname + "/api/test2.html");
   return;
 });
