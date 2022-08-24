@@ -7,11 +7,15 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("./index");
 });
 
 app.get("/home", (req, res) => {
-  res.render(__dirname + "/views/home/index.ejs");
+  res.render("./home/index.ejs");
+});
+
+app.get("/about", (req, res) => {
+  res.render("./about/index.ejs");
 });
 
 app.listen(3000, () => {
