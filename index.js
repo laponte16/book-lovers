@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  res.render("/home/index");
+  res.render(__dirname + "/views/home/index.ejs");
 });
 
 app.listen(3000, () => {
