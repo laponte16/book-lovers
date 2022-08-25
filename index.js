@@ -10,8 +10,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(useragent.express());
 
 app.get("/", (req, res) => {
-  res.render("./index");
   res.send(req.useragent.isMobile);
+  res.render("./index");
+  
 });
 
 app.get("/home", (req, res) => {
