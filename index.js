@@ -10,8 +10,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(useragent.express());
 
 app.get("/", (req, res) => {
-  res.send(req.useragent.isMobile);
-  res.render("./index");
+  if(useragent.isMobile === false){
+    res.render("./index");
+  }
+  else{
+    res.send("Ñelda");
+    console.log(useragent.isMobile);
+  }
+  
   
 });
 
