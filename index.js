@@ -11,7 +11,7 @@ app.use(useragent.express());
 
 app.get("/", (req, res) => {
   if(useragent.Agent.isMobile == false){
-    res.render("./index");
+    res.render("./desktop/index");
   }
   else{
     res.send("Ñelda");
