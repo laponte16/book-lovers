@@ -20,11 +20,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  res.render("./home/index.ejs");
+  res.render("./desktop/home/index.ejs");
 });
 
 app.get("/about", (req, res) => {
-  res.render("./about/index.ejs");
+  res.render("./desktop/about/index.ejs");
+});
+
+app.get("/gene", (req, res) => {
+  res.render("./desktop/genres/prueba.ejs");
 });
 
 app.listen(3000, () => {
