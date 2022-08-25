@@ -1,0 +1,24 @@
+Tabla: Usuarios
+Valores:
+id
+nombre
+fecha de unirse
+user/email
+password
+
+Tabla: Posts
+Valores:
+id
+Titulo
+Creador(Relacional?)
+Genero
+Fecha
+Contenido original
+
+Tabla: Respuestas
+Valores:
+id
+Post de donde vienen(Relacional)
+Creador(relacional)
+Fecha
+Contenido
