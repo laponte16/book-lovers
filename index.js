@@ -10,11 +10,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(useragent.express());
 
 app.get("/", (req, res) => {
-  if(useragent.Agent.isMobile == true){
+  if(useragent.Agent.isMobile == false){
     res.render("./mobile/index");
   }
   else{
-    res.send("Mobile");
+    res.render("./desktop/index");
     console.log(useragent.Agent.isMobile);
   }
 });
