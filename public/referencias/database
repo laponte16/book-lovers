@@ -1,24 +1,30 @@
-Tabla: Usuarios
+Tabla: users
 Valores:
-id
-nombre
-fecha de unirse
-user/email
-password
+id_users
+username(20 chars)
+join_date(DATE YY-MM-DD)
+email(...50 chars? Algo asi)
+password(200 chars creo le puse, como es MD5)
 
-Tabla: Posts
+Tabla: posts
 Valores:
-id
-Titulo
-Creador(Relacional?)
-Genero
-Fecha
-Contenido original
+id_posts
+title (100 chars)
+id_user (int-relacional)
+id_genre (int-relacional)
+creation_date (TIMESTAMP YY-MM-DD hh:mm)
+content_post (2000 chars)
 
-Tabla: Respuestas
+Tabla: answers
 Valores:
-id
-Post de donde vienen(Relacional)
-Creador(relacional)
-Fecha
-Contenido
+id_answers
+id_post(int-Relacional)
+id_user(int-relacional)
+creation_date(TIMESTAMP YY-MM-DD hh:mm)
+content_answer(500 chars)
+
+Tabla: genres
+valores:
+id_genres
+name(30 chars)
+url_image(500 chars)

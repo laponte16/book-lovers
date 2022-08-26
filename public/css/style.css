@@ -1,6 +1,7 @@
 body{
-	background-color: red;
+	background-color: #323234;
 }
+
 
 
 /*ESTILOS DEL NAV*/
@@ -54,3 +55,38 @@ body{
 	white-space: nowrap;
 	-webkit-overflow-scrolling: touch;
   }
+
+button{
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    color: #F2F3E2;
+    background-color: #D52E4A;
+
+}
+
+/*ESTILOS DEL LOGIN*/
+
+/*ESTILOS DE GENEROS*/
+
+button:hover{
+    background-color: #F2F3E2;
+    color: #D52E4A;
+}
+
+div#generos{
+	display: flex;
+	padding: 30px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+    text-align: center;
+}
+
+div#respu{
+	text-align: center;
+}
+

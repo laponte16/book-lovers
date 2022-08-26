@@ -28,7 +28,11 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/gene", (req, res) => {
-  res.render("./desktop/genres/prueba.ejs");
+  res.render("./desktop/genres/generos.ejs");
+});
+
+app.get("/login", (req, res) => {
+  res.render("./desktop/login/index.ejs");
 });
 
 app.listen(3000, () => {
