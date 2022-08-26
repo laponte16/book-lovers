@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
     res.render("./desktop/index");
   }
   else{
-    res.send("Ñelda");
+    res.send("Mobile");
     console.log(useragent.Agent.isMobile);
   }
 });
