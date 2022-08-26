@@ -2,11 +2,30 @@ const express = require("express");
 const app = express();
 var path = require('path');
 var useragent = require('express-useragent');
+const { Pool, Client } = require('pg')
+
+const client = new Client({
+  user: 'dbuser',
+  host: 'database.server.com',
+  database: 'mydb',
+  password: 'secretpassword',
+  port: 3211,
+});
+
+/*
+Cuando se quiera hacer cualquier operacion, usar:
+client.connect();
+
+client.query('LA QUERY SQL AQUI', (err, res) => {
+  console.log(err, res); esto es solo para mostrarla por consola
+  client.end();
+});
+
+*/
+
 
 app.set("view engine", "ejs");
-
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use(useragent.express());
 
 app.get("/", (req, res) => {
