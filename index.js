@@ -31,6 +31,10 @@ app.get("/gene", (req, res) => {
   res.render("./desktop/genres/prueba.ejs");
 });
 
+app.get("/login", (req, res) => {
+  res.render("./desktop/login/index.ejs");
+});
+
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
 });

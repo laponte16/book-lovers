@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="loginBackground flex flex-row justify-center items-center">
+        <div class="loginContainer mt-7 flex flex-col items-center justify-center w-64 bg-slate-200">
+            <div class="flex flex-row items-center justify-center w-full">
+                <p id="signIn" class="text-3xl m-2 mt-3 w-3/5 cursor-pointer">Sign In</p>
+                <p id="signIn" class="text-3xl m-2 mt-3 w-3/5 cursor-pointer">Sign Up</p>
+            </div>
+            <div>
+                <div class="signIn">
+                    <form method="post" action="/signIn">
+                        <div class="flex flex-row items-center justify-center mt-7">
+                            <div class="flex flex-col items-center justify-center 3/5"> 
+                                <input type="text" placeholder="User" name="user" class="rounded-md mb-4 text-black px-2 h-9">
+                                <input type="password" placeholder="Password" name="pass" class="rounded-md text-black px-2 h-9">
+                            </div>
+                        </div>
+                        <div class="flex justify-center pb-2 mt-4">
+                        <input type="submit" value="Sign In" class="text-xl bg-teal-300 w-24 h-9 rounded-md cursor-pointer">
+                        </div>
+                    </form>
+                </div>
+                <div class="signUp">
+                    <form method="post" action="/signUp" class="flex flex-col justify-center items-center h-full text-center">
+                        <input type="text" placeholder="User" name="user" class="rounded-md mb-4 text-black px-2 h-9">
+                        <input type="password" placeholder="Password" name="pass" class="rounded-md text-black px-2 h-9">
+                        <input type="submit" value="Sign Up" class="text-xl bg-red-100 w-24 h-9 rounded-md cursor-pointer">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
