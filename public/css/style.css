@@ -9,7 +9,24 @@ button{
     border-radius: 5px;
     border: 2px solid rgba(0,0,0,0.3);
     box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    color: white;
-    background-color: #E0AE04;
+    color: #F2F3E2;
+    background-color: #D52E4A;
 
+}
+
+button:hover{
+    background-color: #F2F3E2;
+    color: #D52E4A;
+}
+div#generos{
+	display: flex;
+	padding: 30px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+    text-align: center;
+}
+
+div#respu{
+	text-align: center;
 }
