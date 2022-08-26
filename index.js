@@ -10,8 +10,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(useragent.express());
 
 app.get("/", (req, res) => {
-  if(useragent.Agent.isMobile == false){
-    res.render("./desktop/index");
+  if(useragent.Agent.isMobile == true){
+    res.render("./mobile/index");
   }
   else{
     res.send("Mobile");
@@ -32,7 +32,7 @@ app.get("/gene", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("./desktop/login/index.ejs");
+  res.render("./mobile/login/index.ejs");
 });
 
 app.listen(3000, () => {
