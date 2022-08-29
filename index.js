@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 var path = require('path');
 var useragent = require('express-useragent');
+const bodyParser = require('body-parser')
 const { Pool, Client } = require('pg')
 const connectionString = 'postgres://wfturvva:5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB@otto.db.elephantsql.com/wfturvva'
 
@@ -33,6 +34,8 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.set('views', path.join(__dirname, 'views'));
 app.use(useragent.express());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   if(useragent.Agent.isMobile == false){
@@ -94,7 +97,7 @@ app.get("/nav", (req, res) => {
 
 
 /*POST*/
-app.post("/SignUp",(req, res) => {
+app.post("/signUp",(req, res) => {
   client.connect();
 
   let date_ob = new Date();
@@ -124,18 +127,22 @@ let seconds = date_ob.getSeconds();
 // prints date & time in YYYY-MM-DD HH:MM:SS format
 //(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *'
-  const values = [req.body.username, (year + "-" + month + "-" + date), req.body.email, req.body.password]
+  let username = req.body.username;
+  let email = req.body.email;
+  let password = req.body.password;
+
+  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
+  const values = [username, (year + "-" + month + "-" + date), email, password];
 
   client.query(text, values, (err, res) => {
     console.log(err, res);
     client.end();
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/index");
+    res.render("./mobile/login");
   }
   else{
-    res.render("./desktop/index");
+    res.render("./desktop/login");
     console.log(useragent.Agent.isMobile);
   }
 });
