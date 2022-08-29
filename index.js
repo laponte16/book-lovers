@@ -2,13 +2,9 @@ const express = require("express");
 const app = express();
 var path = require('path');
 var useragent = require('express-useragent');
-const bodyParser = require('body-parser')
-const { Pool, Client } = require('pg')
+const bodyParser = require('body-parser');
+const { Pool, Client } = require('pg');
 const connectionString = 'postgres://wfturvva:5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB@otto.db.elephantsql.com/wfturvva'
-
-const client = new Client({
-  connectionString,
-});
 
 /*
   Esto es el template de query:
@@ -18,6 +14,10 @@ const client = new Client({
   Mostrar por consola en este caso
   Cerrar la conexion
   Y terminar la response
+
+  const client = new Client({
+  connectionString,
+  });
 
   client.connect();
 
@@ -95,6 +95,7 @@ app.get("/nav", (req, res) => {
   res.render("./mobile/nav/index.ejs");
 });
 
+
 app.get("/home", (req, res) => {
   res.render("./mobile/home/index.ejs");
 });
@@ -104,8 +105,39 @@ app.get("/footer", (req, res) => {
 });
 
 
+
 /*POST*/
+
+
+app.post("/signIn",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  let email = req.body.email;
+  let password = req.body.password;
+
+  const text = 'SELECT * FROM users WHERE email =$1 AND password = $2';
+  const values = [email,password];
+  console.log(res.body);
+  client.query(text, values, (err, res) => {
+    console.log(err, res);
+    client.end()
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/login");
+  }
+  else{
+    res.render("./desktop/login");
+    console.log(useragent.Agent.isMobile);
+  }
+});
+
 app.post("/signUp",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
   client.connect();
 
   let date_ob = new Date();
@@ -155,6 +187,31 @@ let seconds = date_ob.getSeconds();
   }
 });
 
+// subir genero 
+
+app.post("/subir",(req, res) => {
+      client.connect();
+      let gen_name = req.body.gen_name;
+      let img_gen = req.body.img_gen;
+      const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
+      const values = [gen_name,img_gen];
+      client.query(text, values, (err, res) => {
+      console.log(err, res.rows[0]);
+      client.end();
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/genres/genres.ejs");
+  }
+  else{
+    res.render("./desktop/genres/genres.ejs");
+    console.log(useragent.Agent.isMobile);
+  }
+
+  });
+
+
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
+  
+
 });
