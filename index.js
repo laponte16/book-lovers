@@ -94,10 +94,40 @@ app.get("/nav", (req, res) => {
 
 
 /*POST*/
-app.post("/prueba",(req, res) => {
+app.post("/SignUp",(req, res) => {
   client.connect();
 
-  client.query("INSERT INTO users(username,join_date,email,password)VALUES('Testo','2022-08-28','test@test.com','123')", (err, res) => {
+  let date_ob = new Date();
+
+// current date
+// adjust 0 before single digit date
+let date = ("0" + date_ob.getDate()).slice(-2);
+
+// current month
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+// current year
+let year = date_ob.getFullYear();
+
+// current hours
+let hours = date_ob.getHours();
+
+// current minutes
+let minutes = date_ob.getMinutes();
+
+// current seconds
+let seconds = date_ob.getSeconds();
+
+// prints date in YYYY-MM-DD format
+//(year + "-" + month + "-" + date);
+
+// prints date & time in YYYY-MM-DD HH:MM:SS format
+//(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+
+  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *'
+  const values = [req.body.username, (year + "-" + month + "-" + date), req.body.email, req.body.password]
+
+  client.query(text, values, (err, res) => {
     console.log(err, res);
     client.end();
   });
