@@ -11,10 +11,14 @@ var x;
 	function mosmisterio() {
 		var x;
 		var t;
+		var i;
 		x=$("#conte");
 		t=$("#respu");
+		i=$("#imgconte");
 		x.fadeOut(500);
 		window.setTimeout(function(){t.text("lean sherlock holmes esta bueno");},700);
+		imgUrl ="images/misterio.jpg"
+		window.setTimeout(function(){i.css("background-image","url(" + imgUrl + ")");},700);
 		x.fadeIn(1500);
 		
 	}
