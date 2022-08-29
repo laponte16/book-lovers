@@ -95,10 +95,31 @@ app.get("/nav", (req, res) => {
   res.render("./mobile/nav/index.ejs");
 });
 
-
 /*POST*/
+client.connect();
+
+app.post("/signIn",(req, res) => {
+
+  let email = req.body.email;
+  let password = req.body.password;
+
+  const text = 'SELECT * FROM users WHERE email =$1 AND password = $2';
+  const values = [email,password];
+  console.log(res.body);
+  client.query(text, values, (err, res) => {
+    console.log(err, res);
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/login");
+  }
+  else{
+    res.render("./desktop/login");
+    console.log(useragent.Agent.isMobile);
+  }
+});
+
 app.post("/signUp",(req, res) => {
-  client.connect();
+  
 
   let date_ob = new Date();
 
@@ -136,7 +157,6 @@ let seconds = date_ob.getSeconds();
 
   client.query(text, values, (err, res) => {
     console.log(err, res.rows[0]);
-    client.end();
   });
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/login");
