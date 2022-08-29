@@ -2,6 +2,40 @@ body{
 	background-color: #323234;
 }
 
+/*COLORES*/
+
+.fondo-gray{
+	background: #323234!important;
+	background-color: #323234!important;
+}
+.fondo-black{
+	background: #1e1e1f!important;
+	background-color: #1e1e1f!important;
+}
+.fondo-white{
+	background: #f2f3e2!important;
+	background-color: #f2f3e2!important;
+}
+.fondo-red{
+	background: #d52e4a!important;
+	background-color: #d52e4a!important;
+}
+
+.texto-gray{
+	color: #323234!important;
+}
+.texto-black{
+	color: #1e1e1f!important;
+}
+.texto-white{
+	color:#F2F3E2!important;
+}
+.texto-red{
+	color:#d52e4a!important;
+}
+
+
+
 /*ESTILOS DEL NAV*/
 .bd-placeholder-img {
 	font-size: 1.125rem;
