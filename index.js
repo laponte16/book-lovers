@@ -5,10 +5,10 @@ var useragent = require('express-useragent');
 const { Pool, Client } = require('pg')
 
 const client = new Client({
-  user: 'dbuser',
-  host: 'database.server.com',
-  database: 'mydb',
-  password: 'secretpassword',
+  user: 'wfturvva',
+  host: 'otto.db.elephantsql.com (otto-01)',
+  database: 'wfturvva',
+  password: '5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB',
   port: 3211,
 });
 
