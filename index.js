@@ -74,7 +74,13 @@ app.get("/genres", (req, res) => {
 
 
 app.get("/login", (req, res) => {
-  res.render("./mobile/login/index.ejs");
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/login/index.ejs");
+  }
+  else{
+    res.render("./desktop/login/index.ejs");
+    console.log(useragent.Agent.isMobile);
+  }
 });
 
 app.get("/nav", (req, res) => {
