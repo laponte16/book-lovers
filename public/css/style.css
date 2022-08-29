@@ -3,20 +3,20 @@ body{
 }
 
 /*COLORES*/
-
+/*fondos*/
 .fondo-gray{
-	background-color: #323234;
+	background-color: #323234; 
 }
 .fondo-black{
-	background-color: #1e1e1f;
+	background-color: #1e1e1f !important;
 }
 .fondo-white{
-	background-color: #f2f3e2;
+	background-color: #f2f3e2 !important;
 }
 .fondo-red{
 	background-color: #d52e4a;
 }
-
+/*textos*/
 .texto-gray{
 	color: #323234;
 }
@@ -29,12 +29,16 @@ body{
 .texto-red{
 	color:#d52e4a;
 }
-
-
+/*links*/
+.link-gray{
+	color: #323234;
+}
 
 /*ESTILOS DEL NAV*/
 
-
+.navbar-nav li{
+	color: #F2F3E2;
+}
  
 
 /*ESTILOS DEL LOGIN*/
