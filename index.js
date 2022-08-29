@@ -135,7 +135,7 @@ let seconds = date_ob.getSeconds();
   const values = [username, (year + "-" + month + "-" + date), email, password];
 
   client.query(text, values, (err, res) => {
-    console.log(err, res);
+    console.log(err, res.rows[0]);
     client.end();
   });
   if(useragent.Agent.isMobile == false){
