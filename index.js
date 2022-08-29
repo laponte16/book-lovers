@@ -2,13 +2,9 @@ const express = require("express");
 const app = express();
 var path = require('path');
 var useragent = require('express-useragent');
-const bodyParser = require('body-parser')
-const { Pool, Client } = require('pg')
+const bodyParser = require('body-parser');
+const { Pool, Client } = require('pg');
 const connectionString = 'postgres://wfturvva:5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB@otto.db.elephantsql.com/wfturvva'
-
-const client = new Client({
-  connectionString,
-});
 
 /*
   Esto es el template de query:
@@ -18,6 +14,10 @@ const client = new Client({
   Mostrar por consola en este caso
   Cerrar la conexion
   Y terminar la response
+
+  const client = new Client({
+  connectionString,
+  });
 
   client.connect();
 
@@ -96,9 +96,13 @@ app.get("/nav", (req, res) => {
 });
 
 /*POST*/
-client.connect();
+
 
 app.post("/signIn",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
 
   let email = req.body.email;
   let password = req.body.password;
@@ -108,6 +112,7 @@ app.post("/signIn",(req, res) => {
   console.log(res.body);
   client.query(text, values, (err, res) => {
     console.log(err, res);
+    client.end()
   });
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/login");
@@ -119,7 +124,10 @@ app.post("/signIn",(req, res) => {
 });
 
 app.post("/signUp",(req, res) => {
-  
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
 
   let date_ob = new Date();
 
@@ -157,6 +165,7 @@ let seconds = date_ob.getSeconds();
 
   client.query(text, values, (err, res) => {
     console.log(err, res.rows[0]);
+    client.end();
   });
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/login");
