@@ -40,12 +40,18 @@ app.get("/", (req, res) => {
   }
   else{
     res.render("./desktop/index");
-    console.log(useragent.Agent.isMobile);
+    console.log(useragent.Agent.isMobile);   
   }
 });
 
 app.get("/home", (req, res) => {
-  res.render("./desktop/home/index.ejs");
+  if(useragent.Agent.isMobile == false){
+     res.render("./mobile/home/index.ejs");
+  }
+  else{
+    res.render("./desktop/home/index.ejs");
+    console.log(useragent.Agent.isMobile);
+  }
 });
 
 app.get("/about", (req, res) => {
@@ -59,8 +65,15 @@ app.get("/about", (req, res) => {
   
 });
 
-app.get("/gene", (req, res) => {
-  res.render("./desktop/genres/generos.ejs");
+app.get("/genres", (req, res) => {
+  if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/genres.ejs");
+  }
+  else{
+    res.render("./desktop/genres/genres.ejs");
+    console.log(useragent.Agent.isMobile);
+  }
+
 });
 
 
@@ -73,9 +86,6 @@ app.get("/nav", (req, res) => {
   res.render("./mobile/nav/index.ejs");
 });
 
-app.get("/genres", (req, res) => {
-  res.render("./mobile/genres/mobile_genres.ejs");
-});
 
 /*POST*/
 app.post("/prueba",(req, res) => {
