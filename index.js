@@ -147,6 +147,31 @@ let seconds = date_ob.getSeconds();
   }
 });
 
+// subir genero 
+
+app.post("/subir",(req, res) => {
+      client.connect();
+      let gen_name = req.body.gen_name;
+      let img_gen = req.body.img_gen;
+      const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
+      const values = [gen_name,img_gen];
+      client.query(text, values, (err, res) => {
+      console.log(err, res.rows[0]);
+      client.end();
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/genres/genres.ejs");
+  }
+  else{
+    res.render("./desktop/genres/genres.ejs");
+    console.log(useragent.Agent.isMobile);
+  }
+
+  });
+
+
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
+  
+
 });
