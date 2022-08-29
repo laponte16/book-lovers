@@ -45,7 +45,7 @@ app.get("/home", (req, res) => {
 
 app.get("/about", (req, res) => {
   if(useragent.Agent.isMobile == false){
-     res.render("./mobile/about/index.ejs");
+     res.render("./mobile/about/about.ejs");
   }
   else{
     res.render("./desktop/about/index.ejs");
