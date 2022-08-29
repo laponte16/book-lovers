@@ -44,15 +44,32 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render("./desktop/about/index.ejs");
+  if(useragent.Agent.isMobile == false){
+     res.render("./mobile/about/index.ejs");
+  }
+  else{
+    res.render("./desktop/about/index.ejs");
+    console.log(useragent.Agent.isMobile);
+  }
+  
 });
 
 app.get("/gene", (req, res) => {
   res.render("./desktop/genres/generos.ejs");
 });
 
+
+
 app.get("/login", (req, res) => {
   res.render("./mobile/login/index.ejs");
+});
+
+app.get("/nav", (req, res) => {
+  res.render("./mobile/nav/index.ejs");
+});
+
+app.get("/genres", (req, res) => {
+  res.render("./mobile/genres/mobile_genres.ejs");
 });
 
 app.listen(3000, () => {
