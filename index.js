@@ -95,6 +95,14 @@ app.get("/nav", (req, res) => {
   res.render("./mobile/nav/index.ejs");
 });
 
+app.get("/home", (req, res) => {
+  res.render("./mobile/home/index.ejs");
+});
+
+app.get("/footer", (req, res) => {
+  res.render("./mobile/footer/index.ejs");
+});
+
 
 /*POST*/
 app.post("/signUp",(req, res) => {

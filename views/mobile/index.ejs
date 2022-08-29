@@ -13,22 +13,21 @@
     <script src="https://kit.fontawesome.com/ca713a058f.js" crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body class="z-auto">
     <%- include('nav/index.html') %>
+    <%- include('home/index.ejs') %>
+    <br>
     <a href="/about">Hello World</a>
     <br>
     <a href="/home">Home</a>
-
-    <p class="texto-red">Hello hello esto es una ñame prueba</p>
-
     <br>
     <a href="/genres">Generos</a>
     <br>
-    <form method="post" action="/prueba">
+    <form method="post" action="/prueba" >
         <input type="submit" value="Prueba" class="text-xl bg-teal-300 w-24 h-9 rounded-md cursor-pointer">
     </form>
 
-    
+    <%- include('footer/index.html') %>
 </body>
 </html>
 
