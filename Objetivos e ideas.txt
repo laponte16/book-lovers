@@ -58,6 +58,9 @@ https://www.youtube.com/watch?v=SccSCuHhOw0
 conectar base de datos 
 https://www.youtube.com/watch?v=mltF9Qj0B_M
 
+mostras base de datos
+https://www.youtube.com/watch?v=91O3ffp7gFY
+
 tail con node
 https://www.youtube.com/watch?v=YnvH-ouX_y4&list=LL&index=1
 
