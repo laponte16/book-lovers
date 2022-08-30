@@ -5,21 +5,41 @@
 </head>
 <body>
 	<div>
-		<form>
+		<form><!--formulario de agregar libros-->
 			<table border="1">
 				<tr><th colspan="2">agregar libros</th></tr>
 				<tr>
 					<th>titulo del libro</th>
+					<th><input type="text" name="title" id="title"></th>
+				</tr>
+				
+				<tr>
+					<th>genero del libro</th>
+					<th><input type="text" name="id_genres" id="id_genres"></th>
+				</tr>
+				<tr>
+					<th colspan="2">resumen del libro</th>
+				</tr>
+				<tr>
+					<th colspan="2"><textarea rows="4" cols="40" name="content_post" id="content_post"></textarea></th>
+				</tr>
+				<tr>
+					<th><input type="submit" name="Enviar" value="subir"></th>
+					<th><input type="reset" name="borrar" value="borrar"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+	<div>
+		<form><!--formulario de agregar libros-->
+			<table border="1">
+				<tr><th colspan="2">respuesta</th></tr>
+				<tr>
+					<th>respuesta al post</th>
 					<th><input type="text" name="gen_name" id="gen_name"></th>
 				</tr>
-				<tr>
-					<th>enlace de la  imagen</th>
-					<th><input type="text" name="img_gen" id="img_gen"></th>
-				</tr>
-				<tr>
-					
-				</tr>
-				<tr>
+				
 					<th><input type="submit" name="Enviar" value="subir"></th>
 					<th><input type="reset" name="borrar" value="borrar"></td>
 				</tr>
