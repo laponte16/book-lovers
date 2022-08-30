@@ -36,6 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(useragent.express());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   if(useragent.Agent.isMobile == false){
@@ -102,23 +103,22 @@ app.get("/getGenres",(req, res) => {
   });
   client.connect();
 
-  var result = {};
+  var result;
 
   const text = 'SELECT * FROM genres';
-  console.log(res.body);
-  client.query(text, (err, res) => {
-    res.forEach(element => {
-      result += element;  
-    });
-    console.log(err, result);
-    client.end();
+  client.query(text, (err, res, fields) => {
+    //result = JSON.parse(res.rows[0]);
+      //result = (res.rows[0].name);
+      //result.push(JSON.stringify(Element));
+    //console.log(err, res.rows);
+    res.render("./mobile/genres/genres.ejs",{data:res.rows} );
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/genres.ejs", {data: result});
+    console.log(result);
+    res.render("./mobile/genres/genres.ejs" );
   }
   else{
-    res.render("./desktop/genres/genres.ejs", {data: result});
-    console.log(useragent.Agent.isMobile);
+    res.render("./desktop/genres/genres.ejs", {data:result});
   }
 
 });
