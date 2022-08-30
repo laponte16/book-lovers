@@ -97,29 +97,26 @@ app.get("/login", (req, res) => {
 
 /*QUERIES A LA DATABASE*/
 /*GET*/
+/*Query para mandar data de generos*/
 app.get("/getGenres",(req, res) => {
   const client = new Client({
     connectionString,
   });
   client.connect();
 
-  var result;
-
   const text = 'SELECT * FROM genres';
-  client.query(text, (err, res, fields) => {
-    //result = JSON.parse(res.rows[0]);
-      //result = (res.rows[0].name);
-      //result.push(JSON.stringify(Element));
-    //console.log(err, res.rows);
-    res.render("./mobile/genres/genres.ejs",{data:res.rows} );
+
+  client.query(text, (err, result) => {
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/index.ejs" , {result: result.rows} );
+    }
+    else{
+      res.render("./mobile/index.ejs" , {result: result.rows} );
+    }
+
+    client.end();
   });
-  if(useragent.Agent.isMobile == false){
-    console.log(result);
-    res.render("./mobile/genres/genres.ejs" );
-  }
-  else{
-    res.render("./desktop/genres/genres.ejs", {data:result});
-  }
 
 });
 /*POST*/

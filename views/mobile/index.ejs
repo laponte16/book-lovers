@@ -14,6 +14,8 @@
 
 </head>
 <body class="z-auto">
+    <% var result; %>
+
     <%- include('nav/nav.html') %>
     <%- include('home/home.ejs') %>
     <br>
@@ -26,7 +28,7 @@
     <form method="post" action="/prueba" >
         <input type="submit" value="Prueba" class="text-xl bg-teal-300 w-24 h-9 rounded-md cursor-pointer">
     </form>
-
+    <h1 class="texto-white">Resultado: <%= result[0].url_image %></h1>
     <%- include('footer/footer.html') %>
 </body>
 </html>
