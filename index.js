@@ -39,20 +39,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/index");
+    res.render("./mobile/home/home");
   }
   else{
-    res.render("./desktop/index");
+    res.render("./desktop/index"); /*Recordar cambiar el path luego a home*/
     console.log(useragent.Agent.isMobile);   
   }
 });
 
 app.get("/home", (req, res) => {
   if(useragent.Agent.isMobile == false){
-     res.render("./mobile/home/index.ejs");
+     res.render("./mobile/home/home.ejs");
   }
   else{
-    res.render("./desktop/home/index.ejs");
+    res.render("./desktop/home/index.ejs");/*Cambiar path luego*/
     console.log(useragent.Agent.isMobile);
   }
 });
@@ -62,7 +62,7 @@ app.get("/about", (req, res) => {
      res.render("./mobile/about/about.ejs");
   }
   else{
-    res.render("./desktop/about/index.ejs");
+    res.render("./desktop/about/index.ejs");/*Cambiar path luego*/
     console.log(useragent.Agent.isMobile);
   }
   
@@ -73,14 +73,14 @@ app.get("/genres", (req, res) => {
       res.render("./mobile/genres/genres.ejs");
   }
   else{
-    res.render("./desktop/genres/genresd.ejs");
+    res.render("./desktop/genres/genres.ejs");
     console.log(useragent.Agent.isMobile);
   }
 
 });
 
 
-
+/*Cambiar path luego*/
 app.get("/login", (req, res) => {
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/login/index.ejs");
@@ -93,36 +93,8 @@ app.get("/login", (req, res) => {
 
 
 
-
-/*QUERIES A LA DATABASE*/
-/*GET*/
-app.get("/getGenres",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
-
-  var result = {};
-
-  const text = 'SELECT * FROM genres';
-  console.log(res.body);
-  client.query(text, (err, res) => {
-    res.forEach(element => {
-      result += element;  
-    });
-    console.log(err, result);
-    client.end();
-  });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/genres.ejs", {data: result});
-  }
-  else{
-    res.render("./desktop/genres/genres.ejs", {data: result});
-    console.log(useragent.Agent.isMobile);
-  }
-
-});
 /*POST*/
+
 
 app.post("/signIn",(req, res) => {
   const client = new Client({
@@ -205,20 +177,14 @@ let seconds = date_ob.getSeconds();
 // subir genero 
 
 app.post("/subir",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
-
-  let gen_name = req.body.gen_name;
-  let img_gen = req.body.img_gen;
-
-  const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
-  const values = [gen_name,img_gen];
-
-  client.query(text, values, (err, res) => {
-    console.log(err, res);
-    client.end();
+      client.connect();
+      let gen_name = req.body.gen_name;
+      let img_gen = req.body.img_gen;
+      const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
+      const values = [gen_name,img_gen];
+      client.query(text, values, (err, res) => {
+      console.log(err, res.rows[0]);
+      client.end();
   });
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/genres/genres.ejs");
