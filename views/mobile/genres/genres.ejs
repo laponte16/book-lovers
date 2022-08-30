@@ -13,7 +13,7 @@
 <body>
 	<h1 id="titulo-gen" class=".texto-white">generos disponibles</h1>
 	<div id="generos">
-	<button id="misterio" value="misterio">misterio</button>
+	<a href="/getGenres"><button id="misterio" value="misterio">misterio</button></a>
 	<br>
 	<button id="accion" value="accion">accion</button>
 	<button id="xd">ej1</button>
@@ -26,10 +26,11 @@
 	<div id="conte" style="display: none;">
 		<div id="imgconte">
 			<div id="respu">
-			
+					
 			</div>
 		</div>
 	</div>
+	<%= data[0] %>
 	 <!--AGREGAR GENEROS-->
 	<div class="agregar" id="agregar">
 		<form  method="post" action="/subir">
