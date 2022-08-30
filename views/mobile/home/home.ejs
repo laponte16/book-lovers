@@ -13,8 +13,18 @@
 </head>
 <body>
   <%- include('../nav/nav.html') %>
-  <div class="conatiner-body relative z-[-2]">
+  <div class="conatiner-body relative z-10">
     <span class=" texto-white"> Testing include! this is our home file!</span>
+    <br>
+    <a href="/about">Hello World</a>
+    <br>
+    <a href="/home">Home</a>
+    <br>
+    <a href="/genres">Generos</a>
+    <br>
+    <form method="post" action="/prueba" >
+        <input type="submit" value="Prueba" class="text-xl bg-teal-300 w-24 h-9 rounded-md cursor-pointer">
+    </form>
   </div>
   <%- include('../footer/footer.html') %>
 </body>
