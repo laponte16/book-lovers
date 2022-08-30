@@ -105,9 +105,35 @@ app.get("/footer", (req, res) => {
 });
 
 
+/*QUERIES A LA DATABASE*/
+/*GET*/
+app.get("/getGenres",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
 
+  var result = {};
+
+  const text = 'SELECT * FROM genres';
+  console.log(res.body);
+  client.query(text, (err, res) => {
+    res.forEach(element => {
+      result += element;  
+    });
+    console.log(err, result);
+    client.end();
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/genres/genres.ejs", {data: result});
+  }
+  else{
+    res.render("./desktop/genres/genres.ejs", {data: result});
+    console.log(useragent.Agent.isMobile);
+  }
+
+});
 /*POST*/
-
 
 app.post("/signIn",(req, res) => {
   const client = new Client({
@@ -190,14 +216,20 @@ let seconds = date_ob.getSeconds();
 // subir genero 
 
 app.post("/subir",(req, res) => {
-      client.connect();
-      let gen_name = req.body.gen_name;
-      let img_gen = req.body.img_gen;
-      const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
-      const values = [gen_name,img_gen];
-      client.query(text, values, (err, res) => {
-      console.log(err, res.rows[0]);
-      client.end();
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  let gen_name = req.body.gen_name;
+  let img_gen = req.body.img_gen;
+
+  const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
+  const values = [gen_name,img_gen];
+
+  client.query(text, values, (err, res) => {
+    console.log(err, res);
+    client.end();
   });
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/genres/genres.ejs");
