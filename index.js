@@ -73,7 +73,7 @@ app.get("/genres", (req, res) => {
       res.render("./mobile/genres/genres.ejs");
   }
   else{
-    res.render("./desktop/genres/genres.ejs");
+    res.render("./desktop/genres/genresd.ejs");
     console.log(useragent.Agent.isMobile);
   }
 
