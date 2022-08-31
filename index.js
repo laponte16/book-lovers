@@ -203,8 +203,10 @@ let seconds = date_ob.getSeconds();
 });
 
 // subir genero 
-
 app.post("/subir",(req, res) => {
+    const client = new Client({
+      connectionString,
+    });
       client.connect();
       let gen_name = req.body.gen_name;
       let img_gen = req.body.img_gen;
@@ -235,46 +237,50 @@ app.post("/publicar",(req, res) => {
 
 // current date
 // adjust 0 before single digit date
-let date1 = ("0" + date_ob.getDate()).slice(-2);
+let date = ("0" + date_ob.getDate()).slice(-2);
 
 // current month
-let month1 = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
 // current year
-let year1 = date_ob.getFullYear();
+let year = date_ob.getFullYear();
 
 // current hours
-let hours1 = date_ob.getHours();
+let hours = date_ob.getHours();
 
 // current minutes
-let minutes1 = date_ob.getMinutes();
+let minutes = date_ob.getMinutes();
 
 // current seconds
-let seconds1 = date_ob.getSeconds();
+let seconds = date_ob.getSeconds();
 
 
 
   let title = req.body.title;
-  let id_genres = req.body.id_genres;
+  let id_user = req.body.id_genres;
+  let id_genre = req.body.id_genres;
   let content_post = req.body.content_post;
 
-  const text = 'INSERT INTO posts(title,creation_date,content_post VALUES($1, $2, $3) RETURNING *';
-  const values = [title, (year1 + "-" + month1 + "-" + date1), content_post];
+  const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post) VALUES($1, $2, $3, $4, $5) RETURNING *';
+  const values = [title, id_user, id_genre, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post];
 
   client.query(text, values, (err, res) => {
-    console.log(err, res.rows[0]);
+    console.log(err, res.rows);
+
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/login");
+    }
+    else{
+      res.render("./desktop/login");
+      console.log(useragent.Agent.isMobile);
+    }
+
     client.end();
   });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login");
-  }
-  else{
-    res.render("./desktop/login");
-    console.log(useragent.Agent.isMobile);
-  }
+  
 });
 
-
+/*LISTENER en Puerto 3000*/
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
   
