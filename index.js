@@ -118,6 +118,28 @@ app.get("/getGenres",(req, res) => {
   });
 
 });
+//
+app.get("/getGen",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM genres';
+
+  client.query(text, (err, result) => {
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
+    }
+    else{
+      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
+    }
+
+    client.end();
+  });
+
+});
 
 /*POST*/
 /*Registrarse*/
@@ -199,10 +221,8 @@ let seconds = date_ob.getSeconds();
   }
 });
 // subir genero 
+
 app.post("/subir",(req, res) => {
-    const client = new Client({
-      connectionString,
-    });
       client.connect();
       let gen_name = req.body.gen_name;
       let img_gen = req.body.img_gen;
@@ -232,50 +252,46 @@ app.post("/publicar",(req, res) => {
 
 // current date
 // adjust 0 before single digit date
-let date = ("0" + date_ob.getDate()).slice(-2);
+let date1 = ("0" + date_ob.getDate()).slice(-2);
 
 // current month
-let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+let month1 = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
 // current year
-let year = date_ob.getFullYear();
+let year1 = date_ob.getFullYear();
 
 // current hours
-let hours = date_ob.getHours();
+let hours1 = date_ob.getHours();
 
 // current minutes
-let minutes = date_ob.getMinutes();
+let minutes1 = date_ob.getMinutes();
 
 // current seconds
-let seconds = date_ob.getSeconds();
+let seconds1 = date_ob.getSeconds();
 
 
 
   let title = req.body.title;
-  let id_user = req.body.id_genres;
-  let id_genre = req.body.id_genres;
+  let id_genres = req.body.id_genres;
   let content_post = req.body.content_post;
 
-  const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post) VALUES($1, $2, $3, $4, $5) RETURNING *';
-  const values = [title, id_user, id_genre, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post];
+  const text = 'INSERT INTO posts(title,creation_date,content_post VALUES($1, $2, $3) RETURNING *';
+  const values = [title, (year1 + "-" + month1 + "-" + date1), content_post];
 
   client.query(text, values, (err, res) => {
-    console.log(err, res.rows);
-
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/login");
-    }
-    else{
-      res.render("./desktop/login");
-      console.log(useragent.Agent.isMobile);
-    }
-
+    console.log(err, res.rows[0]);
     client.end();
   });
-  
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/login");
+  }
+  else{
+    res.render("./desktop/login");
+    console.log(useragent.Agent.isMobile);
+  }
 });
 
-/*LISTENER en Puerto 3000*/
+
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
   
