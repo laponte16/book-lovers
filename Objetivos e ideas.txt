@@ -2,8 +2,8 @@ Book Lovers website
 
 OBJETIVOS DEL DIA:
 -backend:
-Session
-Session logout
+Session - LISTO
+Session logout - LISTO
 users
 crear post(Listo, pendiente de meter SESSION_ID_USER)
 mostrar post
@@ -12,7 +12,8 @@ parte foro de generos
 
 -frontend:
 Layout movil de todas las paginas
-About
+Genres - Progreso, falta
+About - CASI LISTO
 Parte de home
 
 

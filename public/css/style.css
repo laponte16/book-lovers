@@ -26,10 +26,27 @@ body{
 .texto-white{
 	color:#F2F3E2;
 }
+
 .texto-red{
 	color:#d52e4a;
 }
-
+/*bordes*/
+.borde-gray{
+	border-color: #323234;
+}
+.borde-black{
+	border-color: #1e1e1f;
+}
+.borde-white{
+	border-color:#F2F3E2;
+}
+.borde-red{
+	border-color:#d52e4a;
+}
+/*hover*/
+.hover-red:hover{
+	color:#d52e4a;
+}
 
 /*ESTILOS DEL NAV*/
 
