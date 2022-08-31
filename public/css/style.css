@@ -36,6 +36,20 @@ body{
 /*ESTILOS DEL LOGIN*/
 
 /*ESTILOS DE GENEROS*/
+.flex-container{
+	border: 1px solid black;
+	padding: 20px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 700px;
+}
+/* probicional estilo de botones*/
+button{
+	width: 230px;
+	background-color: transparent;
+	
+}
 
 button:hover{
     background-color: #F2F3E2;

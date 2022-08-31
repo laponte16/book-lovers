@@ -7,6 +7,26 @@ var x;
 		y.click(mosmisterio);
 		y=$("#accion");
 		y.click(mosaccion);
+		y=$("#comedia");
+		y.click(moscomedia);
+		y=$("#psicologico");
+		y.click(mospsicologico);
+		y=$("#terror");
+		y.click(mosterror);
+		y=$("#romance");
+		y.click(mosromance);
+		y=$("#infantil");
+		y.click(mosinfantil);
+		y=$("#filosofico");
+		y.click(mosfilosofico);
+		y=$("#aventura");
+		y.click(mosaventura);
+		y=$("#historicos");
+		y.click(moshistoricos);
+		y=$("#biograficos");
+		y.click(mosbiograficos);
+		y=$("#ciencia_ficcion");
+		y.click(mosciencia_ficcion);
 	}
 	function mosmisterio() {
 		var x;
