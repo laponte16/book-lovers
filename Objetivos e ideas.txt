@@ -5,7 +5,7 @@ OBJETIVOS DEL DIA:
 Session
 Session logout
 users
-crear post
+crear post(Listo, pendiente de meter SESSION_ID_USER)
 mostrar post
 crear respuesta
 parte foro de generos
