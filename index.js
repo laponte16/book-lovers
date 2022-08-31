@@ -36,8 +36,9 @@ app.use(session({
     tableName : 'session'   // Use another table-name than the default "session" one
     // Insert connect-pg-simple options here
   }),
-  secret: process.env.FOO_COOKIE_SECRET,
-  resave: false,
+  secret: 'book-lovers',
+  resave: true,
+  saveUninitialized: true,
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
   // Insert express-session options here
 }));
@@ -45,6 +46,7 @@ app.use(session({
 /*PATHS GENERALES DEL CLIENTE*/
 /*Inicial*/
 app.get("/", (req, res) => {
+  
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/home/home");
   }
@@ -86,11 +88,19 @@ app.get("/genres", (req, res) => {
 /*Login, Cambiar path luego*/
 app.get("/login", (req, res) => {
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/index.ejs");
+    res.render("./mobile/login/index.ejs", {session: req.session});
   }
   else{
     res.render("./desktop/login/index.ejs");
-    console.log(useragent.Agent.isMobile);
+  }
+});
+/*PAGINA PARA PRUEBAS*/
+app.get("/pruebas", (req, res) => {
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/genres/formularios.ejs", {session: req.session});
+  }
+  else{
+    res.render("./desktop/genres/formularios.ejs");
   }
 });
 
@@ -140,9 +150,22 @@ app.get("/getGen",(req, res) => {
   });
 
 });
+/*Logout*/
+app.get("/signOut",(req, res) => {
+  
+  req.session.id_users = "";
+  req.session.username = "";
 
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/genres/formularios.ejs", {session: req.session});
+  }
+  else{
+    res.render("./desktop/genres/formularios.ejs");
+  }
+
+});
 /*POST*/
-/*Registrarse*/
+/*Loggearse*/
 app.post("/signIn",(req, res) => {
   const client = new Client({
     connectionString,
@@ -154,20 +177,23 @@ app.post("/signIn",(req, res) => {
 
   const text = 'SELECT * FROM users WHERE email =$1 AND password = $2';
   const values = [email,password];
-  console.log(res.body);
-  client.query(text, values, (err, res) => {
-    console.log(err, res);
+  
+  client.query(text, values, (err, result) => {
+    req.session.id_users = result.rows[0].id_users;
+    req.session.username = result.rows[0].username;
+    console.log(result.rows);
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/formularios.ejs", {session: req.session});
+    }
+    else{
+      res.render("./desktop/genres/formularios.ejs");
+    }
+
     client.end()
   });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login");
-  }
-  else{
-    res.render("./desktop/login");
-    console.log(useragent.Agent.isMobile);
-  }
+  
 });
-/*Loggearse*/
+/*Registrarse*/
 app.post("/signUp",(req, res) => {
   const client = new Client({
     connectionString,
