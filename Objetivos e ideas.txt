@@ -1,5 +1,21 @@
 Book Lovers website
 
+OBJETIVOS DEL DIA:
+-backend:
+Session
+Session logout
+users
+crear post(Listo, pendiente de meter SESSION_ID_USER)
+mostrar post
+crear respuesta
+parte foro de generos
+
+-frontend:
+Layout movil de todas las paginas
+About
+Parte de home
+
+
 1)home
 -Ultimos agregados
 -Top valued

@@ -28,3 +28,18 @@ valores:
 id_genres
 name(30 chars)
 url_image(500 chars)
+
+
+ordenes de generos 
+psicodelico id 1
+acccion id 3
+comedia id 4
+misterio id 5
+teror id 6
+romance id 7
+infantil id 8
+filosofico id 9
+aventura id 10
+historicos id 11
+biograficos id 15
+ciencia ficcion id 16

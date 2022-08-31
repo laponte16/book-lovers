@@ -4,40 +4,46 @@ var path = require('path');
 var useragent = require('express-useragent');
 const bodyParser = require('body-parser');
 const { Pool, Client } = require('pg');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+
+/*CONEXIONES*/
 const connectionString = 'postgres://wfturvva:5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB@otto.db.elephantsql.com/wfturvva'
-
-/*
-  Esto es el template de query:
-  La conexion
-  La query
-  la funcion prometida que resulta
-  Mostrar por consola en este caso
-  Cerrar la conexion
-  Y terminar la response
-
-  const client = new Client({
+const pool = new Pool({
   connectionString,
-  });
-
-  client.connect();
-
-  client.query('LA QUERY SQL AQUI', (err, res) => {
-    console.log(err, res); 
-    client.end();
-  });
-  res.end("Que loco");
-
-*/
+});
 
 
+/*MODULOS DEL SERVER*/
+/*La Engine de visualizacion: EJS */
 app.set("view engine", "ejs");
+/*Referencias estaticas a los recursos: public*/
 app.use(express.static(path.join(__dirname, "public")));
+/*path para las vistas, lo que renderiza el motor*/
 app.set('views', path.join(__dirname, 'views'));
+/*modulo para identificar dispositivo del user y sus datos*/
 app.use(useragent.express());
+/*Modulo para usar JSON*/
 app.use(express.json());
+/*Modulo del body-parser, para interpretar forms desde el cliente*/
 app.use(bodyParser.urlencoded({ extended: false }));
+/*Para que la app entienda los parametros que le llegan desde el cliente*/
 app.use(express.urlencoded({ extended: false }));
+/*Modulo de session de express-session + pg-connect-simple*/
+app.use(session({
+  store: new pgSession({
+    pool : pool,                // Connection pool
+    tableName : 'session'   // Use another table-name than the default "session" one
+    // Insert connect-pg-simple options here
+  }),
+  secret: process.env.FOO_COOKIE_SECRET,
+  resave: false,
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+  // Insert express-session options here
+}));
 
+/*PATHS GENERALES DEL CLIENTE*/
+/*Inicial*/
 app.get("/", (req, res) => {
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/home/home");
@@ -47,7 +53,7 @@ app.get("/", (req, res) => {
     console.log(useragent.Agent.isMobile);   
   }
 });
-
+/*home? Lo usaremos? Se puede usar el general*/
 app.get("/home", (req, res) => {
   if(useragent.Agent.isMobile == false){
      res.render("./mobile/home/home.ejs");
@@ -57,7 +63,7 @@ app.get("/home", (req, res) => {
     console.log(useragent.Agent.isMobile);
   }
 });
-
+/*About*/
 app.get("/about", (req, res) => {
   if(useragent.Agent.isMobile == false){
      res.render("./mobile/about/about.ejs");
@@ -66,9 +72,8 @@ app.get("/about", (req, res) => {
     res.render("./desktop/about/index.ejs");/*Cambiar path luego*/
     console.log(useragent.Agent.isMobile);
   }
-  
 });
-
+/*Generos*/
 app.get("/genres", (req, res) => {
   if(useragent.Agent.isMobile == false){
       res.render("./mobile/genres/genres.ejs");
@@ -77,11 +82,8 @@ app.get("/genres", (req, res) => {
     res.render("./desktop/genres/genres.ejs");
     console.log(useragent.Agent.isMobile);
   }
-
 });
-
-
-/*Cambiar path luego*/
+/*Login, Cambiar path luego*/
 app.get("/login", (req, res) => {
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/login/index.ejs");
@@ -91,10 +93,6 @@ app.get("/login", (req, res) => {
     console.log(useragent.Agent.isMobile);
   }
 });
-
-
-
-
 
 /*QUERIES A LA DATABASE*/
 /*GET*/
@@ -120,10 +118,31 @@ app.get("/getGenres",(req, res) => {
   });
 
 });
+//
+app.get("/getGen",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM genres';
+
+  client.query(text, (err, result) => {
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
+    }
+    else{
+      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
+    }
+
+    client.end();
+  });
+
+});
 
 /*POST*/
-
-
+/*Registrarse*/
 app.post("/signIn",(req, res) => {
   const client = new Client({
     connectionString,
@@ -148,7 +167,7 @@ app.post("/signIn",(req, res) => {
     console.log(useragent.Agent.isMobile);
   }
 });
-
+/*Loggearse*/
 app.post("/signUp",(req, res) => {
   const client = new Client({
     connectionString,
@@ -201,7 +220,6 @@ let seconds = date_ob.getSeconds();
     console.log(useragent.Agent.isMobile);
   }
 });
-
 // subir genero 
 
 app.post("/subir",(req, res) => {
@@ -223,7 +241,6 @@ app.post("/subir",(req, res) => {
   }
 
   });
-
 // subir libro 
 app.post("/publicar",(req, res) => {
   const client = new Client({
