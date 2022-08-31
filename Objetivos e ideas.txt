@@ -2,6 +2,7 @@ Book Lovers website
 
 OBJETIVOS DEL DIA:
 -backend:
+Session
 users
 crear post
 mostrar post
