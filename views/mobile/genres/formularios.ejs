@@ -5,17 +5,12 @@
 </head>
 <body>
 	<div>
-		<form id="create_post"><!--formulario de agregar libros-->
+		<form action="/create_post" method="post" id="create_post"><!--formulario de agregar posts-->
 			<table border="1">
 				<tr><th colspan="2">agregar libros</th></tr>
 				<tr>
 					<th>titulo del libro</th>
 					<th><input type="text" name="title" id="title"></th>
-				</tr>
-				
-				<tr>
-					<th>genero del libro</th>
-					<th><input type="text" name="id_genres" id="id_genres"></th>
 				</tr>
 				<tr>
 					<select name="id_genres" id="id_genres" form="create_post">
@@ -42,7 +37,7 @@
 	</div>
 
 	<div>
-		<form action="/responder" method="post"><!--formulario de agregar libros-->
+		<form action="/responder" method="post"><!--formulario de responder a un post-->
 			<table border="1">
 				<tr><th colspan="2">respuesta</th></tr>
 				<tr>
