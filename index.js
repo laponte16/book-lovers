@@ -145,7 +145,7 @@ app.get("/getGenres",(req, res) => {
  
     const genre = result.rows;
 
-    const text1 = 'SELECT * FROM posts';
+    const text1 = 'SELECT id_posts,title,id_user FROM posts';
 
     client.query(text1, (err, result1) => {
 
