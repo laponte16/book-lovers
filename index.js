@@ -346,58 +346,7 @@ app.post("/subir",(req, res) => {
 
   });
 // subir libro 
-app.post("/publicar",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
-
-  let date_ob = new Date();
-
-// current date
-// adjust 0 before single digit date
-let date1 = ("0" + date_ob.getDate()).slice(-2);
-
-// current month
-let month1 = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-
-// current year
-let year1 = date_ob.getFullYear();
-
-// current hours
-let hours1 = date_ob.getHours();
-
-// current minutes
-let minutes1 = date_ob.getMinutes();
-
-// current seconds
-let seconds1 = date_ob.getSeconds();
-
-
-
-  let title = req.body.title;
-  let id_genres = req.body.id_genres;
-  let content_post = req.body.content_post;
-
-  const text = 'INSERT INTO posts(title,creation_date,content_post VALUES($1, $2, $3) RETURNING *';
-  const values = [title, (year1 + "-" + month1 + "-" + date1), content_post];
-
-  client.query(text, values, (err, res) => {
-    console.log(err, res.rows[0]);
-    client.end();
-  });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login");
-  }
-  else{
-    res.render("./desktop/login");
-    console.log(useragent.Agent.isMobile);
-  }
-});
-
-/* subir respuesta*/
-
-app.post("/signUp",(req, res) => {
+app.post("/create_post",(req, res) => {
   const client = new Client({
     connectionString,
   });
@@ -424,31 +373,29 @@ let minutes = date_ob.getMinutes();
 // current seconds
 let seconds = date_ob.getSeconds();
 
-// prints date in YYYY-MM-DD format
-//(year + "-" + month + "-" + date);
 
-// prints date & time in YYYY-MM-DD HH:MM:SS format
-//(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-  let username = req.body.username;
-  let email = req.body.email;
-  let password = req.body.password;
+  let title = req.body.title;
+  let id_genres = req.body.id_genres;
+  let content_post = req.body.content_post;
 
-  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
-  const values = [username, (year + "-" + month + "-" + date), email, password];
+  const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post) VALUES($1, $2, $3, $4, $5) RETURNING *';
+  const values = [title,req.session.id_users,id_genres, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post];
 
   client.query(text, values, (err, res) => {
     console.log(err, res.rows[0]);
     client.end();
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/login.ejs");
+    res.render("./mobile/genres/genres.ejs");
   }
   else{
-    res.render("./desktop/login/login.ejs");
+    res.render("./desktop/genres/genres.ejs");
     console.log(useragent.Agent.isMobile);
   }
 });
+
+/* subir respuesta*/
 
 
 app.listen(3000, () => {
