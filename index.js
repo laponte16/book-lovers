@@ -176,6 +176,37 @@ app.get("/getGeneros",(req, res) => {
 
 });
 
+
+/*Query para el futuro mandar la data de respuestas , falta llenarla y establecer que ruta usaremos */
+app.get("/getRespuesta",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM answers';
+
+  client.query(text, (err, result) => {
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/formularios.ejs" , {result: result.rows} );
+    }
+    else{
+      res.render("./mobile/genres/formularios.ejs" , {result: result.rows} );
+    }
+
+    client.end();
+  });
+
+});
+
+/* posiblemente borremos todo este codigo que esta arriba */ 
+
+
+
+
+
+
 app.get("/getGen",(req, res) => {
   const client = new Client({
     connectionString,
@@ -360,6 +391,61 @@ let seconds1 = date_ob.getSeconds();
   }
   else{
     res.render("./desktop/login");
+    console.log(useragent.Agent.isMobile);
+  }
+});
+
+/* subir respuesta*/
+
+app.post("/signUp",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  let date_ob = new Date();
+
+// current date
+// adjust 0 before single digit date
+let date = ("0" + date_ob.getDate()).slice(-2);
+
+// current month
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+// current year
+let year = date_ob.getFullYear();
+
+// current hours
+let hours = date_ob.getHours();
+
+// current minutes
+let minutes = date_ob.getMinutes();
+
+// current seconds
+let seconds = date_ob.getSeconds();
+
+// prints date in YYYY-MM-DD format
+//(year + "-" + month + "-" + date);
+
+// prints date & time in YYYY-MM-DD HH:MM:SS format
+//(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+
+  let username = req.body.username;
+  let email = req.body.email;
+  let password = req.body.password;
+
+  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
+  const values = [username, (year + "-" + month + "-" + date), email, password];
+
+  client.query(text, values, (err, res) => {
+    console.log(err, res.rows[0]);
+    client.end();
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/login/login.ejs");
+  }
+  else{
+    res.render("./desktop/login/login.ejs");
     console.log(useragent.Agent.isMobile);
   }
 });
