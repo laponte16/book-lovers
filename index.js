@@ -129,6 +129,29 @@ app.get("/getGenres",(req, res) => {
 
 });
 //
+/*Query para mandar data de generos y inicializar cantidad de generos */
+app.get("/getGeneros",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM genres';
+
+  client.query(text, (err, result) => {
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
+    }
+    else{
+      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
+    }
+
+    client.end();
+  });
+
+});
+
 app.get("/getGen",(req, res) => {
   const client = new Client({
     connectionString,
