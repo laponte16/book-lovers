@@ -96,6 +96,12 @@ app.get("/login", (req, res) => {
 });
 /*PAGINA PARA PRUEBAS*/
 app.get("/pruebas", (req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/genres/formularios.ejs", {session: req.session});
   }
@@ -137,16 +143,28 @@ app.get("/getGenres",(req, res) => {
 
   client.query(text, (err, result) => {
  
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/index.ejs" , {result: result.rows} );
-    }
-    else{
-      res.render("./mobile/index.ejs" , {result: result.rows} );
-    }
+    const genre = result.rows;
 
-    client.end();
+    const text1 = 'SELECT id_posts,title,id_user FROM posts';
+
+    client.query(text1, (err, result1) => {
+
+      const post = result1.rows;
+
+      var obj = {};
+      obj.genre = genre;
+      obj.post = post;
+      obj.session = req.session;
+
+      if(useragent.Agent.isMobile == false){
+        res.render("./mobile/genres/formularios.ejs" , {result: obj} );
+      }
+      else{
+        res.render("./desktop/genres/formularios.ejs" , {result: obj} );
+      }
+      client.end();
+    });
   });
-
 });
 //
 /*Query para mandar data de generos y inicializar cantidad de generos */
