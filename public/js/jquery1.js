@@ -3,29 +3,29 @@ var x;
 	x.ready(inicio);//inico de la logica del documento
 	function inicio() {
 		var y;
-		y=$("#misterio");
-		y.click(mosmisterio);
-		y=$("#accion");
-		y.click(mosaccion);
-		y=$("#comedia");
-		y.click(moscomedia);
-		y=$("#psicologico");
+		y=$("#1");
 		y.click(mospsicologico);
-		y=$("#terror");
+		y=$("#6");
+		y.click(mosmisterio);
+		y=$("#4");
+		y.click(mosaccion);
+		y=$("#5");
+		y.click(moscomedia);
+		y=$("#7");
 		y.click(mosterror);
-		y=$("#romance");
+		y=$("#8");
 		y.click(mosromance);
-		y=$("#infantil");
+		y=$("#9");
 		y.click(mosinfantil);
-		y=$("#filosofico");
+		y=$("#11");
 		y.click(mosfilosofico);
-		y=$("#aventura");
+		y=$("#12");
 		y.click(mosaventura);
-		y=$("#historicos");
+		y=$("#13");
 		y.click(moshistoricos);
-		y=$("#biograficos");
+		y=$("#15");
 		y.click(mosbiograficos);
-		y=$("#ciencia_ficcion");
+		y=$("#16");
 		y.click(mosciencia_ficcion);
 	}
 	function mosmisterio() {
@@ -49,6 +49,18 @@ var x;
 		t=$("#respu");
 		x.fadeOut(500);
 		window.setTimeout(function(){t.text("lean worm inicio algo lento pero se pone bueno");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+	function mospsicologico() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("si lees esto funciono");},700);
 		x.fadeIn(1500);
 
 			
