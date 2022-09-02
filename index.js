@@ -106,6 +106,26 @@ app.get("/pruebas", (req, res) => {
 
 /*QUERIES A LA DATABASE*/
 /*GET*/
+/*Pagina de Usuario - Usando valores de session*/
+app.get("/user",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/user/user.ejs" , {session: req.session} );
+    }
+    else{
+      res.render("./mobile/user/user.ejs" , {session: req.session} );
+    }
+
+    client.end();
+
+
+});
 /*Query para mandar data de generos*/
 app.get("/getGenres",(req, res) => {
   const client = new Client({
@@ -180,10 +200,10 @@ app.get("/signOut",(req, res) => {
   req.session.username = "";
 
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/formularios.ejs", {session: req.session});
+    res.render("./mobile/login/login.ejs", {session: req.session});
   }
   else{
-    res.render("./desktop/genres/formularios.ejs");
+    res.render("./desktop/login/login.ejs");
   }
 
 });
@@ -206,10 +226,10 @@ app.post("/signIn",(req, res) => {
     req.session.username = result.rows[0].username;
     console.log(result.rows);
     if(useragent.Agent.isMobile == false){
-      res.render("./mobile/genres/formularios.ejs", {session: req.session});
+      res.render("./mobile/user/user.ejs", {session: req.session});
     }
     else{
-      res.render("./desktop/genres/formularios.ejs");
+      res.render("./desktop/user/user.ejs");
     }
 
     client.end()
@@ -262,10 +282,10 @@ let seconds = date_ob.getSeconds();
     client.end();
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login");
+    res.render("./mobile/login/login.ejs");
   }
   else{
-    res.render("./desktop/login");
+    res.render("./desktop/login/login.ejs");
     console.log(useragent.Agent.isMobile);
   }
 });
