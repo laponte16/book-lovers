@@ -88,14 +88,11 @@
 	</div>
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui-->
 	<section class="flex-container"> 
-		<% var result1; %>
-		<script type="text/javascript">
-			const div = document.querySelector(".caja");
-			
-			for (var i = 0 ; i <= result1.length; i++) {
-				div.innerHTML="<div><button id="<%= result[i].name%>" value="<%= result[i].name%>"><%= result[i].name%></button></div>"
-			}
-		</script>
+		<%for (var i = 0 ; i < result.length; i++) { %>
+			<div class="caja">
+				<button> <%=result[i].name%> </button>
+			</div>
+		<% } %>
 	</section>
 	
 </body>
