@@ -13,50 +13,14 @@
 <body>
 
 	<h1 id="titulo-gen" class=".texto-white">generos disponibles</h1>
-	<section class="flex-container">
-	<div id="generos1" class="caja">
-	<button id="misterio" value="misterio">misterio</button>
-	</div>
-	<div id="generos1" class="caja">
-	<button id="accion" value="accion">accion</button>
-	</div>
-	<div id="generos1" class="caja">
-	<button id="comedia" value="comedia">comedia</button>
-	</div>
-	
-	<br><br>
-	<div id="generos2" class="caja">
-	<button id="psicologico" value="psicologico">psicologico</button>
-	</div>
-	<div id="generos2" class="caja">
-	<button id="terror" value="terror">terror</button>
-	</div>
-	<div id="generos2" class="caja">
-	<button id="romance" value="romance">romance</button>
-	</div>
-	
-	<br><br>
-	<div id="generos3" class="caja">
-	<button id="infantil" value="infantil">infantil</button>
-	</div>
-	<div id="generos3" class="caja">
-	<button id="filosofico" value="filosofico">filosofico</button>
-	</div>
-	<div id="generos3" class="caja">
-	<button id="aventura" value="aventura">aventura</button>
-	</div>
-	<br><br>
-	<div id="generos4" class="caja">
-	<button id="historicos" value="historicos">historicos</button>
-	</div>
-	<div id="generos4" class="caja">
-	<button id="biograficos" value="biograficos">biograficos</button>
-	</div>
-	<div id="generos4" class="caja">
-	<button id="ciencia_ficcion" value="ciencia_ficcion">ciencia_ficcion</button>
-	</div>
-	
+	<section class="flex-container"> 
+		<%for (var i = 0 ; i < result.length; i++) { %>
+			<div class="caja">
+				<button id="<%=result[i].id_genres%>"> <%=result[i].name%> </button>
+			</div>
+		<% } %>
 	</section>
+	
 
 
 	<div id="conte" style="display: none;">
@@ -87,13 +51,7 @@
 		</form>
 	</div>
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui-->
-	<section class="flex-container"> 
-		<%for (var i = 0 ; i < result.length; i++) { %>
-			<div class="caja">
-				<button id="<%=result[i].id_genres%>"> <%=result[i].name%> </button>
-			</div>
-		<% } %>
-	</section>
+	
 	
 </body>
 </html>
