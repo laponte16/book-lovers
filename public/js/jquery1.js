@@ -5,12 +5,14 @@ var x;
 		var y;
 		y=$("#1");
 		y.click(mospsicologico);
-		y=$("#6");
-		y.click(mosmisterio);
 		y=$("#4");
 		y.click(mosaccion);
 		y=$("#5");
-		y.click(moscomedia);
+		y.click(moscomedia);	
+		y=$("#6");
+		y.click(mosmisterio);
+		
+		
 		y=$("#7");
 		y.click(mosterror);
 		y=$("#8");
@@ -60,7 +62,123 @@ var x;
 		x=$("#conte");
 		t=$("#respu");
 		x.fadeOut(500);
-		window.setTimeout(function(){t.text("si lees esto funciono");},700);
+		window.setTimeout(function(){t.text("aqui va la instropercion");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+	function moscomedia() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui van las risas");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosterror() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui va el miedo y el boo");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosromance() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui va el the love");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosinfantil() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui va los cuentos infantiles");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosfilosofico() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("grandes pensadores");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosaventura() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("que hora es ? es hora de aventura!");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function moshistoricos() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui va la historia universal aqunue realmente solo es del la tierra");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosbiograficos() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("vida y obra de personas importantes");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosciencia_ficcion() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui va volver al futuro , star war y demas");},700);
 		x.fadeIn(1500);
 
 			
