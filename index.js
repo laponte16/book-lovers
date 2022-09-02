@@ -411,7 +411,7 @@ let seconds1 = date_ob.getSeconds();
 
 /* subir respuesta*/
 
-app.post("/signUp",(req, res) => {
+app.post("/responder",(req, res) => {
   const client = new Client({
     connectionString,
   });
@@ -419,47 +419,39 @@ app.post("/signUp",(req, res) => {
 
   let date_ob = new Date();
 
-// current date
-// adjust 0 before single digit date
-let date = ("0" + date_ob.getDate()).slice(-2);
+  let date = ("0" + date_ob.getDate()).slice(-2);
 
-// current month
-let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
-// current year
-let year = date_ob.getFullYear();
+  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
-// current hours
-let hours = date_ob.getHours();
 
-// current minutes
-let minutes = date_ob.getMinutes();
+  let year = date_ob.getFullYear();
 
-// current seconds
-let seconds = date_ob.getSeconds();
 
-// prints date in YYYY-MM-DD format
-//(year + "-" + month + "-" + date);
+  let hours = date_ob.getHours();
 
-// prints date & time in YYYY-MM-DD HH:MM:SS format
-//(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-  let username = req.body.username;
-  let email = req.body.email;
-  let password = req.body.password;
+  let minutes = date_ob.getMinutes();
 
-  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
-  const values = [username, (year + "-" + month + "-" + date), email, password];
+
+  let seconds = date_ob.getSeconds();
+  
+  let respuesta = req.body.respuesta;
+  let id_posts = req.body.id_posts;
+  let id_users = req.body.id_users;
+
+  const text = 'INSERT INTO answers(id_posts,id_users, creation_date,content_answers) VALUES($1, $2, $3, $4) RETURNING *';
+  const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
 
   client.query(text, values, (err, res) => {
     console.log(err, res.rows[0]);
     client.end();
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/login.ejs");
+    res.render("./mobile/genres/formularios.ejs");
   }
   else{
-    res.render("./desktop/login/login.ejs");
+    res.render("./desktop/genres/formularios.ejs");
     console.log(useragent.Agent.isMobile);
   }
 });
