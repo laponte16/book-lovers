@@ -95,20 +95,6 @@ app.get("/login", (req, res) => {
   }
 });
 /*PAGINA PARA PRUEBAS*/
-app.get("/pruebas", (req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
-
-
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/formularios.ejs", {session: req.session});
-  }
-  else{
-    res.render("./desktop/genres/formularios.ejs");
-  }
-});
 
 /*QUERIES A LA DATABASE*/
 /*GET*/
@@ -133,7 +119,7 @@ app.get("/user",(req, res) => {
 
 });
 /*Query para mandar data de generos*/
-app.get("/getGenres",(req, res) => {
+app.get("/Pruebas",(req, res) => {
   const client = new Client({
     connectionString,
   });

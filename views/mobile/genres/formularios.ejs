@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div>
-		<form><!--formulario de agregar libros-->
+		<form id="create_post"><!--formulario de agregar libros-->
 			<table border="1">
 				<tr><th colspan="2">agregar libros</th></tr>
 				<tr>
@@ -16,6 +16,16 @@
 				<tr>
 					<th>genero del libro</th>
 					<th><input type="text" name="id_genres" id="id_genres"></th>
+				</tr>
+				<tr>
+					<select name="id_genres" id="id_genres" form="create_post">
+						<%for (var i = 0 ; i < result.genre.length; i++) { %>
+							<option value="<%=result.genre[i].id_genres%>">
+								<%=result.genre[i].name%>
+							</option>
+						<% } %>
+						
+					</select>
 				</tr>
 				<tr>
 					<th colspan="2">resumen del libro</th>
