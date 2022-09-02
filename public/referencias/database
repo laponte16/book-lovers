@@ -21,7 +21,7 @@ id_answers
 id_post(int-Relacional)
 id_user(int-relacional)
 creation_date(TIMESTAMP YY-MM-DD hh:mm)
-content_answer(500 chars)
+content_answers(500 chars)
 
 Tabla: genres
 valores:

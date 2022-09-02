@@ -347,6 +347,7 @@ app.post("/subir",(req, res) => {
   });
 // subir libro 
 app.post("/create_post",(req, res) => {
+  
   const client = new Client({
     connectionString,
   });
@@ -373,8 +374,6 @@ let minutes = date_ob.getMinutes();
 // current seconds
 let seconds = date_ob.getSeconds();
 
-
-
   let title = req.body.title;
   let id_genres = req.body.id_genres;
   let content_post = req.body.content_post;
@@ -387,16 +386,57 @@ let seconds = date_ob.getSeconds();
     client.end();
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/genres.ejs");
+    res.render("./mobile/login/login.ejs");
   }
   else{
-    res.render("./desktop/genres/genres.ejs");
+    res.render("./desktop/login/login.ejs");
     console.log(useragent.Agent.isMobile);
   }
 });
 
 /* subir respuesta*/
+app.post("/responder",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
 
+  let date_ob = new Date();
+
+  let date = ("0" + date_ob.getDate()).slice(-2);
+
+
+  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+
+  let year = date_ob.getFullYear();
+
+  let hours = date_ob.getHours();
+
+
+  let minutes = date_ob.getMinutes();
+
+
+  let seconds = date_ob.getSeconds();
+  
+  let respuesta = req.body.respuesta;
+  let id_posts = req.body.id_posts;
+  let id_users = req.body.id_users;
+
+  const text = 'INSERT INTO answers(id_posts,id_users, creation_date,content_answers) VALUES($1, $2, $3, $4) RETURNING *';
+  const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
+
+  client.query(text, values, (err, res) => {
+    console.log(err, res.rows[0]);
+    client.end();
+  });
+  if(useragent.Agent.isMobile == false){
+    res.render("./mobile/genres/genres.ejs");
+  }
+  else{
+    res.render("./desktop/genres/genres.ejs");
+  }
+});
 
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
