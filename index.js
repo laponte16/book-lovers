@@ -498,3 +498,25 @@ app.listen(3000, () => {
   
 
 });
+
+/*Nav session*/
+app.get("/nav",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  var obj = {};
+  obj.session = req.session;
+ 
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/nav/nav.ejs" , {result: obj} );
+    }
+    else{
+      res.render("./mobile/nav/nav.ejs" , {result: obj} );
+    }
+
+    client.end();
+
+
+});
