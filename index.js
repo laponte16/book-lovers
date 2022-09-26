@@ -245,16 +245,16 @@ app.get("/post/:post_id",(req, res) => {
 
   client.query(text,values, (err, result) => {
 
-    const post = result.rows;
+    const post = result.rows[0];
 
     const text = 'SELECT * FROM users WHERE id_users = $1';
     const values = [post.id_user];
- 
     client.query(text,values, (err, result1) => {
 
       var user = {};
-      user.username = result1.rows.username;
-      user.id_user = result1.rows.id_users;
+      user.username = result1.rows[0].username;
+      user.id_user = result1.rows[0].id_users;
+      console.log(result1.rows);
 
       const text = 'SELECT * FROM genres WHERE id_genres = $1';
       const values = [post.id_genre];
@@ -270,10 +270,10 @@ app.get("/post/:post_id",(req, res) => {
         obj.session = req.session; 
 
         if(useragent.Agent.isMobile == false){
-         res.render("./mobile/genres/formularios.ejs" , {result: obj} );
+         res.render("./mobile/post/post.ejs" , {result: obj} );
         }
         else{
-          res.render("./mobile/genres/formularios.ejs" , {result: obj} );
+          res.render("./desktop/post/post.ejs" , {result: obj} );
         }
   
         client.end();

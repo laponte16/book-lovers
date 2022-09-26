@@ -13,12 +13,12 @@
 </head>
 <body>
 	<div>
-	<h3>publicado por: <%=poste.id_user%></h3>
+	<h3>publicado por: <%=result.user.username%></h3>
 	<section>
 		<div>
-			<h2><%=poste.title%></h2>
+			<h2><%=result.post.title%></h2>
 			<br>
-			<%=poste.content_post%>
+			<%=result.post.content_post%>
 			<br>
 		</div>
 	</section>
