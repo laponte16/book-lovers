@@ -481,16 +481,19 @@ app.post("/responder/:id_post/:id_user/",(req, res) => {
   const text = 'INSERT INTO answers(id_posts,id_users, creation_date,content_answers) VALUES($1, $2, $3, $4) RETURNING *';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
 
-  client.query(text, values, (err, res) => {
-    console.log(err, res.rows[0]);
+  client.query(text, values, (err, result) => {
+    console.log(err, result.rows[0]);
+
+    if(useragent.Agent.isMobile == false){
+      res.render("./mobile/genres/formularios.ejs");
+    }
+    else{
+      res.render("./desktop/genres/formularios.ejs");
+    }
+
     client.end();
   });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/formularios.ejs");
-  }
-  else{
-    res.render("./desktop/genres/formularios.ejs");
-  }
+  
 });
 
 app.listen(3000, () => {
