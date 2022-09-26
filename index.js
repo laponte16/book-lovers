@@ -262,21 +262,31 @@ app.get("/post/:post_id",(req, res) => {
       client.query(text,values, (err, result2) => {
 
         const genre = result2.rows.name;
-      
-        var obj = {};
-        obj.genre = genre;
-        obj.post = post;
-        obj.user = user;
-        obj.session = req.session; 
 
-        if(useragent.Agent.isMobile == false){
-         res.render("./mobile/post/post.ejs" , {result: obj} );
-        }
-        else{
-          res.render("./desktop/post/post.ejs" , {result: obj} );
-        }
+        const text = 'SELECT * FROM answers WHERE id_post = $1';
+        const values = [post.id_posts];
+      
+        client.query(text,values, (err, result3) => {
+
+          const answer = result3.rows;
+        
+            var obj = {};
+            obj.genre = genre;
+            obj.post = post;
+            obj.user = user;
+            obj.answer = answer;
+            obj.session = req.session; 
   
-        client.end();
+            if(useragent.Agent.isMobile == false){
+            res.render("./mobile/post/post.ejs" , {result: obj} );
+            }
+            else{
+              res.render("./desktop/post/post.ejs" , {result: obj} );
+            }
+      
+            client.end();
+  
+        });
 
       });
     });

@@ -33,6 +33,11 @@
 		
 	</form>
 	</div>
-
+	<div>
+		<%for (var i = 0 ; i < result.answer.length; i++) { %>
+			<p><%=result.answer[i].content_answers%></p>
+			<br>
+		<% } %>
+	</div>
 </body>
 </html>
