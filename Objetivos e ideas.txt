@@ -88,3 +88,15 @@ loop y flex
 https://www.youtube.com/watch?v=b1ZZZERJOPQ
 
 https://www.youtube.com/watch?v=EVBlLkfh2V0
+
+videos e imagenes con node opimizar
+https://www.youtube.com/watch?v=DahdecVt3cM
+https://www.youtube.com/watch?v=8KfbJv4CDm8
+
+promesas node 
+https://www.youtube.com/watch?v=EatuQDKsWpY
+
+validaciones 
+https://desarrolloweb.com/articulos/1767.php
+
+https://es.stackoverflow.com/questions/260384/validar-formulario-de-login-con-js

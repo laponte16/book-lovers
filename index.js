@@ -88,7 +88,7 @@ app.get("/genres", (req, res) => {
 /*Login, Cambiar path luego*/
 app.get("/login", (req, res) => {
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/index.ejs", {session: req.session});
+    res.render("./mobile/login/login.ejs", {session: req.session});
   }
   else{
     res.render("./desktop/login/index.ejs");
