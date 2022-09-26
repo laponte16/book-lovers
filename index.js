@@ -50,12 +50,14 @@ app.get("/", (req, res) => {
   req.session.username = "";
   req.session.id_user = "";
 
+  var obj = {};
+  obj.session = req.session;
+
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/home/home");
+    res.render("./mobile/home/home", {result: obj});
   }
   else{
-    res.render("./desktop/index"); /*Recordar cambiar el path luego a home*/
-    console.log(useragent.Agent.isMobile);   
+    res.render("./desktop/index", {result: obj}); /*Recordar cambiar el path luego a home*/  
   }
 });
 /*home? Lo usaremos? Se puede usar el general*/
