@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>prueba de jquery</title>
+	<link rel="stylesheet" type="text/css" href="js/jquery1.js">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script type="text/javascript" src="js/jquery1.js">
+		
+	</script>
+	
+</head>
+<body>
+	<div>
+	<h3>publicado por: <%=poste.id_user%></h3>
+	<section>
+		<div>
+			<h2><%=poste.title%></h2>
+			<br>
+			<%=poste.content_post%>
+			<br>
+		</div>
+	</section>
+	<form action="/responder" method="post" name="ansew_post">
+		<tr>
+			<th>desea dejar una respuesta ?</th>
+			
+		</tr>
+		<tr>
+			<th><input type="text" name="respuesta" id="respuesta"></th>
+		</tr>
+		
+	</form>
+	</div>
+
+</body>
+</html>
