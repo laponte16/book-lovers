@@ -47,6 +47,9 @@ app.use(session({
 /*Inicial*/
 app.get("/", (req, res) => {
   
+  req.session.username = "";
+  req.session.id_user = "";
+
   if(useragent.Agent.isMobile == false){
     res.render("./mobile/home/home");
   }
@@ -105,13 +108,14 @@ app.get("/user",(req, res) => {
   });
   client.connect();
 
-  
+  var obj = {};
+  obj.session = req.session;
  
     if(useragent.Agent.isMobile == false){
-      res.render("./mobile/user/user.ejs" , {session: req.session} );
+      res.render("./mobile/user/user.ejs" , {result: obj} );
     }
     else{
-      res.render("./mobile/user/user.ejs" , {session: req.session} );
+      res.render("./mobile/user/user.ejs" , {result: obj} );
     }
 
     client.end();
@@ -472,7 +476,7 @@ app.post("/responder",(req, res) => {
   
   let respuesta = req.body.respuesta;
   let id_posts = req.body.id_posts;
-  let id_users = req.body.id_users;
+  let id_users = req.session.id_user;
 
   const text = 'INSERT INTO answers(id_posts,id_users, creation_date,content_answers) VALUES($1, $2, $3, $4) RETURNING *';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
@@ -482,10 +486,10 @@ app.post("/responder",(req, res) => {
     client.end();
   });
   if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/genres.ejs");
+    res.render("./mobile/genres/formularios.ejs");
   }
   else{
-    res.render("./desktop/genres/genres.ejs");
+    res.render("./desktop/genres/formularios.ejs");
   }
 });
 
