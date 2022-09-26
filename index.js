@@ -195,17 +195,28 @@ app.get("/getGen",(req, res) => {
   const text = 'SELECT * FROM genres';
 
   client.query(text, (err, result) => {
+    const genre = result.rows;
+
+    const text1 = 'SELECT id_posts,title,id_user FROM posts';
+
+    client.query(text1, (err, result1) => {
+
+      const post = result1.rows;
+
+      var obj = {};
+      obj.genre = genre;
+      obj.post = post;
+      obj.session = req.session;
  
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
-    }
-    else{
-      res.render("./mobile/genres/genres.ejs" , {result: result.rows} );
-    }
-
-    client.end();
+      if(useragent.Agent.isMobile == false){
+        res.render("./mobile/genres/genres.ejs" , {result: obj} );
+      }
+      else{
+        res.render("./desktop/genres/genres.ejs" , {result: obj} );
+      }
+      client.end();
+    });
   });
-
 });
 /*Logout*/
 app.get("/signOut",(req, res) => {

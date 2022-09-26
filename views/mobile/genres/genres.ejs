@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="js/jquery1.js">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdn.tailwindcss.com"></script>
 	<script type="text/javascript" src="js/jquery1.js">
 		
 	</script>
@@ -14,9 +15,9 @@
 
 	<h1 id="titulo-gen" class=".texto-white">generos disponibles</h1>
 	<section class="flex-container"> 
-		<%for (var i = 0 ; i < result.length; i++) { %>
+		<%for (var i = 0 ; i < result.genre.length; i++) { %>
 			<div class="caja">
-				<button id="<%=result[i].id_genres%>"> <%=result[i].name%> </button>
+				<button id="<%=result.genre[i].id_genres%>"> <%=result.genre[i].name%> </button>
 			</div>
 		<% } %>
 	</section>
@@ -51,7 +52,11 @@
 		</form>
 	</div>
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui-->
-	
-	
+	<section class="flex flex-col"> 
+		<%for (var i = 0 ; i < result.post.length; i++) { %>
+				<a href=""><%=result.post[i].title%></a>
+				
+		<% } %>
+	</section>
 </body>
 </html>
