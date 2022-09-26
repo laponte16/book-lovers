@@ -450,7 +450,7 @@ let seconds = date_ob.getSeconds();
 });
 
 /* subir respuesta*/
-app.post("/responder",(req, res) => {
+app.post("/responder/:id_post/:id_user/",(req, res) => {
   const client = new Client({
     connectionString,
   });
@@ -475,8 +475,8 @@ app.post("/responder",(req, res) => {
   let seconds = date_ob.getSeconds();
   
   let respuesta = req.body.respuesta;
-  let id_posts = req.body.id_posts;
-  let id_users = req.session.id_user;
+  let id_posts = req.params.id_post;
+  let id_users = req.params.id_user;
 
   const text = 'INSERT INTO answers(id_posts,id_users, creation_date,content_answers) VALUES($1, $2, $3, $4) RETURNING *';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
