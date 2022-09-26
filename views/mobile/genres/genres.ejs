@@ -54,7 +54,7 @@
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui-->
 	<section class="flex flex-col"> 
 		<%for (var i = 0 ; i < result.post.length; i++) { %>
-				<a href=""><%=result.post[i].title%></a>
+				<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
 				
 		<% } %>
 	</section>

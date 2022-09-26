@@ -232,6 +232,57 @@ app.get("/signOut",(req, res) => {
   }
 
 });
+/*Query para mostrar un post, mandando de parametro el id del mismo*/
+app.get("/post/:post_id",(req, res) => {
+  
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM posts WHERE id_posts = $1';
+  const values = [req.params.post_id];
+
+  client.query(text,values, (err, result) => {
+
+    const post = result.rows;
+
+    const text = 'SELECT * FROM users WHERE id_users = $1';
+    const values = [post.id_user];
+ 
+    client.query(text,values, (err, result1) => {
+
+      var user = {};
+      user.username = result1.rows.username;
+      user.id_user = result1.rows.id_users;
+
+      const text = 'SELECT * FROM genres WHERE id_genres = $1';
+      const values = [post.id_genre];
+
+      client.query(text,values, (err, result2) => {
+
+        const genre = result2.rows.name;
+      
+        var obj = {};
+        obj.genre = genre;
+        obj.post = post;
+        obj.user = user;
+        obj.session = req.session; 
+
+        if(useragent.Agent.isMobile == false){
+         res.render("./mobile/genres/formularios.ejs" , {result: obj} );
+        }
+        else{
+          res.render("./mobile/genres/formularios.ejs" , {result: obj} );
+        }
+  
+        client.end();
+
+      });
+    });
+  });
+
+});
 /*POST*/
 /*Loggearse*/
 app.post("/signIn",(req, res) => {
