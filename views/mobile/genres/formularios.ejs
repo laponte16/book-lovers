@@ -44,9 +44,9 @@
 					<th>selecione cual post</th>
 					<th>
 						<select name="name_post" id="name_post" form="/responder">
-							<%for (var i = 0 ; i < result.posts.length; i++) { %>
-							<option value="<%=result.posts[i].id_posts%>">
-								<%=result.posts[i].title%>
+							<%for (var i = 0 ; i < result.post.length; i++) { %>
+							<option value="<%=result.post[i].id_posts%>">
+								<%=result.post[i].title%>
 							</option>
 						<% } %>
 						</select>
