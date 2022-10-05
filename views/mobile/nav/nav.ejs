@@ -40,9 +40,14 @@
     <li class="mx-4 my-6 md:my-0">
       <a href="/about" class="text-xl">About</a>
     </li>
-    <li class="inline-block mx-4 my-6 md:my-0">
-      <%= result.session.username == "" ? "nadie" : result.session.username %>
-      <a href="/login" class="text-xl">Sign in  /</a><a href="/login" class="text-xl">  Sign up</a>
+    <li class="inline-block mx-4">
+      <%if (result.session.username == "") { %>
+        <a href="/login" class="text-xl">Sign in  /</a>
+        <a href="/login" class="text-xl">  Sign Up</a>
+        <% }else{ %>
+          <p class="text-xl">Welcome, <%= result.session.username%></p>
+          <a href="/signOut" class="text-xl">Logout</a>
+            <%}%>
     </li>
   </ul>
 

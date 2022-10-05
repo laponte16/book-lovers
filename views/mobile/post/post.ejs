@@ -29,6 +29,8 @@
 			</div>
 			<div>
 				<input type="text" name="respuesta" id="respuesta"  class="rounded-md text-black px-2 h-9 border-black border-2 bg-gray-100">
+				<input type="hidden" name="id_post" id="id_post" value="<%=result.post.id_posts%>">
+				<input type="hidden" name="id_user" id="id_user" value="<%=result.session.id_users%>">
 			</div>
 			<div class="flex flex-row justify-center w-full">
 				<input type="submit" name="Enviar" value="responder" class="cursor-pointer">
@@ -39,7 +41,7 @@
 	</div>
 	<div>
 		<%for (var i = 0 ; i < result.answer.length; i++) { %>
-			<p><%=result.answer[i].content_answers%></p>
+			<p><%=result.answer[i].content_answer%></p>
 			<br>
 		<% } %>
 	</div>
