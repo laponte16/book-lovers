@@ -81,15 +81,7 @@ app.get("/about", (req, res) => {
   }
 });
 /*Generos*/
-app.get("/genres", (req, res) => {
-  if(useragent.Agent.isMobile == false){
-      res.render("./mobile/genres/genres.ejs");
-  }
-  else{
-    res.render("./desktop/genres/genres.ejs");
-    console.log(useragent.Agent.isMobile);
-  }
-});
+
 /*Login, Cambiar path luego*/
 app.get("/login", (req, res) => {
   if(useragent.Agent.isMobile == false){
@@ -125,65 +117,13 @@ app.get("/user",(req, res) => {
 
 });
 /*Query para mandar data de generos*/
-app.get("/Pruebas",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
 
-  const text = 'SELECT * FROM genres';
-
-  client.query(text, (err, result) => {
- 
-    const genre = result.rows;
-
-    const text1 = 'SELECT id_posts,title,id_user FROM posts';
-
-    client.query(text1, (err, result1) => {
-
-      const post = result1.rows;
-
-      var obj = {};
-      obj.genre = genre;
-      obj.post = post;
-      obj.session = req.session;
-
-      if(useragent.Agent.isMobile == false){
-        res.render("./mobile/genres/formularios.ejs" , {result: obj} );
-      }
-      else{
-        res.render("./desktop/genres/formularios.ejs" , {result: obj} );
-      }
-      client.end();
-    });
-  });
-});
 //
 
 
 
 /*Query para el futuro mandar la data de respuestas , falta llenarla y establecer que ruta usaremos */
-app.get("/getRespuesta",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
 
-  const text = 'SELECT * FROM answers';
-
-  client.query(text, (err, result) => {
- 
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/genres/formularios.ejs" , {result: result.rows} );
-    }
-    else{
-      res.render("./mobile/genres/formularios.ejs" , {result: result.rows} );
-    }
-
-    client.end();
-  });
-
-});
 
 /* posiblemente borremos todo este codigo que esta arriba */ 
 
@@ -192,7 +132,7 @@ app.get("/getRespuesta",(req, res) => {
 
 
 
-app.get("/getGen",(req, res) => {
+app.get("/genres",(req, res) => {
   const client = new Client({
     connectionString,
   });
