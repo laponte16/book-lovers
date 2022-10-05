@@ -327,7 +327,10 @@ let seconds = date_ob.getSeconds();
 });
 // subir genero 
 
-app.post("/subir",(req, res) => {
+app.post("/newgen",(req, res) => {
+  const client = new Client({
+    connectionString,
+  })
       client.connect();
       let gen_name = req.body.gen_name;
       let img_gen = req.body.img_gen;
