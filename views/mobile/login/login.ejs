@@ -14,11 +14,11 @@
     <div class="loginBackground flex flex-row justify-center items-center">
         <div class="loginContainer mt-7 flex flex-col items-center justify-center w-64 fondo-gray">
             <div class="flex flex-row items-center justify-center w-full">
-                <p id="signIn" class="text-3xl m-2 mt-3 w-3/5 cursor-pointer">Sign In</p>
-                <p id="signIn" class="text-3xl m-2 mt-3 w-3/5 cursor-pointer">Sign Up</p>
+                <p class="text-3xl m-2 mt-3 w-3/5 cursor-pointer" onclick="toggleText()">Sign In</p>
+                <p class="text-3xl m-2 mt-3 w-3/5 cursor-pointer" onclick="toggleText2()">Sign Up</p>
             </div>
             <div>
-                <div class="signIn">
+                <div class="signIn" id="signIn" style='display: none'>
                     <form action="/signIn" method="post" >
                         <div class="flex flex-row items-center justify-center mt-7">
                             <div class="flex flex-col items-center justify-center 3/5">
@@ -31,7 +31,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="signUp">
+                <div class="signUp" id="signUp" style='display: none'>
                     <form action="/signUp" method="post" class="flex flex-col justify-center items-center h-full text-center">
                         <input type="text" placeholder="Username" name="username" class="rounded-md mb-4 text-black px-2 h-9">
                         <input type="text" placeholder="Email" name="email" class="rounded-md mb-4 text-black px-2 h-9">
@@ -44,5 +44,27 @@
     </div>
     <h1 class="texto-white">Usuario: <%= session.username %></h1>
     <h1 class="texto-white">ID Usuario: <%= session.id_users %></h1>
+
+    <script>
+        function toggleText() {
+        var text = document.getElementById("signIn");
+        var text2 = document.getElementById("signUp");
+
+        if (text.style.display === "none") {
+          text.style.display = "";
+        } else {
+          text.style.display = "none";
+        }
+      }
+      function toggleText2() {
+        var text = document.getElementById("signUp");
+        if (text.style.display === "none") {
+          text.style.display = "";
+        } else {
+          text.style.display = "none";
+        }
+      }
+    </script>
+    
 </body>
 </html>
