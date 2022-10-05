@@ -260,7 +260,6 @@ app.get("/post/:post_id",(req, res) => {
       var user = {};
       user.username = result1.rows[0].username;
       user.id_user = result1.rows[0].id_users;
-      console.log(result1.rows);
 
       const text = 'SELECT * FROM genres WHERE id_genres = $1';
       const values = [post.id_genre];
@@ -268,7 +267,7 @@ app.get("/post/:post_id",(req, res) => {
       client.query(text,values, (err, result2) => {
 
         const genre = result2.rows.name;
-
+        console.log(post.id_posts);
         const text = 'SELECT * FROM answers WHERE id_post = $1';
         const values = [post.id_posts];
       
@@ -456,7 +455,7 @@ let seconds = date_ob.getSeconds();
 });
 
 /* subir respuesta*/
-app.post("/responder/:id_post/:id_user/",(req, res) => {
+app.post("/responder",(req, res) => {
   const client = new Client({
     connectionString,
   });
@@ -481,20 +480,25 @@ app.post("/responder/:id_post/:id_user/",(req, res) => {
   let seconds = date_ob.getSeconds();
   
   let respuesta = req.body.respuesta;
-  let id_posts = req.params.id_post;
-  let id_users = req.params.id_user;
+  let id_posts = req.body.id_post;
+  let id_users = req.body.id_user;
 
-  const text = 'INSERT INTO answers(id_posts,id_users, creation_date,content_answers) VALUES($1, $2, $3, $4) RETURNING *';
+  console.log(id_posts, id_users);
+
+  const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4) RETURNING *';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
 
   client.query(text, values, (err, result) => {
-    console.log(err, result.rows[0]);
+    console.log(err, result.rows);
+
+    var obj = {};
+    obj.session = req.session;
 
     if(useragent.Agent.isMobile == false){
-      res.render("./mobile/genres/formularios.ejs");
+      res.render("./mobile/home/home.ejs", {result: obj});
     }
     else{
-      res.render("./desktop/genres/formularios.ejs");
+      res.render("./desktop/home/home.ejs", {result: obj});
     }
 
     client.end();
