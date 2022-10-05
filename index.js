@@ -326,7 +326,10 @@ let seconds = date_ob.getSeconds();
 });
 // subir genero 
 
-app.post("/subir",(req, res) => {
+app.post("/newgen",(req, res) => {
+  const client = new Client({
+    connectionString,
+  })
       client.connect();
       let gen_name = req.body.gen_name;
       let img_gen = req.body.img_gen;
@@ -434,12 +437,14 @@ app.post("/responder",(req, res) => {
     var obj = {};
     obj.session = req.session;
 
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/home/home.ejs", {result: obj});
-    }
-    else{
-      res.render("./desktop/home/home.ejs", {result: obj});
-    }
+    res.redirect('/post/'+id_posts);
+
+    // if(useragent.Agent.isMobile == false){
+    //   res.render("./mobile/home/home.ejs", {result: obj});
+    // }
+    // else{
+    //   res.render("./desktop/home/home.ejs", {result: obj});
+    // }
 
     client.end();
   });
