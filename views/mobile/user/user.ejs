@@ -17,8 +17,8 @@
     <span class=" texto-white"> Users page</span>
 
     <!--Pruebas de Session-->
-    <h1>Usuario: <%= session.username == "" ? "nadie" : session.username %></h1>
-    <h1>ID Usuario: <%= session.id_users == "" ? "ID nadie" : session.id_users %></h1>
+    <h1>Usuario: <%= result.session.username == "" ? "nadie" : result.session.username %></h1>
+    <h1>ID Usuario: <%= result.session.id_users == "" ? "ID nadie" : result.session.id_users %></h1>
     <br>
     <a href="/signOut">Logout</a>
 
