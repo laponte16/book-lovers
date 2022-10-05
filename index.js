@@ -434,12 +434,14 @@ app.post("/responder",(req, res) => {
     var obj = {};
     obj.session = req.session;
 
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/home/home.ejs", {result: obj});
-    }
-    else{
-      res.render("./desktop/home/home.ejs", {result: obj});
-    }
+    res.redirect('/post/'+id_posts);
+
+    // if(useragent.Agent.isMobile == false){
+    //   res.render("./mobile/home/home.ejs", {result: obj});
+    // }
+    // else{
+    //   res.render("./desktop/home/home.ejs", {result: obj});
+    // }
 
     client.end();
   });
