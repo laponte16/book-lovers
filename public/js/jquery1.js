@@ -29,6 +29,8 @@ var x;
 		y.click(mosbiograficos);
 		y=$("#16");
 		y.click(mosciencia_ficcion);
+		y=$("#17");
+		y.click(mosantologia);
 	}
 	function mosmisterio() {
 		var x;
@@ -179,6 +181,19 @@ var x;
 		t=$("#respu");
 		x.fadeOut(500);
 		window.setTimeout(function(){t.text("aqui va volver al futuro , star war y demas");},700);
+		x.fadeIn(1500);
+
+			
+		
+	}
+
+	function mosantologia() {
+		var x;
+		var t;
+		x=$("#conte");
+		t=$("#respu");
+		x.fadeOut(500);
+		window.setTimeout(function(){t.text("aqui va la descrotucion de los generos");},700);
 		x.fadeIn(1500);
 
 			
