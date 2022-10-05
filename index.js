@@ -317,11 +317,15 @@ app.post("/signIn",(req, res) => {
     req.session.id_users = result.rows[0].id_users;
     req.session.username = result.rows[0].username;
     console.log(result.rows);
+
+    var obj = {};
+    obj.session = result.rows[0];
+
     if(useragent.Agent.isMobile == false){
-      res.render("./mobile/user/user.ejs", {session: req.session});
+      res.render("./mobile/user/user.ejs", {result: obj});
     }
     else{
-      res.render("./desktop/user/user.ejs");
+      res.render("./desktop/user/user.ejs", {result: obj});
     }
 
     client.end()
