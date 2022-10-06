@@ -56,36 +56,32 @@ app.get("/", (req, res) => {
   res.render("./home", {result: obj});
   
 });
-/*home? Lo usaremos? Se puede usar el general*/
+/*home*/
 app.get("/home", (req, res) => {
-  if(useragent.Agent.isMobile == false){
-     res.render("./mobile/home/home.ejs");
-  }
-  else{
-    res.render("./desktop/home/index.ejs");/*Cambiar path luego*/
-    console.log(useragent.Agent.isMobile);
-  }
+
+  var obj = {};
+  obj.session = req.session;
+
+  res.render("./home.ejs", {result: obj});
+  
 });
 /*About*/
 app.get("/about", (req, res) => {
-  if(useragent.Agent.isMobile == false){
-     res.render("./mobile/about/about.ejs");
-  }
-  else{
-    res.render("./desktop/about/index.ejs");/*Cambiar path luego*/
-    console.log(useragent.Agent.isMobile);
-  }
-});
-/*Generos*/
+  
+  var obj = {};
+  obj.session = req.session;
 
-/*Login, Cambiar path luego*/
+  res.render("./about.ejs", {result: obj});
+
+});
+
+/*Login Page*/
 app.get("/login", (req, res) => {
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/login.ejs", {session: req.session});
-  }
-  else{
-    res.render("./desktop/login/index.ejs");
-  }
+
+  var obj = {};
+  obj.session = req.session;
+
+  res.render("./login.ejs", {result: obj});
 });
 /*PAGINA PARA PRUEBAS*/
 
@@ -96,38 +92,18 @@ app.get("/user",(req, res) => {
   const client = new Client({
     connectionString,
   });
+  //DEJE LA CONEXION AL CLIENTE POR SI A CASO ES NECESARIA LUEGO, si no, borrarla
   client.connect();
 
   var obj = {};
   obj.session = req.session;
- 
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/user/user.ejs" , {result: obj} );
-    }
-    else{
-      res.render("./mobile/user/user.ejs" , {result: obj} );
-    }
+   
+  res.render("./user.ejs" , {result: obj} );
 
-    client.end();
-
+  client.end();
 
 });
-/*Query para mandar data de generos*/
-
-//
-
-
-
-/*Query para el futuro mandar la data de respuestas , falta llenarla y establecer que ruta usaremos */
-
-
-/* posiblemente borremos todo este codigo que esta arriba */ 
-
-
-
-
-
-
+//La vista principal del foro
 app.get("/genres",(req, res) => {
   const client = new Client({
     connectionString,
@@ -150,12 +126,8 @@ app.get("/genres",(req, res) => {
       obj.post = post;
       obj.session = req.session;
  
-      if(useragent.Agent.isMobile == false){
-        res.render("./mobile/genres/genres.ejs" , {result: obj} );
-      }
-      else{
-        res.render("./desktop/genres/genres.ejs" , {result: obj} );
-      }
+      res.render("./genres.ejs" , {result: obj} );
+      
       client.end();
     });
   });
@@ -166,12 +138,7 @@ app.get("/signOut",(req, res) => {
   req.session.id_users = "";
   req.session.username = "";
 
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/login.ejs", {session: req.session});
-  }
-  else{
-    res.render("./desktop/login/login.ejs");
-  }
+  res.redirect('/home');
 
 });
 /*Query para mostrar un post, mandando de parametro el id del mismo*/
@@ -218,12 +185,7 @@ app.get("/post/:post_id",(req, res) => {
             obj.answer = answer;
             obj.session = req.session; 
   
-            if(useragent.Agent.isMobile == false){
-            res.render("./mobile/post/post.ejs" , {result: obj} );
-            }
-            else{
-              res.render("./desktop/post/post.ejs" , {result: obj} );
-            }
+            res.render("./post.ejs" , {result: obj} );
       
             client.end();
   
@@ -256,12 +218,7 @@ app.post("/signIn",(req, res) => {
     var obj = {};
     obj.session = result.rows[0];
 
-    if(useragent.Agent.isMobile == false){
-      res.render("./mobile/user/user.ejs", {result: obj});
-    }
-    else{
-      res.render("./desktop/user/user.ejs", {result: obj});
-    }
+    res.render("./user.ejs", {result: obj});
 
     client.end()
   });
@@ -310,19 +267,16 @@ let seconds = date_ob.getSeconds();
 
   client.query(text, values, (err, res) => {
     console.log(err, res.rows[0]);
+
+    res.redirect('/login');
+
     client.end();
   });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/login.ejs");
-  }
-  else{
-    res.render("./desktop/login/login.ejs");
-    console.log(useragent.Agent.isMobile);
-  }
-});
-// subir genero 
 
-app.post("/newgen",(req, res) => {
+});
+
+//Agregar un nuevo Genero 
+app.post("/newGen",(req, res) => {
   const client = new Client({
     connectionString,
   })
@@ -335,16 +289,11 @@ app.post("/newgen",(req, res) => {
       console.log(err, res.rows[0]);
       client.end();
   });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/genres/genres.ejs");
-  }
-  else{
-    res.render("./desktop/genres/genres.ejs");
-    console.log(useragent.Agent.isMobile);
-  }
+  
+  res.render("./genres.ejs");
 
   });
-// subir libro 
+//Crear un Post 
 app.post("/create_post",(req, res) => {
   
   const client = new Client({
@@ -384,17 +333,13 @@ let seconds = date_ob.getSeconds();
     console.log(err, res.rows[0]);
     client.end();
   });
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/login/login.ejs");
-  }
-  else{
-    res.render("./desktop/login/login.ejs");
-    console.log(useragent.Agent.isMobile);
-  }
+  
+  res.redirect('/genres');
+  
 });
 
-/* subir respuesta*/
-app.post("/responder",(req, res) => {
+/*Crear una Answer en un post*/
+app.post("/answer",(req, res) => {
   const client = new Client({
     connectionString,
   });
@@ -430,17 +375,7 @@ app.post("/responder",(req, res) => {
   client.query(text, values, (err, result) => {
     console.log(err, result.rows);
 
-    var obj = {};
-    obj.session = req.session;
-
     res.redirect('/post/'+id_posts);
-
-    // if(useragent.Agent.isMobile == false){
-    //   res.render("./mobile/home/home.ejs", {result: obj});
-    // }
-    // else{
-    //   res.render("./desktop/home/home.ejs", {result: obj});
-    // }
 
     client.end();
   });
@@ -449,7 +384,5 @@ app.post("/responder",(req, res) => {
 
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
-  
-
 });
 
