@@ -13,18 +13,25 @@
 </head>
 <body>
   <%- include('./nav.ejs') %>
-  <div class="conatiner-body relative z-10">
-    <span class=" texto-white"> Testing include! this is our home file!</span>
-    <br>
-    <a href="/about">Hello World</a>
-    <br>
-    <a href="/home">Home</a>
-    <br>
-    <a href="/genres">Generos</a>
-    <br>
-    <form method="post" action="/prueba" >
-        <input type="submit" value="Prueba" class="text-xl bg-teal-300 w-24 h-9 rounded-md cursor-pointer">
-    </form>
+  <div class="container-body relative z-10 flex flex-col">
+    <div>
+      <p class="texto-white">Bienvenida</p>
+    </div>
+    <div>
+      Imagen de bienvenida o algo asi?
+    </div>
+    <div class="fondo-black w-full">
+      <p class="texto-white">Introduccion al sitio</p> 
+    </div>
+    <div>
+      Titulo de Recomendaciones
+    </div>
+    <div>
+      Recomendaciones de posts populares
+    </div>
+    <div>
+      Recomendaciones de Posts nuevos
+    </div>
   </div>
   <%- include('./footer.html') %>
 </body>

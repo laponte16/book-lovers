@@ -1,0 +1,45 @@
+Tabla users
+Valores
+id_users
+username -20 chars
+join_date - DATE YY-MM-DD
+email... - 50 chars? Algo asi
+password - 200 chars creo le puse, como es MD5
+
+Tabla posts
+Valores
+id_posts
+title - 100 chars
+id_user - int-relacional
+id_genre - int-relacional
+creation_date - TIMESTAMP YY-MM-DD hh:mm
+content_post - 2000 chars
+
+Tabla answers
+Valores
+id_answers
+id_post - int Relacional
+id_user - int relacional
+creation_date - TIMESTAMP YY-MM-DD hh:mm
+content_answer - 500 chars
+
+Tabla genres
+valores
+id_genres
+name - 30 chars
+url_image - 500 chars
+
+
+ordenes de generos 
+psicodelico id 1
+acccion id 3
+comedia id 4
+misterio id 5
+teror id 6
+romance id 7
+infantil id 8
+filosofico id 9
+aventura id 10
+historicos id 11
+biograficos id 15
+ciencia ficcion id 16
