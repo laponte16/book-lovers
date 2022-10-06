@@ -216,7 +216,7 @@ app.post("/signIn",(req, res) => {
     console.log(result.rows);
 
     var obj = {};
-    obj.session = result.rows[0];
+    obj.session = req.session;
 
     res.render("./user.ejs", {result: obj});
 
