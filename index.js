@@ -53,12 +53,8 @@ app.get("/", (req, res) => {
   var obj = {};
   obj.session = req.session;
 
-  if(useragent.Agent.isMobile == false){
-    res.render("./mobile/home/home", {result: obj});
-  }
-  else{
-    res.render("./desktop/index", {result: obj}); /*Recordar cambiar el path luego a home*/  
-  }
+  res.render("./home", {result: obj});
+  
 });
 /*home? Lo usaremos? Se puede usar el general*/
 app.get("/home", (req, res) => {
