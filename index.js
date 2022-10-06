@@ -196,6 +196,36 @@ app.get("/post/:post_id",(req, res) => {
   });
 
 });
+
+/*Query para mostrar los generos segun el id*/
+app.get("/showGen/:id_genres",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM posts WHERE id_genre = $1';
+
+  client.query(text, (err, result) => {
+    const genre = result.rows;
+
+    const text1 = 'SELECT id_posts,title,id_user FROM posts';
+
+    client.query(text1, (err, result1) => {
+
+      const post = result1.rows;
+
+      var obj = {};
+      obj.genre = genre;
+      obj.post = post;
+      obj.session = req.session;
+ 
+      res.render("./genres.ejs" , {result: obj} );
+      
+      client.end();
+    });
+  });
+});
 /*POST*/
 /*Loggearse*/
 app.post("/signIn",(req, res) => {

@@ -17,7 +17,8 @@
 	<section class="flex-container"> 
 		<%for (var i = 0 ; i < result.genre.length; i++) { %>
 			<div class="caja">
-				<button id="<%=result.genre[i].id_genres%>"> <%=result.genre[i].name%> </button>
+				
+				<a href="/showGen/<%=result.genre[i].id_genres%>/"><%=result.genre[i].name%></a>
 			</div>
 		<% } %>
 	</section>
@@ -58,5 +59,7 @@
 				
 		<% } %>
 	</section>
+	
+
 </body>
 </html>

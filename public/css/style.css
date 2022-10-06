@@ -62,9 +62,10 @@ body{
 	width: 700px;
 }
 /* probicional estilo de botones*/
-button{
+a{
 	width: 230px;
 	background-color: transparent;
+	padding: 10px;
 	
 }
 
