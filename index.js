@@ -13,6 +13,10 @@ const pool = new Pool({
   connectionString,
 });
 
+/*ENCRYPTION*/
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 /*MODULOS DEL SERVER*/
 /*La Engine de visualizacion: EJS */
@@ -237,20 +241,34 @@ app.post("/signIn",(req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  const text = 'SELECT * FROM users WHERE email =$1 AND password = $2';
-  const values = [email,password];
+  const text = 'SELECT * FROM users WHERE email =$1';
+  const values = [email];
   
-  client.query(text, values, (err, result) => {
-    req.session.id_users = result.rows[0].id_users;
-    req.session.username = result.rows[0].username;
-    console.log(result.rows);
+  client.query(text, values, (err, result1) => {
 
-    var obj = {};
-    obj.session = req.session;
+    bcrypt.compare(password, result1.rows[0].password, function(err, result) {
+      if(result == true)
+      {
+        req.session.id_users = result1.rows[0].id_users;
+        req.session.username = result1.rows[0].username;
+        console.log(result1.rows);
 
-    res.render("./user.ejs", {result: obj});
+        var obj = {};
+        obj.session = req.session;
 
-    client.end()
+        res.render("./user.ejs", {result: obj});
+
+        client.end()
+      }
+      else
+      {
+        var obj = {};
+        obj.session = req.session;
+
+        res.render("./login.ejs", {result: obj});
+        client.end()
+      }
+    });
   });
   
 });
@@ -290,19 +308,21 @@ let seconds = date_ob.getSeconds();
 
   let username = req.body.username;
   let email = req.body.email;
-  let password = req.body.password;
 
-  const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
-  const values = [username, (year + "-" + month + "-" + date), email, password];
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    let password = hash;
 
-  client.query(text, values, (err, res) => {
-    console.log(err, res.rows[0]);
+    const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
+    const values = [username, (year + "-" + month + "-" + date), email, password];
 
-    res.redirect('/login');
+    client.query(text, values, (err, result) => {
+      console.log(err, result.rows[0]);
 
-    client.end();
+      res.redirect('/login');
+
+      client.end();
+    });
   });
-
 });
 
 //Agregar un nuevo Genero 
