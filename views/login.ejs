@@ -11,14 +11,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+    <%- include('./nav.ejs') %>
     <div class="loginBackground flex flex-row justify-center items-center">
-        <div class="loginContainer mt-7 flex flex-col items-center justify-center w-64 fondo-gray">
-            <div class="flex flex-row items-center justify-center w-full">
-                <p class="text-3xl m-2 mt-3 w-3/5 cursor-pointer" onclick="toggleText()">Sign In</p>
-                <p class="text-3xl m-2 mt-3 w-3/5 cursor-pointer" onclick="toggleText2()">Sign Up</p>
+        <div class="loginContainer flex flex-col w-64 h-80 m-7 fondo-gray">
+            <div class="tab flex flex-row items-center justify-center w-full overflow-hidden">
+                <button class="tablinks text-3xl m-2 mt-3 w-3/5 cursor-pointer transition duration-75" onclick="toggleText(event, 'signIn')">Sign In</button>
+                <button class="tablinks text-3xl m-2 mt-3 w-3/5 cursor-pointer transition duration-75"  onclick="toggleText(event, 'signUp')">Sign Up</button>
             </div>
             <div>
-                <div class="signIn" id="signIn" style='display: none'>
+                <div class="tabcontent hidden " id="signIn">
                     <form action="/signIn" method="post" >
                         <div class="flex flex-row items-center justify-center mt-7">
                             <div class="flex flex-col items-center justify-center 3/5">
@@ -31,12 +32,18 @@
                         </div>
                     </form>
                 </div>
-                <div class="signUp" id="signUp" style='display: none'>
-                    <form action="/signUp" method="post" class="flex flex-col justify-center items-center h-full text-center">
-                        <input type="text" placeholder="Username" name="username" class="rounded-md mb-4 text-black px-2 h-9">
-                        <input type="text" placeholder="Email" name="email" class="rounded-md mb-4 text-black px-2 h-9">
-                        <input type="password" placeholder="Password" name="password" class="rounded-md text-black px-2 h-9">
-                        <input type="submit" value="Sign Up" class="text-xl bg-red-100 w-24 h-9 rounded-md cursor-pointer">
+                <div class="tabcontent hidden" id="signUp">
+                    <form action="/signUp" method="post">
+                        <div class="flex flex-row items-center justify-center mt-7">
+                            <div class="flex flex-col items-center justify-center 3/5">
+                                <input type="text" placeholder="Username" name="username" class="rounded-md mb-4 text-black px-2 h-9">
+                                <input type="text" placeholder="Email" name="email" class="rounded-md mb-4 text-black px-2 h-9">
+                                <input type="password" placeholder="Password" name="password" class="rounded-md text-black px-2 h-9">
+                            </div>
+                        </div>
+                        <div class="flex justify-center pb-2 mt-4">
+                            <input type="submit" value="Sign Up" class="text-xl bg-red-100 w-24 h-9 rounded-md cursor-pointer">
+                        </div>
                     </form>
                 </div>
             </div>
@@ -46,25 +53,21 @@
     <h1 class="texto-white">ID Usuario: <%= result.session.id_users %></h1>
 
     <script>
-        function toggleText() {
-        var text = document.getElementById("signIn");
-        var text2 = document.getElementById("signUp");
-
-        if (text.style.display === "none") {
-          text.style.display = "";
-        } else {
-          text.style.display = "none";
+        function toggleText(evt, signText) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(signText).style.display = "block";
+            evt.currentTarget.className += " active";
         }
-      }
-      function toggleText2() {
-        var text = document.getElementById("signUp");
-        if (text.style.display === "none") {
-          text.style.display = "";
-        } else {
-          text.style.display = "none";
-        }
-      }
     </script>
     
+    <%- include('./footer.html') %>   
 </body>
 </html>
