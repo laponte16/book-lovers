@@ -211,7 +211,7 @@ app.get("/showGen/:id_genres",(req, res) => {
   const text = 'SELECT * FROM posts WHERE id_genre = $1';
   const values = [req.params.id_genres];
 
-  client.query(text, (err, result) => {
+  client.query(text, values, (err, result) => {
     const genre = result.rows;
 
     const text1 = 'SELECT id_posts,title,id_user FROM posts';
@@ -229,6 +229,27 @@ app.get("/showGen/:id_genres",(req, res) => {
       
       client.end();
     });
+  });
+});
+/*Query para llevarte a la pagina de creacion de posts*/
+app.get("/addPost",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM genres';
+
+  client.query(text, (err, result) => {
+    const genre = result.rows;
+
+    var obj = {};
+    obj.genre = genre;
+    obj.session = req.session;
+ 
+    res.render("./addPost.ejs" , {result: obj} );
+      
+    client.end();
   });
 });
 /*POST*/
