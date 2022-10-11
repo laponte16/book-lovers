@@ -230,6 +230,27 @@ app.get("/showGen/:id_genres",(req, res) => {
     });
   });
 });
+/*Query para llevarte a la pagina de creacion de posts*/
+app.get("/addPost",(req, res) => {
+  const client = new Client({
+    connectionString,
+  });
+  client.connect();
+
+  const text = 'SELECT * FROM genres';
+
+  client.query(text, (err, result) => {
+    const genre = result.rows;
+
+    var obj = {};
+    obj.genre = genre;
+    obj.session = req.session;
+ 
+    res.render("./addPost.ejs" , {result: obj} );
+      
+    client.end();
+  });
+});
 /*POST*/
 /*Loggearse*/
 app.post("/signIn",(req, res) => {
