@@ -14,7 +14,7 @@
 <nav class="shadow relative flex md:items-center justify-between fondo-black">
   <div class="p-10 fondo-black shadow relative z-30 flex-1">
     <div class="texto-white flex justify-between items-center ">
-      <span class=" text-2xl cursor-pointer z-30">
+      <span class="text-2xl cursor-pointer z-30" onclick="window.location.href='/home';">
         <i class="fa-solid fa-book-open"></i>
         Book Lovers
       </span>
@@ -29,18 +29,19 @@
   md:py-0 py-4 md:pl-0 pl-7 top-[-400px] md:top-[0]
   transition-all ease-in duration-500"> 
     <li class="mx-4 my-6 md:my-0 md:mx-0">
-      <a href="/home" class="text-xl">Home</a>
+      <a href="/home" class="text-xl hover-red">Home</a>
     </li>
     <li class="mx-4 my-6 md:my-0 md:mx-0">
-      <a href="/genres" class="text-xl">Forum</a>
+      <a href="/genres" class="text-xl hover-red">Forum</a>
     </li>
     <li class="mx-4 my-6 md:my-0 md:mx-0">
-      <a href="/about" class="text-xl">About</a>
+      <a href="/about" class="text-xl hover-red">About</a>
     </li>
     <li class="inline-block mx-4">
       <%if (result.session.username == "") { %>
-        <a href="/login" class="text-xl">Sign in  /</a>
-        <a href="/login" class="text-xl">  Sign Up</a>
+        <a href="/login" class="text-xl hover-red">Sign in</a>
+        <a class="text-xl -mx-4">/</a>
+        <a href="/login" class="text-xl hover-red">Sign Up</a>
         <% }else{ %>
           <p class="text-xl">Welcome, <%= result.session.username%></p>
           <a href="/signOut" class="text-xl">Logout</a>
