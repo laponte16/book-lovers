@@ -225,7 +225,7 @@ app.get("/showGen/:id_genres",(req, res) => {
       obj.post = post;
       obj.session = req.session;
  
-      res.render("./genres.ejs" , {result: obj} );
+      res.render("./showgen.ejs" , {result: obj} );
       
       client.end();
     });
