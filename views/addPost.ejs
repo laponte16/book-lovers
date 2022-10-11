@@ -13,6 +13,7 @@
     <script src="https://kit.fontawesome.com/ca713a058f.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <%- include('./nav.ejs') %>
     <div class="flex flex-col justify-center align-middle text-center w-full items-center">
         <!--formulario de agregar posts-->
 		<form action="/create_post" method="post" id="create_post">
@@ -35,13 +36,15 @@
 					</select>
                 </div>
                 <div class="flex flex-col justify-center align-middle w-full  mt-3">
-                    <textarea name="content_post" id="content_post" cols="30" rows="8"></textarea>
+                    <p class="texto-white">Character Limit: 0/2000</p>
+                    <textarea name="content_post" id="content_post" cols="30" rows="8" maxlength="2000"></textarea>
                 </div>
                 <div class="border-2 rounded-md mt-1 fondo-red texto-white">
-                    <input type="submit" name="Enviar" value="subir" class="cursor-pointer">
+                    <input type="submit" name="Enviar" value="Submit" tabindex="-1" class="buttonPost cursor-pointer">
                 </div>
             </div>
 		</form>
 	</div>
+    <%- include('./footer.html') %>
 </body>
 </html>
