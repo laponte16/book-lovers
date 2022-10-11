@@ -209,6 +209,7 @@ app.get("/showGen/:id_genres",(req, res) => {
   client.connect();
 
   const text = 'SELECT * FROM posts WHERE id_genre = $1';
+  const values = [req.params.id_genres];
 
   client.query(text, (err, result) => {
     const genre = result.rows;
