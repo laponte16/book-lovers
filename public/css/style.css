@@ -48,6 +48,10 @@ body{
 	color:#d52e4a;
 }
 
+.hover-white:hover{
+	background-color: #F2F3E2;
+}
+
 /*ESTILOS DEL NAV*/
 
 /*ESTILOS DEL LOGIN*/
