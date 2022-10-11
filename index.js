@@ -209,6 +209,7 @@ app.get("/showGen/:id_genres",(req, res) => {
   client.connect();
 
   const text = 'SELECT * FROM posts WHERE id_genre = $1';
+  const values = [req.params.id_genres];
 
   client.query(text, (err, result) => {
     const genre = result.rows;
@@ -224,7 +225,7 @@ app.get("/showGen/:id_genres",(req, res) => {
       obj.post = post;
       obj.session = req.session;
  
-      res.render("./genres.ejs" , {result: obj} );
+      res.render("./showgen.ejs" , {result: obj} );
       
       client.end();
     });
