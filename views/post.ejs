@@ -12,6 +12,7 @@
 	
 </head>
 <body>
+	<%- include('./nav.ejs') %>
 	<div>
 	<h3>publicado por: <%=result.user.username%></h3>
 	<section>
@@ -45,5 +46,6 @@
 			<br>
 		<% } %>
 	</div>
+	<%- include('./footer.html') %>
 </body>
 </html>
