@@ -439,7 +439,7 @@ app.post("/answer",(req, res) => {
   let id_posts = req.body.id_post;
   let id_users = req.body.id_user;
 
-  console.log(id_posts, id_users);
+  console.log(req.body.id_post, req.body.id_user);
 
   const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4) RETURNING *';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
