@@ -100,3 +100,11 @@ validaciones
 https://desarrolloweb.com/articulos/1767.php
 
 https://es.stackoverflow.com/questions/260384/validar-formulario-de-login-con-js
+
+
+
+-Arreglar footer
+-Arreglar nav loggeado 
+-Arreglar pagina de users
+-Arreglar forum y pagina de respuesta
+-arreglar el home
