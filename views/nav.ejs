@@ -19,7 +19,7 @@
         Book Lovers
       </span>
       <span class="text-3xl cursor-pointer mx-2 z-30 md:hidden block">
-        <i class="fa-solid fa-bars" onclick="Menu(this)"></i>
+        <i class="fa-solid fa-bars" onclick="Menu()"></i>
       </span>
     </div>
   </div>
@@ -39,8 +39,8 @@
     </li>
     <li class="inline-block mx-4">
       <%if (result.session.username == "") { %>
-        <a href="/login" class="text-xl">Sign in  /</a>
-        <a href="/login" class="text-xl">  Sign Up</a>
+        <a href="/login" class="text-xl">Sign in&nbsp;&nbsp;&nbsp;&nbsp;/</a>
+        <a href="/login" class="text-xl">Sign Up</a>
         <% }else{ %>
           <p class="text-xl">Welcome, <%= result.session.username%></p>
           <a href="/signOut" class="text-xl">Logout</a>
@@ -50,11 +50,15 @@
 </nav>
 
 <script>
-  function Menu(e){
+  var e = "menu";
+
+  function Menu(){
     let list = document.querySelector('ul');
-    e.name === 'menu' ? (e.name = "close",list.classList.
-    add('top-[80px]'), list.classList.add('opacity-100')) : 
-    (e.name = "menu",list.classList.remove('top-[80px]'),
-    list.classList.remove('opacity-100'))
+    e == 'menu' ?
+     (e = 'close',
+     list.classList.add('top-[80px]'),
+     list.classList.add('opacity-100')) : 
+     (e = 'menu',list.classList.remove('top-[80px]'),
+     list.classList.remove('opacity-100'))
   }
 </script>
