@@ -208,26 +208,28 @@ app.get("/showGen/:id_genres",(req, res) => {
   });
   client.connect();
 
-  const text = 'SELECT * FROM posts WHERE id_genre = $1';
+  const text = 'SELECT id_posts,title,id_user FROM posts WHERE id_genre = $1';
   const values = [req.params.id_genres];
 
   client.query(text, values, (err, result) => {
-    const genre = result.rows;
 
-    const text1 = 'SELECT id_posts,title,id_user FROM posts';
+    posts = result.rows;
 
-    client.query(text1, (err, result1) => {
+    const text1 = 'SELECT * FROM genres WHERE id_genres = $1';
+    const values1 = [req.params.id_genres];
 
-      const post = result1.rows;
+    client.query(text1, values1, (err, result1) => {
 
-      var obj = {};
-      obj.genre = genre;
-      obj.post = post;
-      obj.session = req.session;
+    genres = result1.rows;
+
+    var obj = {};
+    obj.posts = posts;
+    obj.genres = genres;
+    obj.session = req.session;
  
-      res.render("./showgen.ejs" , {result: obj} );
+    res.render("./showgen.ejs" , {result: obj} );
       
-      client.end();
+    client.end();
     });
   });
 });
