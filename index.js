@@ -201,7 +201,7 @@ app.get("/post/:post_id",(req, res) => {
 
 });
 
-/*Query para mostrar los generos segun el id*/
+/*Query para mostrar los generos segun el id nota no fiatra*/
 app.get("/showGen/:id_genres",(req, res) => {
   const client = new Client({
     connectionString,
