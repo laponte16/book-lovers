@@ -13,11 +13,10 @@
 </head>
 <body>
 	<%- include('./nav.ejs') %>
-	<h1 id="titulo-gen" class=".texto-white">generos disponibles</h1>
+	<h1 id="titulo-gen" class="texto-white">generos disponibles</h1>
 	<section class="flex-container"> 
 		<%for (var i = 0 ; i < result.genre.length; i++) { %>
-			<div class="caja">
-				
+			<div class="texto-white">
 				<a href="/showGen/<%=result.genre[i].id_genres%>/"><%=result.genre[i].name%></a>
 			</div>
 		<% } %>
@@ -59,16 +58,17 @@
 				<div>
 					<img src="<%=result.post[i].url_image%>" width="125" height="125" alt="">
 				</div>
-				<div class="texto-white">
-					<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
+				<div class="flex flex-col">
+					<div class="texto-white">
+						<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
+					</div>
+					<div class="texto-white">
+						<p><%=result.post[i].id_user%></p>
+					</div>
+					<div class="texto-white">
+						<p><%=result.post[i].creation_date%></p>
+					</div>
 				</div>
-				<div class="texto-white">
-					<p><%=result.post[i].id_user%>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-				</div>
-				<div class="texto-white">
-					<p><%=result.post[i].creation_date%></p>
-				</div>
-				
 			</div>
 			
 			

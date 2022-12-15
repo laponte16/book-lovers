@@ -124,6 +124,10 @@ app.get("/genres",(req, res) => {
     client.query(text1, (err, result1) => {
 
       const post = result1.rows;
+      for (var i = 0 ; i < post.length; i++) {
+        post[i].creation_date = post[i].creation_date.toString();
+        post[i].creation_date = post[i].creation_date.slice(0,24);
+        }
 
       var obj = {};
       obj.genre = genre;
