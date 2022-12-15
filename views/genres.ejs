@@ -21,17 +21,28 @@
 			</div>
 		<% } %>
 	</section>
-	
-
-
-	<div id="conte" style="display: none;">
-		<div id="imgconte">
-			<div id="respu">
-					
-			</div>
-		</div>
-	</div>
-	 <!--AGREGAR GENEROS-->
+	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
+	<section class="flex flex-row"> 
+		<%for (var i = 0 ; i < result.post.length; i++) { %>
+			<div class="flex flex-row">
+				<div>
+					<img src="<%=result.post[i].url_image%>" width="125" height="125" alt="">
+				</div>
+				<div class="flex flex-col">
+					<div class="texto-white">
+						<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
+					</div>
+					<div class="texto-white">
+						<p><%=result.post[i].id_user%></p>
+					</div>
+					<div class="texto-white">
+						<p><%=result.post[i].creation_date%></p>
+					</div>
+				</div>
+			</div>		
+		<% } %>
+	</section>
+	<!--AGREGAR GENEROS-->
 	<div class="agregar" id="agregar">
 		<form  method="post" action="/newgen">
 			<table border="1">
@@ -51,31 +62,6 @@
 			</table>
 		</form>
 	</div>
-	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
-	<section class="flex flex-row"> 
-		<%for (var i = 0 ; i < result.post.length; i++) { %>
-			<div class="flex flex-row">
-				<div>
-					<img src="<%=result.post[i].url_image%>" width="125" height="125" alt="">
-				</div>
-				<div class="flex flex-col">
-					<div class="texto-white">
-						<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
-					</div>
-					<div class="texto-white">
-						<p><%=result.post[i].id_user%></p>
-					</div>
-					<div class="texto-white">
-						<p><%=result.post[i].creation_date%></p>
-					</div>
-				</div>
-			</div>
-			
-			
-			
-			
-		<% } %>
-	</section>
 	
 	<%- include('./footer.html') %>
 </body>
