@@ -53,10 +53,27 @@
 		</form>
 	</div>
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
-	<section class="flex flex-col"> 
+	<section class="flex flex-row"> 
 		<%for (var i = 0 ; i < result.post.length; i++) { %>
-				<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
+			<div class="flex flex-row">
+				<div>
+					<img src="<%=result.post[i].url_image%>" width="125" height="125" alt="">
+				</div>
+				<div class="texto-white">
+					<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
+				</div>
+				<div class="texto-white">
+					<p><%=result.post[i].id_user%>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				</div>
+				<div class="texto-white">
+					<p><%=result.post[i].creation_date%></p>
+				</div>
 				
+			</div>
+			
+			
+			
+			
 		<% } %>
 	</section>
 	

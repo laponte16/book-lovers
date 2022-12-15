@@ -119,7 +119,7 @@ app.get("/genres",(req, res) => {
   client.query(text, (err, result) => {
     const genre = result.rows;
 
-    const text1 = 'SELECT id_posts,title,id_user FROM posts';
+    const text1 = 'SELECT id_posts,title,id_user,creation_date,url_image FROM posts';
 
     client.query(text1, (err, result1) => {
 
@@ -275,7 +275,6 @@ app.post("/signIn",(req, res) => {
       {
         req.session.id_users = result1.rows[0].id_users;
         req.session.username = result1.rows[0].username;
-        console.log(result1.rows);
 
         var obj = {};
         obj.session = req.session;
@@ -399,9 +398,10 @@ let seconds = date_ob.getSeconds();
   let title = req.body.title;
   let id_genres = req.body.id_genres;
   let content_post = req.body.content_post;
+  let url_image = req.body.image;
 
-  const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post) VALUES($1, $2, $3, $4, $5) RETURNING *';
-  const values = [title,req.session.id_users,id_genres, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post];
+  const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post, url_image) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
+  const values = [title,req.session.id_users,id_genres, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post, url_image];
 
   client.query(text, values, (err, res) => {
     console.log(err, res.rows[0]);
