@@ -123,20 +123,30 @@ app.get("/genres",(req, res) => {
 
     client.query(text1, (err, result1) => {
 
-      const post = result1.rows;
-      for (var i = 0 ; i < post.length; i++) {
-        post[i].creation_date = post[i].creation_date.toString();
-        post[i].creation_date = post[i].creation_date.slice(0,24);
-        }
+      post = result1.rows;
 
-      var obj = {};
-      obj.genre = genre;
-      obj.post = post;
-      obj.session = req.session;
+      const text2 = 'SELECT id_users,username FROM users';
+
+        client.query(text2, (err, result2) => {  
+          const users = result2.rows;
+
+          for (var i = 0 ; i < post.length; i++) {
+            post[i].creation_date = post[i].creation_date.toString();
+            post[i].creation_date = post[i].creation_date.slice(0,24);
+            for (var j = 0 ; j < users.length; j++) {
+              if(post[i].id_user == users[j].id_users)
+              {post[i].username = users[j].username;}
+            }
+          }
+          var obj = {};
+          obj.genre = genre;
+          obj.post = post;
+          obj.session = req.session;
  
-      res.render("./genres.ejs" , {result: obj} );
+          res.render("./genres.ejs" , {result: obj} );
       
-      client.end();
+          client.end();
+        });
     });
   });
 });

@@ -22,21 +22,25 @@
 		<% } %>
 	</section>
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
-	<section class="flex flex-row"> 
-		<%for (var i = 0 ; i < result.post.length; i++) { %>
-			<div class="flex flex-row">
-				<div>
-					<img src="<%=result.post[i].url_image%>" width="125" height="125" alt="">
+	<section class="flex flex-col"> 
+		<% var color = 0;
+		for (var i = 0 ; i < result.post.length; i++) { %>
+			<div class="flex flex-row w-full h-36 border-y-2
+			<%if(color == 0){color = 1; %>fondo-black<% }
+			else{color = 0; %>fondo-gray<% }%>
+			 borde-red my-1 pl-10">
+				<div class="flex justify-center items-center">
+					<img src="<%=result.post[i].url_image%>" class="w-32 h-32">
 				</div>
-				<div class="flex flex-col">
+				<div class="flex flex-col h-full justify-around pl-4">
 					<div class="texto-white">
-						<a href="/post/<%=result.post[i].id_posts%>/"><%=result.post[i].title%></a>
+						<b>Work: </b><a href="/post/<%=result.post[i].id_posts%>/" class="hover-red duration-1000 p-0"><%=result.post[i].title%></a>
 					</div>
 					<div class="texto-white">
-						<p><%=result.post[i].id_user%></p>
+						<p><b>Review Author: </b><%=result.post[i].username%></p>
 					</div>
 					<div class="texto-white">
-						<p><%=result.post[i].creation_date%></p>
+						<p><b>Creation Date: </b><%=result.post[i].creation_date%></p>
 					</div>
 				</div>
 			</div>		

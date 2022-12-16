@@ -102,9 +102,15 @@ https://desarrolloweb.com/articulos/1767.php
 https://es.stackoverflow.com/questions/260384/validar-formulario-de-login-con-js
 
 
-
+Mari:
 -Arreglar footer
 -Arreglar nav loggeado 
 -Arreglar pagina de users
 -Arreglar forum y pagina de respuesta
 -arreglar el home
+
+Luis:
+-En generos:
+*Cuantas answers, numero de palabras, y una preview?
+*Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
+*Limitar numero de paginas visibles, repartir por tandas
