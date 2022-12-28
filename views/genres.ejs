@@ -43,6 +43,22 @@
 						<p><b>Creation Date: </b><%=result.post[i].creation_date%></p>
 					</div>
 				</div>
+				<div class="texto-white flex flex-col h-full justify-around pl-4">
+					<div>
+						<p><b>Number of Words: </b><%=result.post[i].number_words%></p>	
+					</div>
+					<div>
+						<p><b>Replies: </b><%= result.post[i].replies %></p>
+					</div>
+					<div>
+						<p><b>Last Activity: </b><%= result.post[i].activity %></p>
+					</div>
+				</div>
+				<div class="texto-white flex flex-col w-1/3 h-full justify-around pl-4">
+					<div class="">
+						<p><b>Preview: </b><i>"..<%=result.post[i].content_post%>.."</i></p>
+					</div>
+				</div>
 			</div>		
 		<% } %>
 	</section>

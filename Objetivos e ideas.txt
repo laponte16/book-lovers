@@ -111,6 +111,6 @@ Mari:
 
 Luis:
 -En generos:
-*Cuantas answers, numero de palabras, y una preview?
+*Cuantas answers, fecha de ultima reply, numero de palabras, y una preview?
 *Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
 *Limitar numero de paginas visibles, repartir por tandas

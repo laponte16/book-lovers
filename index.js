@@ -11,6 +11,8 @@ const pgSession = require('connect-pg-simple')(session);
 const connectionString = 'postgres://wfturvva:5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB@otto.db.elephantsql.com/wfturvva'
 const pool = new Pool({
   connectionString,
+  idleTimeoutMillis: 50,
+  max: 5
 });
 
 /*ENCRYPTION*/
@@ -109,25 +111,27 @@ app.get("/user",(req, res) => {
 });
 //La vista principal del foro
 app.get("/genres",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
 
   const text = 'SELECT * FROM genres';
 
-  client.query(text, (err, result) => {
+  pool.query(text, (err, result) => {
     const genre = result.rows;
 
-    const text1 = 'SELECT id_posts,title,id_user,creation_date,url_image FROM posts';
+    const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts';
 
-    client.query(text1, (err, result1) => {
+    pool.query(text1, (err, result1) => {
 
       post = result1.rows;
 
+      for(var i = 0; i<post.length; i++){
+        post[i].number_words = post[i].content_post.length;
+        if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
+        else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
+      }
+
       const text2 = 'SELECT id_users,username FROM users';
 
-        client.query(text2, (err, result2) => {  
+      pool.query(text2, (err, result2) => {  
           const users = result2.rows;
 
           for (var i = 0 ; i < post.length; i++) {
@@ -135,18 +139,60 @@ app.get("/genres",(req, res) => {
             post[i].creation_date = post[i].creation_date.slice(0,24);
             for (var j = 0 ; j < users.length; j++) {
               if(post[i].id_user == users[j].id_users)
-              {post[i].username = users[j].username;}
+              {
+                post[i].username = users[j].username;
+              }
             }
           }
-          var obj = {};
-          obj.genre = genre;
-          obj.post = post;
-          obj.session = req.session;
+
+          const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
+
+          pool.query(text3, (err, result3) => {  
+            const answers = result3.rows;
+
+            console.log(answers.length);
+            console.log(answers);
+
+            var obj = {};
+            obj.genre = genre;
+            obj.post = post;
+            obj.session = req.session;
+
+                for(i = 0; i < obj.post.length; i++){
+
+                  answerProvisional = [];
+
+                  for(j = 0; j< answers.length; j++){
+
+                    if(answers[j].id_post == obj.post[i].id_posts){
+
+                      answerProvisional.push(answers[j].creation_date);
+
+                    }
+
+                  }
+                  console.log(answerProvisional);
+                  if(answerProvisional.length > 0){
+
+                    obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
+                    obj.post[i].activity = obj.post[i].activity.slice(0,24);
+
+                    obj.post[i].replies = answerProvisional.length;
+
+                  }
+
+                  else{
+
+                    obj.post[i].activity = obj.post[i].creation_date;
+                    obj.post[i].replies = 0;
+
+                  }
+                  
+                }
  
-          res.render("./genres.ejs" , {result: obj} );
-      
-          client.end();
+            res.render("./genres.ejs" , {result: obj} );
         });
+      });
     });
   });
 });
@@ -161,22 +207,17 @@ app.get("/signOut",(req, res) => {
 });
 /*Query para mostrar un post, mandando de parametro el id del mismo*/
 app.get("/post/:post_id",(req, res) => {
-  
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
 
   const text = 'SELECT * FROM posts WHERE id_posts = $1';
   const values = [req.params.post_id];
 
-  client.query(text,values, (err, result) => {
+  pool.query(text,values, (err, result) => {
 
     const post = result.rows[0];
 
     const text = 'SELECT * FROM users WHERE id_users = $1';
     const values = [post.id_user];
-    client.query(text,values, (err, result1) => {
+    pool.query(text,values, (err, result1) => {
 
       var user = {};
       user.username = result1.rows[0].username;
@@ -185,14 +226,14 @@ app.get("/post/:post_id",(req, res) => {
       const text = 'SELECT * FROM genres WHERE id_genres = $1';
       const values = [post.id_genre];
 
-      client.query(text,values, (err, result2) => {
+      pool.query(text,values, (err, result2) => {
 
         const genre = result2.rows.name;
         console.log(post.id_posts);
         const text = 'SELECT * FROM answers WHERE id_post = $1';
         const values = [post.id_posts];
       
-        client.query(text,values, (err, result3) => {
+        pool.query(text,values, (err, result3) => {
 
           const answer = result3.rows;
         
@@ -205,10 +246,7 @@ app.get("/post/:post_id",(req, res) => {
   
             res.render("./post.ejs" , {result: obj} );
       
-            client.end();
-  
         });
-
       });
     });
   });
@@ -428,10 +466,6 @@ let seconds = date_ob.getSeconds();
 
 /*Crear una Answer en un post*/
 app.post("/answer",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
 
   let date_ob = new Date();
 
@@ -457,15 +491,13 @@ app.post("/answer",(req, res) => {
 
   console.log(req.body.id_post, req.body.id_user);
 
-  const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4) RETURNING *';
+  const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4)';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
 
-  client.query(text, values, (err, result) => {
+  pool.query(text, values, (err, result) => {
     console.log(err, result.rows);
-
+    
     res.redirect('/post/'+id_posts);
-
-    client.end();
   });
   
 });
