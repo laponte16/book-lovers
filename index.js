@@ -392,10 +392,12 @@ app.post("/newGen",(req, res) => {
 
   });
   
-  res.render("./genres.ejs");
+  res.redirect('/genres');
 
   });
-//Crear un Post 
+
+
+//Crear un Post  res.render
 app.post("/create_post",(req, res) => {
   
   pool.connect();
