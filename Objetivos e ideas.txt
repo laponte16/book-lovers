@@ -115,3 +115,6 @@ Mari:
 *Limitar numero de paginas visibles, repartir por tandas
 *Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
 *(Solved)La hora de las anwers no se agrega. Coño de la madre
+
+-Node:
+*Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo.
