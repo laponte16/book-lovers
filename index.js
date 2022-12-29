@@ -382,10 +382,10 @@ app.post("/newGen",(req, res) => {
 
   pool.query(text, values, (err, res) => {
 
-    res.render("./genres.ejs");
+    res.redirect('/genres');
 
   });
- res.redirect('/genres');
+ 
   
  });
 
