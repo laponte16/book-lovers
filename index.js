@@ -380,7 +380,7 @@ app.post("/newGen",(req, res) => {
   const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
   const values = [gen_name,img_gen];
 
-  pool.query(text, values, (err, res) => {
+  pool.query(text, values, (err, result) => {
 
     res.redirect('/genres');
 
