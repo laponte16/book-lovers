@@ -102,19 +102,46 @@ https://desarrolloweb.com/articulos/1767.php
 https://es.stackoverflow.com/questions/260384/validar-formulario-de-login-con-js
 
 
-TO-DO:
-Mari:
--Arreglar footer
--Arreglar nav loggeado 
--Arreglar pagina de users
--Arreglar forum y pagina de respuesta
--arreglar el home
+TO-DO/Pendientes/Bugs/Features:
 
--En generos:
-*Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
-*Limitar numero de paginas visibles, repartir por tandas
-*Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
-*(Solved)La hora de las anwers no se agrega. Coño de la madre
+-Nav:
+    -Que salga bien lo de estar logged/deslogged
+
+-Footer:
+    -Arreglar problemas de layout
+
+-Home:
+    -Habiamos hablado de poner una especie de carrusel para las mas vistas?
+    -Abiertos a ideas y experimentos
+
+-Login:
+    -Hacia falta hacer las validaciones bien. Confirmar password, meterse con AJAX para que lance un popup diciendo si algo esta mal, que el campo email sea un email valido, etc etc.
+    -Integracion con google y/facebook
+
+-En generos/foro:
+    -Opcion de crear post por aqui? Escondida si no estas loggeado
+    -Reskin y quizas relayout de los botones de generos
+    -Hacerle un reskin de estilos a los posts? Le falta bling
+    -Que clickear el user de un post te lleve a su userpage
+    -Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
+    -Limitar numero de paginas visibles, repartir por tandas
+    -Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
+    -(Solved)La hora de las anwers no se agrega. Coño de la madre
+
+-Posts:
+    -Dios santo, protect us. Todo el estilado y layout
+    -Hm hm. Que haya un contador de palabras para las respuestas.
+
+-Crear Post:
+    -Estilado y contador de palabras para el contenido.
+    -Meditar si se puede subir la imagen al servidor. MEDITAR
+
+-Userpage:
+    -Hacerla de manera correcta. Entiendase, que sea disponible para cualquier usuario y muestre lo que deba mostrar.
 
 -Node:
-*Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join()
+    -Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join() Potencialmente
+    -Que no te deslogeen al entrar a home
+
+-Global:
+    -Mover todas las cosas a las que el usuario no supone tener acceso a una pagina hidden sin ruta mas que meter el link directamente
