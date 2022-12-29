@@ -11,7 +11,7 @@ const pgSession = require('connect-pg-simple')(session);
 const connectionString = 'postgres://wfturvva:5-z7JVrBwrWM1kpo5MXpzr2Lekh3uCjB@otto.db.elephantsql.com/wfturvva'
 const pool = new Pool({
   connectionString,
-  idleTimeoutMillis: 50,
+  idleTimeoutMillis: 10,
   max: 5
 });
 

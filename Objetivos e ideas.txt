@@ -119,6 +119,7 @@ TO-DO/Pendientes/Bugs/Features:
     -Integracion con google y/facebook
 
 -En generos/foro:
+    -DEBE MOSTRAR QUE GENERO ES, AHHHHHHHHHH
     -Opcion de crear post por aqui? Escondida si no estas loggeado
     -Reskin y quizas relayout de los botones de generos
     -Hacerle un reskin de estilos a los posts? Le falta bling
