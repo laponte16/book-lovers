@@ -95,18 +95,11 @@ app.get("/login", (req, res) => {
 /*GET*/
 /*Pagina de Usuario - Usando valores de session*/
 app.get("/user",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  //DEJE LA CONEXION AL CLIENTE POR SI A CASO ES NECESARIA LUEGO, si no, borrarla
-  client.connect();
 
   var obj = {};
   obj.session = req.session;
    
   res.render("./user.ejs" , {result: obj} );
-
-  client.end();
 
 });
 //La vista principal del foro
@@ -255,22 +248,19 @@ app.get("/post/:post_id",(req, res) => {
 
 /*Query para mostrar los generos segun el id nota no fiatra*/
 app.get("/showGen/:id_genres",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
+  pool.connect();
 
   const text = 'SELECT id_posts,title,id_user FROM posts WHERE id_genre = $1';
   const values = [req.params.id_genres];
 
-  client.query(text, values, (err, result) => {
+  pool.query(text, values, (err, result) => {
 
     posts = result.rows;
 
     const text1 = 'SELECT * FROM genres WHERE id_genres = $1';
     const values1 = [req.params.id_genres];
 
-    client.query(text1, values1, (err, result1) => {
+    pool.query(text1, values1, (err, result1) => {
 
     genres = result1.rows;
 
@@ -281,7 +271,6 @@ app.get("/showGen/:id_genres",(req, res) => {
  
     res.render("./showgen.ejs" , {result: obj} );
       
-    client.end();
     });
   });
 });
@@ -492,7 +481,7 @@ app.post("/answer",(req, res) => {
   console.log(req.body.id_post, req.body.id_user);
 
   const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4)';
-  const values = [id_posts, id_users, (year + "-" + month + "-" + date), respuesta];
+  const values = [id_posts, id_users, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), respuesta];
 
   pool.query(text, values, (err, result) => {
     console.log(err, result.rows);
