@@ -421,7 +421,7 @@ app.post("/create_post",(req, res) => {
   const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post, url_image) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
   const values = [title,req.session.id_users,id_genres, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post, url_image];
 
-  pool.query(text, values, (err, res) => {
+  pool.query(text, values, (err, result) => {
 
     res.redirect('/genres');
 
