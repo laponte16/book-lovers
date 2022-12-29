@@ -12,15 +12,24 @@
 	
 </head>
 <body>
+
 	<%- include('./nav.ejs') %>
-	<h1 id="titulo-gen" class="texto-white">generos disponibles</h1>
-	<section class="flex-container"> 
-		<%for (var i = 0 ; i < result.genre.length; i++) { %>
-			<div class="texto-white">
-				<a href="/showGen/<%=result.genre[i].id_genres%>/"><%=result.genre[i].name%></a>
-			</div>
-		<% } %>
-	</section>
+
+	<div class="flex flex-row overflow-hidden">
+		<%
+		numero = result.genre.length/4
+		for (var i = 0; i<numero; i++){ %>
+			<div>
+				<%for (var j = 0 ; j < result.genre.length; j++) { %>
+				<div class="texto-white grow">
+					<a href="/showGen/<%=result.genre[j].id_genres%>/"><%=result.genre[j].name%></a>
+				</div>
+				<% }
+		</div>
+		} 
+		%>
+	</div>
+
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
 	<section class="flex flex-col"> 
 		<% var color = 0;
@@ -64,6 +73,6 @@
 	</section>
 	
 	<%- include('./footer.html') %>
-	
+
 </body>
 </html>
