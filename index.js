@@ -276,14 +276,11 @@ app.get("/showGen/:id_genres",(req, res) => {
 });
 /*Query para llevarte a la pagina de creacion de posts*/
 app.get("/addPost",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
+  pool.connect();
 
   const text = 'SELECT * FROM genres';
 
-  client.query(text, (err, result) => {
+  pool.query(text, (err, result) => {
     const genre = result.rows;
 
     var obj = {};
@@ -292,16 +289,12 @@ app.get("/addPost",(req, res) => {
  
     res.render("./addPost.ejs" , {result: obj} );
       
-    client.end();
   });
 });
 /*POST*/
 /*Loggearse*/
 app.post("/signIn",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
+  pool.connect();
 
   let email = req.body.email;
   let password = req.body.password;
@@ -309,7 +302,7 @@ app.post("/signIn",(req, res) => {
   const text = 'SELECT * FROM users WHERE email =$1';
   const values = [email];
   
-  client.query(text, values, (err, result1) => {
+  pool.query(text, values, (err, result1) => {
 
     bcrypt.compare(password, result1.rows[0].password, function(err, result) {
       if(result == true)
@@ -322,7 +315,6 @@ app.post("/signIn",(req, res) => {
 
         res.render("./user.ejs", {result: obj});
 
-        client.end()
       }
       else
       {
@@ -330,7 +322,6 @@ app.post("/signIn",(req, res) => {
         obj.session = req.session;
 
         res.render("./login.ejs", {result: obj});
-        client.end()
       }
     });
   });
@@ -338,10 +329,7 @@ app.post("/signIn",(req, res) => {
 });
 /*Registrarse*/
 app.post("/signUp",(req, res) => {
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
+  pool.connect();
 
   let date_ob = new Date();
 
@@ -379,29 +367,29 @@ let seconds = date_ob.getSeconds();
     const text = 'INSERT INTO users(username,join_date, email, password) VALUES($1, $2, $3, $4) RETURNING *';
     const values = [username, (year + "-" + month + "-" + date), email, password];
 
-    client.query(text, values, (err, result) => {
+    pool.query(text, values, (err, result) => {
       console.log(err, result.rows[0]);
 
       res.redirect('/login');
 
-      client.end();
     });
   });
 });
 
 //Agregar un nuevo Genero 
 app.post("/newGen",(req, res) => {
-  const client = new Client({
-    connectionString,
-  })
-      client.connect();
-      let gen_name = req.body.gen_name;
-      let img_gen = req.body.img_gen;
-      const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
-      const values = [gen_name,img_gen];
-      client.query(text, values, (err, res) => {
+  pool.connect();
+
+  let gen_name = req.body.gen_name;
+  let img_gen = req.body.img_gen;
+
+  const text = 'INSERT INTO genres(name,url_image) VALUES($1, $2) RETURNING *';
+  const values = [gen_name,img_gen];
+
+  pool.query(text, values, (err, res) => {
+
       console.log(err, res.rows[0]);
-      client.end();
+
   });
   
   res.render("./genres.ejs");
@@ -410,31 +398,28 @@ app.post("/newGen",(req, res) => {
 //Crear un Post 
 app.post("/create_post",(req, res) => {
   
-  const client = new Client({
-    connectionString,
-  });
-  client.connect();
+  pool.connect();
 
   let date_ob = new Date();
 
-// current date
-// adjust 0 before single digit date
-let date = ("0" + date_ob.getDate()).slice(-2);
+  // current date
+  // adjust 0 before single digit date
+  let date = ("0" + date_ob.getDate()).slice(-2);
 
-// current month
-let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  // current month
+  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
-// current year
-let year = date_ob.getFullYear();
+  // current year
+  let year = date_ob.getFullYear();
 
-// current hours
-let hours = date_ob.getHours();
+  // current hours
+  let hours = date_ob.getHours();
 
-// current minutes
-let minutes = date_ob.getMinutes();
+  // current minutes
+  let minutes = date_ob.getMinutes();
 
-// current seconds
-let seconds = date_ob.getSeconds();
+  // current seconds
+  let seconds = date_ob.getSeconds();
 
   let title = req.body.title;
   let id_genres = req.body.id_genres;
@@ -444,9 +429,10 @@ let seconds = date_ob.getSeconds();
   const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post, url_image) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
   const values = [title,req.session.id_users,id_genres, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post, url_image];
 
-  client.query(text, values, (err, res) => {
+  pool.query(text, values, (err, res) => {
+
     console.log(err, res.rows[0]);
-    client.end();
+
   });
   
   res.redirect('/genres');
