@@ -12,15 +12,24 @@
 	
 </head>
 <body>
+
 	<%- include('./nav.ejs') %>
-	<h1 id="titulo-gen" class="texto-white">generos disponibles</h1>
-	<section class="flex-container"> 
-		<%for (var i = 0 ; i < result.genre.length; i++) { %>
-			<div class="texto-white">
-				<a href="/showGen/<%=result.genre[i].id_genres%>/"><%=result.genre[i].name%></a>
-			</div>
-		<% } %>
-	</section>
+
+	<div class="flex flex-row overflow-hidden">
+		<%
+		numero = result.genre.length/4
+		for (var i = 0; i<numero; i++){ %>
+			<div>
+				<%for (var j = 0 ; j < result.genre.length; j++) { %>
+				<div class="texto-white grow">
+					<a href="/showGen/<%=result.genre[j].id_genres%>/"><%=result.genre[j].name%></a>
+				</div>
+				<% }
+		</div>
+		} 
+		%>
+	</div>
+
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
 	<section class="flex flex-col"> 
 		<% var color = 0;
@@ -62,8 +71,30 @@
 			</div>		
 		<% } %>
 	</section>
+
+	<!--AGREGAR GENEROS-->
+	<div class="agregar" id="agregar">
+		<form  method="post" action="/newgen">
+			<table border="1">
+				<tr><th colspan="2">agregar generos</th></tr>
+				<tr>
+					<th>nombre del genero</th>
+					<th><input type="text" name="gen_name" id="gen_name"></th>
+				</tr>
+				<tr>
+					<th>selecciones una imagen</th>
+					<th><input type="text" name="img_gen" id="img_gen"></th>
+				</tr>
+				<tr>
+					<th><input type="submit" name="Enviar" value="subir"></th>
+					<th><input type="reset" name="borrar" value="borrar"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
 	
 	<%- include('./footer.html') %>
-	
+
 </body>
 </html>

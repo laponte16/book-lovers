@@ -382,12 +382,15 @@ app.post("/newGen",(req, res) => {
 
   pool.query(text, values, (err, res) => {
 
-    res.render("./genres.ejs");
+    res.redirect('/genres');
 
   });
+ 
+  
+ });
 
-  });
-//Crear un Post 
+
+//Crear un Post  res.render
 app.post("/create_post",(req, res) => {
   
   pool.connect();

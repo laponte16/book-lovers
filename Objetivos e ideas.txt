@@ -126,8 +126,10 @@ TO-DO/Pendientes/Bugs/Features:
     -Que clickear el user de un post te lleve a su userpage
     -Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
     -Limitar numero de paginas visibles, repartir por tandas
-    -Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
+    -(solved)Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
     -(Solved)La hora de las anwers no se agrega. Coño de la madre
+    -(sugerencia) que solo un administrador pueda agregar generos
+    -ocultar el agregar genero paar usuario no administrador 
 
 -Posts:
     -Dios santo, protect us. Todo el estilado y layout
