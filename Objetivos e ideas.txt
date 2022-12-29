@@ -117,4 +117,4 @@ Mari:
 *(Solved)La hora de las anwers no se agrega. Coño de la madre
 
 -Node:
-*Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo.
+*Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join()
