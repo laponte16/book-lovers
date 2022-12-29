@@ -143,9 +143,6 @@ app.get("/genres",(req, res) => {
           pool.query(text3, (err, result3) => {  
             const answers = result3.rows;
 
-            console.log(answers.length);
-            console.log(answers);
-
             var obj = {};
             obj.genre = genre;
             obj.post = post;
@@ -164,7 +161,6 @@ app.get("/genres",(req, res) => {
                     }
 
                   }
-                  console.log(answerProvisional);
                   if(answerProvisional.length > 0){
 
                     obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
@@ -222,7 +218,6 @@ app.get("/post/:post_id",(req, res) => {
       pool.query(text,values, (err, result2) => {
 
         const genre = result2.rows.name;
-        console.log(post.id_posts);
         const text = 'SELECT * FROM answers WHERE id_post = $1';
         const values = [post.id_posts];
       
@@ -368,7 +363,6 @@ let seconds = date_ob.getSeconds();
     const values = [username, (year + "-" + month + "-" + date), email, password];
 
     pool.query(text, values, (err, result) => {
-      console.log(err, result.rows[0]);
 
       res.redirect('/login');
 
@@ -388,13 +382,12 @@ app.post("/newGen",(req, res) => {
 
   pool.query(text, values, (err, res) => {
 
-      console.log(err, res.rows[0]);
+    res.render("./genres.ejs");
 
   });
+ res.redirect('/genres');
   
-  res.redirect('/genres');
-
-  });
+ });
 
 
 //Crear un Post  res.render
@@ -431,13 +424,11 @@ app.post("/create_post",(req, res) => {
   const text = 'INSERT INTO posts(title,id_user,id_genre,creation_date,content_post, url_image) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
   const values = [title,req.session.id_users,id_genres, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), content_post, url_image];
 
-  pool.query(text, values, (err, res) => {
+  pool.query(text, values, (err, result) => {
 
-    console.log(err, res.rows[0]);
+    res.redirect('/genres');
 
   });
-  
-  res.redirect('/genres');
   
 });
 
@@ -466,15 +457,13 @@ app.post("/answer",(req, res) => {
   let id_posts = req.body.id_post;
   let id_users = req.body.id_user;
 
-  console.log(req.body.id_post, req.body.id_user);
-
   const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4)';
   const values = [id_posts, id_users, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), respuesta];
 
   pool.query(text, values, (err, result) => {
-    console.log(err, result.rows);
-    
+  
     res.redirect('/post/'+id_posts);
+
   });
   
 });
