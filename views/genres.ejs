@@ -14,20 +14,14 @@
 <body>
 
 	<%- include('./nav.ejs') %>
-
-	<div class="flex flex-col items-center">
-		<%
-		var number = Math.floor(result.genre.length/4); 
-		if((result.genre.length%4)>0){number++}
-		for (var i = 0; i<number; i++){  %>
-			<div class="flex flex-row pl">
-				<%for (var j = 4*i ; j < result.genre.length-(4*(number-i)); j++) { %>
-				<div class="texto-white grow">
-					<a href="/showGen/<%=result.genre[j].id_genres%>/"><%=result.genre[j].name%></a>
-				</div>
-				<% } %>
+	<div class="flex justify-center">
+		<div class="flex flex-row flex-wrap my-4 w-4/5 text-center">
+			<%for (var i = 0; i<result.genre.length; i++){  %>
+					<div class="texto-white grow mx-4 my-2 fondo-red rounded pb-1">
+						<b><a href="/showGen/<%=result.genre[i].id_genres%>/"><%=result.genre[i].name%></a></b>
+					</div>
+			<%}%>
 		</div>
-		<%}%>
 	</div>
 
 	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
