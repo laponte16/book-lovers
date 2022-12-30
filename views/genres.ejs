@@ -14,6 +14,24 @@
 <body>
 
 	<%- include('./nav.ejs') %>
+
+		<!--Funcion de busqueda-->
+		<div class="flex justify-end">
+			<form method="post" action="/search" class="flex flex-col texto-white my-4 mr-2 fondo-black rounded p-2">
+				<div class="">
+					<p>Search by Title</p>
+				</div>
+				<div class="flex flex-row mt-1">
+					<div class="mr-2">
+						<input type="text" name="search" id="search" class="rounded fondo-white">
+					</div>
+					<div>
+						<input type="submit" name="buscar" value="Search" class="cursor-pointer rounded fondo-red px-1">
+					</div>
+				</div>
+			</form>
+		</div>
+
 	<div class="flex justify-center">
 		<div class="flex flex-row flex-wrap my-4 w-4/5 text-center">
 			<%for (var i = 0; i<result.genre.length; i++){  %>
@@ -65,41 +83,6 @@
 			</div>		
 		<% } %>
 	</section>
-
-	<!--AGREGAR GENEROS-->
-	<div class="agregar" id="agregar">
-		<form  method="post" action="/newgen">
-			<table border="1">
-				<tr><th colspan="2">agregar generos</th></tr>
-				<tr>
-					<th>nombre del genero</th>
-					<th><input type="text" name="gen_name" id="gen_name"></th>
-				</tr>
-				<tr>
-					<th>selecciones una imagen</th>
-					<th><input type="text" name="img_gen" id="img_gen"></th>
-				</tr>
-				<tr>
-					<th><input type="submit" name="Enviar" value="subir"></th>
-					<th><input type="reset" name="borrar" value="borrar"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-		<!--buscar genero-->
-	<div class="agregar" id="agregar">
-		<form  method="post" action="/search">
-			<table border="1">
-				<tr><th colspan="2">agregar generos</th></tr>
-				<tr>
-					<th>nombre del genero</th>
-					<th><input type="text" name="search" id="search"></th>
-				</tr>
-				<tr><th><input type="submit" name="buscar" value="buscar"></th></tr>
-				
-			</table>
-		</form>
-	</div>
 	
 	<%- include('./footer.html') %>
 

@@ -467,34 +467,91 @@ app.post("/answer",(req, res) => {
   });
   
 });
+/* Funcion para buscar posts que contengan el parametro de busqueda */
+app.post("/search",(req, res) => {
 
-app.get("/search/:title",(req, res) => {
+  let search = req.body.search;
 
-  const text = 'SELECT * FROM posts WHERE title = $1';
-  const values = [req.params.title];
+   const text0 = 'SELECT * FROM genres';
 
- 
+  pool.query(text0, (err, result) => {
+    const genre = result.rows;
 
-      
-      
-        pool.query(text,values, (err, result3) => {
+    const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts WHERE LOWER(title) LIKE LOWER($1)';
+    const values1 = ['%'+search+'%'];
 
-          const answer = result3.rows;
-        
+    pool.query(text1, values1, (err, result1) => {
+
+      post = result1.rows;
+
+      for(var i = 0; i<post.length; i++){
+        post[i].number_words = post[i].content_post.length;
+        if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
+        else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
+      }
+
+      const text2 = 'SELECT id_users,username FROM users';
+
+      pool.query(text2, (err, result2) => {  
+          const users = result2.rows;
+
+          for (var i = 0 ; i < post.length; i++) {
+            post[i].creation_date = post[i].creation_date.toString();
+            post[i].creation_date = post[i].creation_date.slice(0,24);
+            for (var j = 0 ; j < users.length; j++) {
+              if(post[i].id_user == users[j].id_users)
+              {
+                post[i].username = users[j].username;
+              }
+            }
+          }
+
+          const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
+
+          pool.query(text3, (err, result3) => {  
+            const answers = result3.rows;
+
             var obj = {};
             obj.genre = genre;
             obj.post = post;
-            obj.user = user;
-            obj.answer = answer;
-            obj.session = req.session; 
-  
-            res.render("./post.ejs" , {result: obj} );
-      
-        });
-      
-    
-  
+            obj.session = req.session;
 
+                for(i = 0; i < obj.post.length; i++){
+
+                  answerProvisional = [];
+
+                  for(j = 0; j< answers.length; j++){
+
+                    if(answers[j].id_post == obj.post[i].id_posts){
+
+                      answerProvisional.push(answers[j].creation_date);
+
+                    }
+
+                  }
+                  if(answerProvisional.length > 0){
+
+                    obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
+                    obj.post[i].activity = obj.post[i].activity.slice(0,24);
+
+                    obj.post[i].replies = answerProvisional.length;
+
+                  }
+
+                  else{
+
+                    obj.post[i].activity = obj.post[i].creation_date;
+                    obj.post[i].replies = 0;
+
+                  }
+                  
+                }
+ 
+            res.render("./genres.ejs" , {result: obj} );
+        });
+      });
+    });
+  });
 });
 
 app.listen(3000, () => {
