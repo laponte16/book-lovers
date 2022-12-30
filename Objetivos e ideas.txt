@@ -129,11 +129,15 @@ TO-DO/Pendientes/Bugs/Features:
     -(solved)Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
     -(Solved)La hora de las anwers no se agrega. Coño de la madre
     -(sugerencia) que solo un administrador pueda agregar generos
-    -(Semi-solved, migrado a /AddPost)ocultar el agregar genero paar usuario no administrador 
+    -(Semi-solved, migrado a /AddPost)ocultar el agregar genero paar usuario no administrador
+    -Hay un genero en minusculas. Tener en cuenta los posts que afecten si se cambia
+    -Upvote/Down vote visible en el foro
 
 -Posts:
     -Dios santo, protect us. Todo el estilado y layout
     -Hm hm. Que haya un contador de palabras para las respuestas.
+    -Respuestas a las respuestas
+    -Upvote/downvote
 
 -Crear Post:
     -Estilado y contador de palabras para el contenido.
@@ -145,6 +149,7 @@ TO-DO/Pendientes/Bugs/Features:
 -Node:
     -Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join() Potencialmente
     -Que no te deslogeen al entrar a home
+    -Agregar otra columna al usuario que maneje si es administrador o no, para saber si tiene acceso a la pagina donde se editan las funciones hidden de la pagina. Solo se debe ser administrador si te agregan directo por la DB, no creando usuario
 
 -Global:
     -Mover todas las cosas a las que el usuario no supone tener acceso a una pagina hidden sin ruta mas que meter el link directamente
