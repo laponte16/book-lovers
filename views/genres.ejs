@@ -14,16 +14,19 @@
 <body>
 
 	<%- include('./nav.ejs') %>
+	<div>
+		<div>
 
+		</div>
 		<!--Funcion de busqueda-->
 		<div class="flex justify-end">
-			<form method="post" action="/search" class="flex flex-col texto-white my-4 mr-2 p-2">
+			<form method="post" action="/search" class="flex flex-col texto-white my-4 mr-2 fondo-black rounded p-2">
 				<div class="">
 					<p>Search by Title</p>
 				</div>
 				<div class="flex flex-row mt-1">
 					<div class="mr-2">
-						<input type="text" name="search" id="search" class="rounded fondo-white">
+						<input type="text" name="search" id="search" class="rounded fondo-white texto-black">
 					</div>
 					<div>
 						<input type="submit" name="buscar" value="Search" class="cursor-pointer rounded fondo-red px-1">
@@ -31,7 +34,8 @@
 				</div>
 			</form>
 		</div>
-
+	</div>
+	
 	<div class="flex justify-center">
 		<div class="flex flex-row flex-wrap my-4 w-4/5 text-center fondo-black rounded p-6">
 			<%for (var i = 0; i<result.genre.length; i++){  %>
