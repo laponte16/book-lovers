@@ -477,7 +477,7 @@ app.post("/search",(req, res) => {
   pool.query(text0, (err, result) => {
     const genre = result.rows;
 
-    const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts WHERE LOWER(title) LIKE LOWER($1)';
+    const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
     const values1 = ['%'+search+'%'];
 
     pool.query(text1, values1, (err, result1) => {

@@ -118,17 +118,17 @@ TO-DO/Pendientes/Bugs/Features:
 -En generos/foro:
     -DEBE MOSTRAR QUE GENERO ES, AHHHHHHHHHH
     -Opcion de crear post por aqui? Escondida si no estas loggeado
-    -Reskin y quizas relayout de los botones de generos
-    -Hacerle un reskin de estilos a los posts? Le falta bling
-    -Que clickear el user de un post te lleve a su userpage
-    -Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
-    -Limitar numero de paginas visibles, repartir por tandas
-    -(solved)Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
-    -(Solved)La hora de las anwers no se agrega. Coño de la madre
-    -(sugerencia) que solo un administrador pueda agregar generos
-    -(Semi-solved, migrado a /AddPost)ocultar el agregar genero paar usuario no administrador
+    -(semi-solved, migrado a /AddPost)ocultar el agregar genero paar usuario no administrador
     -Hay un genero en minusculas. Tener en cuenta los posts que afecten si se cambia
     -Upvote/Down vote visible en el foro
+    -Que clickear el user de un post te lleve a su userpage
+    -Limitar numero de paginas visibles, repartir por tandas
+    -que solo un administrador pueda agregar generos
+    -(Solved)Reskin y quizas relayout de los botones de generos
+    -(Solved)Hacerle un reskin de estilos a los posts? Le falta bling
+    -(Solved)Una funcion de busqueda, por titulo y/o contenido(Recordar poner todo en minuscula)
+    -(solved)Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
+    -(Solved)La hora de las anwers no se agrega. Coño de la madre
 
 -Posts:
     -Dios santo, protect us. Todo el estilado y layout
