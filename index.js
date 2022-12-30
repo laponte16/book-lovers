@@ -468,6 +468,35 @@ app.post("/answer",(req, res) => {
   
 });
 
+app.get("/search/:title",(req, res) => {
+
+  const text = 'SELECT * FROM posts WHERE title = $1';
+  const values = [req.params.title];
+
+ 
+
+      
+      
+        pool.query(text,values, (err, result3) => {
+
+          const answer = result3.rows;
+        
+            var obj = {};
+            obj.genre = genre;
+            obj.post = post;
+            obj.user = user;
+            obj.answer = answer;
+            obj.session = req.session; 
+  
+            res.render("./post.ejs" , {result: obj} );
+      
+        });
+      
+    
+  
+
+});
+
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
 });
