@@ -12,12 +12,17 @@
 	
 </head>
 <body>
+	<%- include('./nav.ejs') %>
 	<h1 id="titulo-gen" class=".texto-white">libros del genero <%=result.genres[0].name%></h1>
+	<br>
+	<table></table>
 	<section class="flex-container"> 
 		<%for (var i = 0 ; i < result.posts.length; i++) { %>
 			<div class="caja">
-				<a href="/post/<%=result.posts[i].id_posts%>/"><%=result.posts[i].title%></a>	
+				<a href="/post/<%=result.posts[i].id_posts%>/"><%=result.posts[i].title%></a> Autor<%=result.posts[i].username%>	
 			</div>
+
+			
 		<% } %>
 	</section>
 	
@@ -26,6 +31,6 @@
 
 	
 	
-
+<%- include('./footer.html') %>
 </body>
 </html>
