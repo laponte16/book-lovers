@@ -107,9 +107,6 @@ TO-DO/Pendientes/Bugs/Features:
 -Nav:
     -Que salga bien lo de estar logged/deslogged
 
--Footer:
-    -Arreglar problemas de layout
-
 -Home:
     -Habiamos hablado de poner una especie de carrusel para las mas vistas?
     -Abiertos a ideas y experimentos
