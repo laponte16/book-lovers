@@ -130,11 +130,14 @@ TO-DO/Pendientes/Bugs/Features:
     -(solved)Segun agregar un nuevo genero genera algun tipo de crash, a pesar de que se agrega.
     -(Solved)La hora de las anwers no se agrega. Coño de la madre
 
+
 -Posts:
     -Dios santo, protect us. Todo el estilado y layout
     -Hm hm. Que haya un contador de palabras para las respuestas.
     -Respuestas a las respuestas
     -Upvote/downvote
+    -agregar como darle puntaje a un post
+    -sacar media del puntaje del post 
 
 -Crear Post:
     -Estilado y contador de palabras para el contenido.
