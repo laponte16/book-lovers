@@ -12,40 +12,51 @@
 	
 </head>
 <body>
+
 	<%- include('./nav.ejs') %>
-	<div>
-	<h3>publicado por: <%=result.user.username%></h3>
-	<section>
-		<div>
-			<h2><%=result.post.title%></h2>
-			<br>
-			<%=result.post.content_post%>
-			<br>
-		</div>
-	</section>
-	<form action="/answer" method="post" name="answer_post">
-		<div class="pt-4 flex flex-col justify-center align-middle items-center">
-			<div>
-				<p>Publish an Answer to the Post?</p>
+
+	<div class="flex flex-col texto-white m-3">
+
+		<div class="flex flex-row fondo-black borde-red border-2 rounded w-full p-3">
+			<div class="mr-2 borde-white border-2">
+				<img src="<%=result.post.url_image%>" class="rounded w-20 h-20">
 			</div>
-			<div>
-				<input type="text" name="respuesta" id="respuesta"  class="rounded-md text-black px-2 h-9 border-black border-2 bg-gray-100">
-				<input type="hidden" name="id_post" id="id_post" value="<%=result.post.id_posts%>">
-				<input type="hidden" name="id_user" id="id_user" value="<%=result.session.id_users%>">
-			</div>
-			<div class="flex flex-row justify-center w-full">
-				<input type="submit" name="Enviar" value="responder" class="cursor-pointer">
-				<input type="reset" name="borrar" value="borrar" class="cursor-pointer">
+			<div class="flex flex-col ml-2">
+				<p class="text-3xl"><i><b><%=result.post.title%></b></i></p>
+				<p class="text-2xl"><%=result.user.username%></p>
 			</div>
 		</div>
-	</form>
+
+		<div class="flex flex-col fondo-black rounded px-4 py-2">
+			<p class="mt-4 text-lg text-justify px-2"><%=result.post.content_post%></p>
+			<p class="text-end"><i><%=result.post.creation_date%></i></p>
+		</div>
+
+		<form action="/answer" method="post" name="answer_post">
+			<div class="pt-4 flex flex-col justify-center">
+				<div>
+					<p class="ml-3 rounded-t fondo-white texto-gray w-fit p-1"><b><i>Want to contribute to this Post?</i></b></p>
+				</div>
+				<div class="px-3 flex flex-col">
+                    <textarea name="content_post" id="content_post" maxlength="2000" class="resize-none rounded-x rounded-b rounded-r borde-white border-2 w-full p-1 texto-white fondo-gray"></textarea>
+					<div class="flex flex-row items-center justify-between mt-1">
+						<input type="submit" name="Enviar" value="Answer" class="cursor-pointer rounded fondo-red px-2 w-fit">
+						<p class="texto-white text-end"><i>0/2000</i></p>
+					</div>
+				</div>
+				
+			</div>
+		</form>
+
 	</div>
+
 	<div>
 		<%for (var i = 0 ; i < result.answer.length; i++) { %>
 			<p><%=result.answer[i].content_answer%></p>
 			<br>
 		<% } %>
 	</div>
+
 	<%- include('./footer.html') %>
 </body>
 </html>

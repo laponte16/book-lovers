@@ -197,45 +197,51 @@ app.get("/signOut",(req, res) => {
 /*Query para mostrar un post, mandando de parametro el id del mismo*/
 app.get("/post/:post_id",(req, res) => {
 
+  /* Queries y Valores */
   const text = 'SELECT * FROM posts WHERE id_posts = $1';
   const values = [req.params.post_id];
+  
+  pool.query(text,values,(err, result) =>{
+    const post = result.rows;
 
-  pool.query(text,values, (err, result) => {
+    post.creation_date = post.creation_date.toString();
+    post.creation_date = post.creation_date.slice(0,24);
 
-    const post = result.rows[0];
+    const text1 = 'SELECT * FROM users WHERE id_users = $1';
+    const values1 = [post.id_user];
 
-    const text = 'SELECT * FROM users WHERE id_users = $1';
-    const values = [post.id_user];
-    pool.query(text,values, (err, result1) => {
+    const text2 = 'SELECT * FROM genres WHERE id_genres = $1';
+    const values2 = [post.id_genre];
 
+    const text3 = 'SELECT * FROM answers WHERE id_post = $1';
+    const values3 = [post.id_posts];
+
+    Promise.all([
+      pool.query(text1,values1),
+      pool.query(text2,values2),
+      pool.query(text3,values3)
+    ]).then(function([result1, result2, result3]) {
+  
       var user = {};
       user.username = result1.rows[0].username;
       user.id_user = result1.rows[0].id_users;
-
-      const text = 'SELECT * FROM genres WHERE id_genres = $1';
-      const values = [post.id_genre];
-
-      pool.query(text,values, (err, result2) => {
-
-        const genre = result2.rows.name;
-        const text = 'SELECT * FROM answers WHERE id_post = $1';
-        const values = [post.id_posts];
-      
-        pool.query(text,values, (err, result3) => {
-
-          const answer = result3.rows;
-        
-            var obj = {};
-            obj.genre = genre;
-            obj.post = post;
-            obj.user = user;
-            obj.answer = answer;
-            obj.session = req.session; 
   
-            res.render("./post.ejs" , {result: obj} );
-      
-        });
-      });
+      const genre = result2.rows.name;
+  
+      const answer = result3.rows;
+  
+      var obj = {};
+  
+      obj.post = post;
+      obj.user = user;
+      obj.genre = genre;
+      obj.answer = answer;
+      obj.session = req.session; 
+    
+      res.render("./post.ejs" , {result: obj} );
+  
+    }, function(error) {
+      throw error;
     });
   });
 
@@ -477,7 +483,7 @@ app.post("/search",(req, res) => {
   /*Queries y Valores*/
   const text0 = 'SELECT * FROM genres';
 
-  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
+  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image, ROW_NUMBER() OVER (ORDER BY id_posts) FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
   const values1 = ['%'+search+'%'];
 
   const text2 = 'SELECT id_users,username FROM users';
@@ -491,6 +497,8 @@ app.post("/search",(req, res) => {
     pool.query(text2),
     pool.query(text3)
   ]).then(function([result, result1, result2, result3]) {
+
+    console.log(result1);
 
     const genre = result.rows;
 
