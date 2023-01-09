@@ -105,7 +105,7 @@ https://es.stackoverflow.com/questions/260384/validar-formulario-de-login-con-js
 TO-DO/Pendientes/Bugs/Features:
 
 -Nav:
-    -Que salga bien lo de estar logged/deslogged
+    -(Solved)Que salga bien lo de estar logged/deslogged
 
 -Home:
     -Habiamos hablado de poner una especie de carrusel para las mas vistas?
