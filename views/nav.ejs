@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <ul class="texto-white z-20 md:flex md:items-center
+  <ul class="texto-white z-20 md:pr-10 md:flex md:items-center
   md:relative absolute fondo-black w-full left-0 md:w-auto
   md:py-0 py-4 md:pl-0 pl-7 top-[-400px] md:top-[0]
   transition-all ease-in duration-500"> 
@@ -37,15 +37,17 @@
     <li class="mx-4 my-6 md:my-0 md:mx-0">
       <a href="/about" class="text-xl hover-red">About</a>
     </li>
-    <li class="inline-block mx-4">
+    <li class="inline-block mx-4 md:my-0 md:mx-0">
       <%if (result.session.username == "") { %>
-        <a href="/login" class="text-xl">Sign in&nbsp;&nbsp;&nbsp;&nbsp;/</a>
-        <a href="/login" class="text-xl">Sign Up</a>
+        <a href="/login" class="text-xl hover-red pr-0">Sign in</a>
+        <a class="text-xl p-0">/</a>
+        <a href="/login" class="text-xl hover-red pl-0">Sign Up</a>
         <% }else{ %>
-          <p class="text-xl">Welcome, <%= result.session.username%></p>
-          <a href="/signOut" class="text-xl">Logout</a>
+            <a class="text-xl">Welcome, </a><a href="/user" class="hover-red text-xl pl-0"><%= result.session.username%></a>
+          <li class="inline-block md:my-0 md:mx-0 hover-red"><a href="/signOut" class="text-xl"><i class="fa-solid fa-right-from-bracket"></i></a></li> 
             <%}%>
     </li>
+    
   </ul>
 </nav>
 
