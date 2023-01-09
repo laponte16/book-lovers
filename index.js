@@ -202,7 +202,7 @@ app.get("/post/:post_id",(req, res) => {
   const values = [req.params.post_id];
   
   pool.query(text,values,(err, result) =>{
-    const post = result.rows;
+    const post = result.rows[0];
 
     post.creation_date = post.creation_date.toString();
     post.creation_date = post.creation_date.slice(0,24);
@@ -459,12 +459,12 @@ app.post("/answer",(req, res) => {
 
   let seconds = date_ob.getSeconds();
   
-  let respuesta = req.body.respuesta;
+  let answer = req.body.answer;
   let id_posts = req.body.id_post;
   let id_users = req.body.id_user;
 
   const text = 'INSERT INTO answers(id_post,id_user, creation_date,content_answer) VALUES($1, $2, $3, $4)';
-  const values = [id_posts, id_users, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), respuesta];
+  const values = [id_posts, id_users, (year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds), answer];
 
   pool.query(text, values, (err, result) => {
   
