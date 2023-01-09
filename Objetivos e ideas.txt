@@ -136,8 +136,9 @@ TO-DO/Pendientes/Bugs/Features:
     -Hm hm. Que haya un contador de palabras para las respuestas.
     -Respuestas a las respuestas
     -Upvote/downvote
-    -agregar como darle puntaje a un post
-    -sacar media del puntaje del post 
+    -Puntaje:
+        *agregar como darle puntaje a un post
+        *sacar media del puntaje del post
 
 -Crear Post:
     -Estilado y contador de palabras para el contenido.

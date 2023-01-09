@@ -468,7 +468,7 @@ app.post("/answer",(req, res) => {
   
 });
 /* Funcion para buscar posts que contengan el parametro de busqueda */
-app.post("/search",(req, res) => {
+/*app.post("/search",(req, res) => {
 
   let search = req.body.search;
 
@@ -553,6 +553,100 @@ app.post("/search",(req, res) => {
     });
   });
 });
+*/
+app.post("/search",(req, res) => {
+
+  /* Parametros del request */
+  let search = req.body.search;
+
+  /*Queries y Valores*/
+  const text0 = 'SELECT * FROM genres';
+
+  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
+  const values1 = ['%'+search+'%'];
+
+  const text2 = 'SELECT id_users,username FROM users';
+
+  const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
+
+  /*Ejecucion de Queries en simultaneo*/
+  Promise.all([
+    pool.query(text0),
+    pool.query(text1, values1),
+    pool.query(text2),
+    pool.query(text3)
+  ]).then(function([result, result1, result2, result3]) {
+
+    const genre = result.rows;
+
+    post = result1.rows;
+    /* Preview del post */
+    for(var i = 0; i<post.length; i++){
+      post[i].number_words = post[i].content_post.length;
+      if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
+      else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
+    }
+
+    const users = result2.rows;
+    /* Fecha de creacion del post y buscar el username del creador */
+    for (var i = 0 ; i < post.length; i++) {
+      post[i].creation_date = post[i].creation_date.toString();
+      post[i].creation_date = post[i].creation_date.slice(0,24);
+      for (var j = 0 ; j < users.length; j++) {
+        if(post[i].id_user == users[j].id_users)
+          {
+            post[i].username = users[j].username;
+          }
+      }
+    }
+
+    const answers = result3.rows;
+    /* Objeto de resultados */
+    var obj = {};
+    obj.genre = genre;
+    obj.post = post;
+    obj.session = req.session;
+
+    /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
+    for(i = 0; i < obj.post.length; i++){
+
+      answerProvisional = [];
+
+      for(j = 0; j< answers.length; j++){
+
+        if(answers[j].id_post == obj.post[i].id_posts){
+
+          answerProvisional.push(answers[j].creation_date);
+
+        }
+
+      }
+      if(answerProvisional.length > 0){
+
+        obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
+        obj.post[i].activity = obj.post[i].activity.slice(0,24);
+        obj.post[i].replies = answerProvisional.length;
+
+      }
+
+      else{
+
+        obj.post[i].activity = obj.post[i].creation_date;
+        obj.post[i].replies = 0;
+
+      }
+                  
+    }
+    /* Renderizado */
+    res.render("./genres.ejs" , {result: obj});
+  }, function(error) {
+    throw error;
+  });
+
+
+});  
+
+      
 
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
