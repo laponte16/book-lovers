@@ -38,7 +38,7 @@
 					<p class="ml-3 rounded-t fondo-white texto-gray w-fit p-1"><b><i>Want to contribute to this Post?</i></b></p>
 				</div>
 				<div class="px-3 flex flex-col">
-                    <textarea name="answer" id="answer" maxlength="2000" class="resize-none rounded-x rounded-b rounded-r borde-white border-2 w-full p-1 texto-white fondo-gray"></textarea>
+                    <textarea name="answer" id="answer" maxlength="500" class="resize-none rounded-x rounded-b rounded-r borde-white border-2 w-full p-1 texto-white fondo-gray"></textarea>
 
 					<!--Campos ocultos-->
 					<input type="hidden" name="id_post" id="id_post" value="<%=result.post.id_posts%>">
@@ -46,7 +46,7 @@
 
 					<div class="flex flex-row items-center justify-between mt-1">
 						<input type="submit" name="Enviar" value="Answer" class="cursor-pointer rounded fondo-red px-2 w-fit">
-						<p class="texto-white text-end"><i>0/2000</i></p>
+						<p class="texto-white text-end"><i>0/500</i></p>
 					</div>
 				</div>
 				
@@ -55,10 +55,18 @@
 
 	</div>
 
-	<div>
+	<div class="flex flex-col">
 		<%for (var i = 0 ; i < result.answer.length; i++) { %>
-			<p><%=result.answer[i].content_answer%></p>
-			<br>
+			<div class="flex flex-row mx-3 my-2 px-3 py-1 fondo-black rounded texto-white">
+				<div class="flex flex-col">
+					<p class="text-lg fondo-gray texto-red rounded w-fit px-5"><b><%=result.answer[i].username%></b></p>
+				</div>
+				
+				<div class="w-full">
+					<p class="pl-5 pt-1"><%=result.answer[i].content_answer%></p>
+					<p class="text-end text-sm texto-red"><i><%=result.answer[i].creation_date%></i></p>
+				</div>
+			</div>
 		<% } %>
 	</div>
 

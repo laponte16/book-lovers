@@ -358,11 +358,15 @@ app.get("/post/:post_id",(req, res) => {
     const text3 = 'SELECT * FROM answers WHERE id_post = $1';
     const values3 = [post.id_posts];
 
+    const text4 = 'SELECT id_users,username FROM users WHERE id_users IN (SELECT id_user FROM answers WHERE id_post = $1)';
+    const values4 = [post.id_posts];
+
     Promise.all([
       pool.query(text1,values1),
       pool.query(text2,values2),
-      pool.query(text3,values3)
-    ]).then(function([result1, result2, result3]) {
+      pool.query(text3,values3),
+      pool.query(text4,values4)
+    ]).then(function([result1, result2, result3, result4]) {
   
       var user = {};
       user.username = result1.rows[0].username;
@@ -370,8 +374,20 @@ app.get("/post/:post_id",(req, res) => {
   
       const genre = result2.rows.name;
   
-      const answer = result3.rows;
-  
+      answer = result3.rows;
+
+      const userAnswers = result4.rows;
+
+      for(var i = 0; i < answer.length; i++){
+        for(var j = 0; j<userAnswers.length; j++){
+          if(answer[i].id_user == userAnswers[j].id_users){
+            answer[i].username = userAnswers[j].username;
+          }
+        }
+
+        answer[i].creation_date = answer[i].creation_date.toString();
+        answer[i].creation_date = answer[i].creation_date.slice(0,24);
+      }
       var obj = {};
   
       obj.post = post;
@@ -611,7 +627,7 @@ app.post("/answer",(req, res) => {
   pool.query(text, values, (err, result) => {
   
     res.redirect('/post/'+id_posts);
-
+    console.log(err);
   });
   
 });

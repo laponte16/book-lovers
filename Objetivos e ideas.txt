@@ -116,7 +116,7 @@ TO-DO/Pendientes/Bugs/Features:
     -Integracion con google y/facebook
 
 -En generos/foro:
-    -DEBE MOSTRAR QUE GENERO ES, AHHHHHHHHHH
+    
     -Opcion de crear post por aqui? Escondida si no estas loggeado
     -(semi-solved, migrado a /AddPost)ocultar el agregar genero paar usuario no administrador
     -Hay un genero en minusculas. Tener en cuenta los posts que afecten si se cambia
@@ -124,6 +124,7 @@ TO-DO/Pendientes/Bugs/Features:
     -Que clickear el user de un post te lleve a su userpage
     -que solo un administrador pueda agregar generos
     -Tomar en cuenta si hay muchos numeros de paginas
+    -(Solved)DEBE MOSTRAR QUE GENERO ES, AHHHHHHHHHH
     -(Solved)Si el tamaño del titulo es muy grande, empuja el width descuadrando el layout
     -(Solved)Limitar numero de paginas visibles, repartir por tandas
     -(Solved)Reskin y quizas relayout de los botones de generos
@@ -134,7 +135,7 @@ TO-DO/Pendientes/Bugs/Features:
 
 
 -Posts:
-    -Dios santo, protect us. Todo el estilado y layout
+    -(Solved!)Dios santo, protect us. Todo el estilado y layout
     -Hm hm. Que haya un contador de palabras para las respuestas.
     -Respuestas a las respuestas
     -Upvote/downvote
@@ -150,8 +151,8 @@ TO-DO/Pendientes/Bugs/Features:
     -Hacerla de manera correcta. Entiendase, que sea disponible para cualquier usuario y muestre lo que deba mostrar.
 
 -Node:
-    -Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join() Potencialmente
-    -Que no te deslogeen al entrar a home
+    -(Solved)Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join() Potencialmente
+    -(Solved)Que no te deslogeen al entrar a home
     -Agregar otra columna al usuario que maneje si es administrador o no, para saber si tiene acceso a la pagina donde se editan las funciones hidden de la pagina. Solo se debe ser administrador si te agregan directo por la DB, no creando usuario
 
 -Global:
