@@ -155,4 +155,5 @@ TO-DO/Pendientes/Bugs/Features:
     -Agregar otra columna al usuario que maneje si es administrador o no, para saber si tiene acceso a la pagina donde se editan las funciones hidden de la pagina. Solo se debe ser administrador si te agregan directo por la DB, no creando usuario
 
 -Global:
+    -Que haya una sola userpage y que el user del nav te mande para la tuya(usar session)
     -Mover todas las cosas a las que el usuario no supone tener acceso a una pagina hidden sin ruta mas que meter el link directamente

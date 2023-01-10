@@ -111,7 +111,7 @@ app.get("/forum",(req, res) => {
   /*Queries y Valores*/
   const text0 = 'SELECT * FROM genres';
 
-  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10';
+  const text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10';
 
   const text2 = 'SELECT id_users,username FROM users';
 
@@ -143,10 +143,19 @@ app.get("/forum",(req, res) => {
     for (var i = 0 ; i < post.length; i++) {
       post[i].creation_date = post[i].creation_date.toString();
       post[i].creation_date = post[i].creation_date.slice(0,24);
+
       for (var j = 0 ; j < users.length; j++) {
         if(post[i].id_user == users[j].id_users)
           {
             post[i].username = users[j].username;
+          }
+      }
+
+      for (var j = 0 ; j < genre.length; j++) {
+        console.log(post[i].id_genre + '=' + genre[j].id_genres);
+        if(post[i].id_genre == genre[j].id_genres)
+          {
+            post[i].genre = genre[j].name;
           }
       }
     }
