@@ -106,87 +106,93 @@ app.get("/user",(req, res) => {
 
 });
 //La vista principal del foro
-app.get("/genres",(req, res) => {
+app.get("/forum",(req, res) => {
 
-  const text = 'SELECT * FROM genres';
+  /*Queries y Valores*/
+  const text0 = 'SELECT * FROM genres';
 
-  pool.query(text, (err, result) => {
+  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts';
+
+  const text2 = 'SELECT id_users,username FROM users';
+
+  const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
+
+  /*Ejecucion de Queries en simultaneo*/
+  Promise.all([
+    pool.query(text0),
+    pool.query(text1),
+    pool.query(text2),
+    pool.query(text3)
+  ]).then(function([result, result1, result2, result3]) {
+
+    console.log(result1);
+
     const genre = result.rows;
 
-    const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts';
+    post = result1.rows;
+    /* Preview del post */
+    for(var i = 0; i<post.length; i++){
+      post[i].number_words = post[i].content_post.length;
+      if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
+      else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
+    }
 
-    pool.query(text1, (err, result1) => {
+    const users = result2.rows;
+    /* Fecha de creacion del post y buscar el username del creador */
+    for (var i = 0 ; i < post.length; i++) {
+      post[i].creation_date = post[i].creation_date.toString();
+      post[i].creation_date = post[i].creation_date.slice(0,24);
+      for (var j = 0 ; j < users.length; j++) {
+        if(post[i].id_user == users[j].id_users)
+          {
+            post[i].username = users[j].username;
+          }
+      }
+    }
 
-      post = result1.rows;
+    const answers = result3.rows;
+    /* Objeto de resultados */
+    var obj = {};
+    obj.genre = genre;
+    obj.post = post;
+    obj.session = req.session;
 
-      for(var i = 0; i<post.length; i++){
-        post[i].number_words = post[i].content_post.length;
-        if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
-        else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
+    /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
+    for(i = 0; i < obj.post.length; i++){
+
+      answerProvisional = [];
+
+      for(j = 0; j< answers.length; j++){
+
+        if(answers[j].id_post == obj.post[i].id_posts){
+
+          answerProvisional.push(answers[j].creation_date);
+
+        }
+
+      }
+      if(answerProvisional.length > 0){
+
+        obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
+        obj.post[i].activity = obj.post[i].activity.slice(0,24);
+        obj.post[i].replies = answerProvisional.length;
+
       }
 
-      const text2 = 'SELECT id_users,username FROM users';
+      else{
 
-      pool.query(text2, (err, result2) => {  
-          const users = result2.rows;
+        obj.post[i].activity = obj.post[i].creation_date;
+        obj.post[i].replies = 0;
 
-          for (var i = 0 ; i < post.length; i++) {
-            post[i].creation_date = post[i].creation_date.toString();
-            post[i].creation_date = post[i].creation_date.slice(0,24);
-            for (var j = 0 ; j < users.length; j++) {
-              if(post[i].id_user == users[j].id_users)
-              {
-                post[i].username = users[j].username;
-              }
-            }
-          }
-
-          const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
-
-          pool.query(text3, (err, result3) => {  
-            const answers = result3.rows;
-
-            var obj = {};
-            obj.genre = genre;
-            obj.post = post;
-            obj.session = req.session;
-
-                for(i = 0; i < obj.post.length; i++){
-
-                  answerProvisional = [];
-
-                  for(j = 0; j< answers.length; j++){
-
-                    if(answers[j].id_post == obj.post[i].id_posts){
-
-                      answerProvisional.push(answers[j].creation_date);
-
-                    }
-
-                  }
-                  if(answerProvisional.length > 0){
-
-                    obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
-                    obj.post[i].activity = obj.post[i].activity.slice(0,24);
-
-                    obj.post[i].replies = answerProvisional.length;
-
-                  }
-
-                  else{
-
-                    obj.post[i].activity = obj.post[i].creation_date;
-                    obj.post[i].replies = 0;
-
-                  }
+      }
                   
-                }
- 
-            res.render("./genres.ejs" , {result: obj} );
-        });
-      });
-    });
+    }
+    /* Renderizado */
+    res.render("./forum.ejs" , {result: obj});
+  }, function(error) {
+    throw error;
   });
+
 });
 /*Logout*/
 app.get("/signOut",(req, res) => {
@@ -391,7 +397,7 @@ app.post("/newGen",(req, res) => {
 
   pool.query(text, values, (err, result) => {
 
-    res.redirect('/genres');
+    res.redirect('/forum');
 
   });
  
@@ -435,7 +441,7 @@ app.post("/create_post",(req, res) => {
 
   pool.query(text, values, (err, result) => {
 
-    res.redirect('/genres');
+    res.redirect('/forum');
 
   });
   
@@ -486,7 +492,7 @@ app.post("/search",(req, res) => {
   /*Queries y Valores*/
   const text0 = 'SELECT * FROM genres';
 
-  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image, ROW_NUMBER() OVER (ORDER BY id_posts) FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
+  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
   const values1 = ['%'+search+'%'];
 
   const text2 = 'SELECT id_users,username FROM users';
@@ -564,7 +570,7 @@ app.post("/search",(req, res) => {
                   
     }
     /* Renderizado */
-    res.render("./genres.ejs" , {result: obj});
+    res.render("./forum.ejs" , {result: obj});
   }, function(error) {
     throw error;
   });
