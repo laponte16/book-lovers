@@ -90,8 +90,14 @@
 		<% } %>
 	</section>
 	
-	<div>
-		<p>Viewing Page <%=result.view.current%> of <%=result.view.max%> </p>
+	<div class="flex flex-col items-center mt-3">
+		<p class="texto-white fondo-black w-fit rounded p-2">
+			<b>Viewing Page <%=result.view.current%> of
+			<% for (var i = 0 ; i < result.view.max; i++) { %>
+				<a href="/forum/<%=i+1%>" class="texto-red py-0 px-0.5 mr-0.5 border-2 borde-red"><%=i+1%></a>
+			<% } %>
+			</b>
+		</p>
 	</div>
 
 	<%- include('./footer.html') %>

@@ -111,7 +111,7 @@ app.get("/forum",(req, res) => {
   /*Queries y Valores*/
   const text0 = 'SELECT * FROM genres';
 
-  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts';
+  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10';
 
   const text2 = 'SELECT id_users,username FROM users';
 
@@ -127,8 +127,6 @@ app.get("/forum",(req, res) => {
     pool.query(text3),
     pool.query(text4)
   ]).then(function([result, result1, result2, result3, result4]) {
-
-    console.log(result1);
 
     const genre = result.rows;
 
@@ -155,8 +153,7 @@ app.get("/forum",(req, res) => {
 
     const answers = result3.rows;
 
-    const numberOfPosts = result4;
-    console.log(result4);
+    const numberOfPosts = result4.rows[0].count;
     /* Objeto de resultados */
     var obj = {};
     obj.genre = genre;
@@ -166,8 +163,112 @@ app.get("/forum",(req, res) => {
     var current = 1;
     var max = 999;
     if(numberOfPosts < 10){max = 1;}
-    else if(numberOfPosts%10 != 0){max = (numberOfPosts/10)+1;}
-    else{max = (numberOfPosts/10)}
+    else if(numberOfPosts%10 != 0){max = Math.floor((numberOfPosts/10)+1);}
+    else{max = Math.floor(numberOfPosts/10);}
+    obj.view = {current,max};
+
+    /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
+    for(i = 0; i < obj.post.length; i++){
+
+      answerProvisional = [];
+
+      for(j = 0; j< answers.length; j++){
+
+        if(answers[j].id_post == obj.post[i].id_posts){
+
+          answerProvisional.push(answers[j].creation_date);
+
+        }
+
+      }
+      if(answerProvisional.length > 0){
+
+        obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
+        obj.post[i].activity = obj.post[i].activity.slice(0,24);
+        obj.post[i].replies = answerProvisional.length;
+
+      }
+
+      else{
+
+        obj.post[i].activity = obj.post[i].creation_date;
+        obj.post[i].replies = 0;
+
+      }
+                  
+    }
+    /* Renderizado */
+    res.render("./forum.ejs" , {result: obj});
+  }, function(error) {
+    throw error;
+  });
+
+});
+
+/* Visualizacion de otras paginas del foro */
+app.get("/forum/:view",(req, res) => {
+
+  let view = (parseInt(req.params.view)-1) *10;
+  console.log(view);
+  console.log(req.params.view);
+  /*Queries y Valores*/
+  const text0 = 'SELECT * FROM genres';
+
+  const text1 = 'SELECT id_posts,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10 OFFSET $1';
+  const values1 = [view];
+
+  const text2 = 'SELECT id_users,username FROM users';
+
+  const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
+
+  const text4 = 'SELECT COUNT(*) FROM posts';
+
+  /*Ejecucion de Queries en simultaneo*/
+  Promise.all([
+    pool.query(text0),
+    pool.query(text1,values1),
+    pool.query(text2),
+    pool.query(text3),
+    pool.query(text4)
+  ]).then(function([result, result1, result2, result3, result4]) {
+
+    const genre = result.rows;
+
+    post = result1.rows;
+    /* Preview del post */
+    for(var i = 0; i<post.length; i++){
+      post[i].number_words = post[i].content_post.length;
+      if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
+      else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
+    }
+
+    const users = result2.rows;
+    /* Fecha de creacion del post y buscar el username del creador */
+    for (var i = 0 ; i < post.length; i++) {
+      post[i].creation_date = post[i].creation_date.toString();
+      post[i].creation_date = post[i].creation_date.slice(0,24);
+      for (var j = 0 ; j < users.length; j++) {
+        if(post[i].id_user == users[j].id_users)
+          {
+            post[i].username = users[j].username;
+          }
+      }
+    }
+
+    const answers = result3.rows;
+
+    const numberOfPosts = result4.rows[0].count;
+    /* Objeto de resultados */
+    var obj = {};
+    obj.genre = genre;
+    obj.post = post;
+    obj.session = req.session;
+    /*Numero de paginas a visualizar*/
+    var current = req.params.view;
+    var max = 999;
+    if(numberOfPosts < 10){max = 1;}
+    else if(numberOfPosts%10 != 0){max = Math.floor((numberOfPosts/10)+1);}
+    else{max = Math.floor(numberOfPosts/10);}
     obj.view = {current,max};
 
     /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
