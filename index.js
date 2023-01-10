@@ -500,7 +500,7 @@ let seconds = date_ob.getSeconds();
   });
 });
 
-//Agregar un nuevo Genero 
+//agregar nuevo genero a los ya existentes 
 app.post("/newGen",(req, res) => {
   pool.connect();
 
