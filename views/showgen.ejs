@@ -13,18 +13,20 @@
 </head>
 <body>
 	<%- include('./nav.ejs') %>
-	<h1 id="titulo-gen" class=".texto-white">libros del genero <%=result.genres[0].name%></h1>
+	<div class="flex flex-col texto-white m-3">
+	<p class="text-2xl"> books of the genre :<span class="texto-red "><%=result.genres[0].name%></span></p>
 	<br>
 	<table></table>
 	<section class="flex-container"> 
 		<%for (var i = 0 ; i < result.posts.length; i++) { %>
-			<div class="caja">
-				<a href="/post/<%=result.posts[i].id_posts%>/"><%=result.posts[i].title%></a> Autor<%=result.posts[i].username%>	
+			<div class="flex flex-row fondo-black borde-red border-2 rounded w-full p-3">
+				<a class="hover-red" href="/post/<%=result.posts[i].id_posts%>/"><%=result.posts[i].title%></a> Author<%=result.posts[i].username%>	
 			</div>
 
 			
 		<% } %>
 	</section>
+	</div>
 	
 
 
