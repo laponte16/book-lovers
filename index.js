@@ -53,8 +53,11 @@ app.use(session({
 /*Inicial*/
 app.get("/", (req, res) => {
   
-  req.session.username = "";
-  req.session.id_user = "";
+  if(req.session.username == null){
+    req.session.username = "";
+    req.session.id_user = "";
+  }
+  
 
   var obj = {};
   obj.session = req.session;
