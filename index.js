@@ -117,13 +117,16 @@ app.get("/forum",(req, res) => {
 
   const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
 
+  const text4 = 'SELECT COUNT(*) FROM posts';
+
   /*Ejecucion de Queries en simultaneo*/
   Promise.all([
     pool.query(text0),
     pool.query(text1),
     pool.query(text2),
-    pool.query(text3)
-  ]).then(function([result, result1, result2, result3]) {
+    pool.query(text3),
+    pool.query(text4)
+  ]).then(function([result, result1, result2, result3, result4]) {
 
     console.log(result1);
 
@@ -151,11 +154,21 @@ app.get("/forum",(req, res) => {
     }
 
     const answers = result3.rows;
+
+    const numberOfPosts = result4;
+    console.log(result4);
     /* Objeto de resultados */
     var obj = {};
     obj.genre = genre;
     obj.post = post;
     obj.session = req.session;
+    /*Numero de paginas a visualizar*/
+    var current = 1;
+    var max = 999;
+    if(numberOfPosts < 10){max = 1;}
+    else if(numberOfPosts%10 != 0){max = (numberOfPosts/10)+1;}
+    else{max = (numberOfPosts/10)}
+    obj.view = {current,max};
 
     /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
     for(i = 0; i < obj.post.length; i++){
@@ -194,6 +207,7 @@ app.get("/forum",(req, res) => {
   });
 
 });
+
 /*Logout*/
 app.get("/signOut",(req, res) => {
   

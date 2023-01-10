@@ -47,7 +47,6 @@
 		</div>
 	</div>
 
-	<!-- borrar mas tarde , prueba de escypir valores de la base de datos aqui , esto no afecta-->
 	<section class="flex flex-col"> 
 		<% var color = 0;
 		for (var i = 0 ; i < result.post.length; i++) { %>
@@ -91,6 +90,10 @@
 		<% } %>
 	</section>
 	
+	<div>
+		<p>Viewing Page <%=result.view.current%> of <%=result.view.max%> </p>
+	</div>
+
 	<%- include('./footer.html') %>
 
 </body>
