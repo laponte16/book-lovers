@@ -409,7 +409,7 @@ app.get("/post/:post_id",(req, res) => {
 app.get("/showGen/:id_genres",(req, res) => {
   pool.connect();
 
-  const text = 'SELECT id_posts,title,id_user FROM posts WHERE id_genre = $1';
+  const text = 'SELECT * FROM posts WHERE id_genre = $1';
   const values = [req.params.id_genres];
 
   pool.query(text, values, (err, result) => {
