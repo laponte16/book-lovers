@@ -20,8 +20,10 @@
 	<section class="flex-container"> 
 		<%for (var i = 0 ; i < result.posts.length; i++) { %>
 			<div class="flex flex-row fondo-black borde-red border-2 rounded w-full p-3">
+				<img src="<%=result.posts[i].id_posts%>">
 				<a class="hover-red" href="/post/<%=result.posts[i].id_posts%>/"><%=result.posts[i].title%></a> Author<%=result.posts[i].username%>	
 			</div>
+			<br>
 
 			
 		<% } %>
