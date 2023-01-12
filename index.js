@@ -110,7 +110,6 @@ app.get("/forum/:filter/:view",(req, res) => {
 
   let filter = req.params.filter;
   let view = (parseInt(req.params.view)-1) *10;
-  console.log(filter);
   //Queries y Valores
   const text0 = 'SELECT * FROM genres';
   //CONDICIONES DE FILTRADO
