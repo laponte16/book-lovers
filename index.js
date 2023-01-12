@@ -196,7 +196,7 @@ app.get("/forum/:filter/:view",(req, res) => {
     //Filtro
     obj.filter = filter;
     //Numero de paginas a visualizar
-    var current = 1;
+    var current = req.params.view;
     var max = 999;
     if(numberOfPosts < 10){max = 1;}
     else if(numberOfPosts%10 != 0){max = Math.floor((numberOfPosts/10)+1);}
