@@ -106,32 +106,59 @@ app.get("/user",(req, res) => {
 
 });
 //La vista principal del foro
-app.get("/forum",(req, res) => {
+app.get("/forum/:filter/:view",(req, res) => {
 
-  /*Queries y Valores*/
+  let filter = req.params.filter;
+  let view = (parseInt(req.params.view)-1) *10;
+  console.log(filter);
+  //Queries y Valores
   const text0 = 'SELECT * FROM genres';
+  //CONDICIONES DE FILTRADO
+  var text1 = '';
+  var values1 = [];
+  var text4 = '';
+  var values4 = [];
+  //SIN FILTRO
+  if(filter == 'noFilter'){
+    text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10 OFFSET $1';
+    values1 = [view];
 
-  const text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10';
+    text4 = 'SELECT COUNT(*) FROM posts';
+  }
+  //BUSQUEDA POR GENERO
+  if(filter.slice(0,5) == 'genre'){
+    text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts WHERE id_genre = $2 LIMIT 10 OFFSET $1';
+    values1 = [view,filter.slice(6,filter.length)];
 
+    text4 = 'SELECT COUNT(*) FROM posts WHERE id_genre = $1';
+    values4 = [filter.slice(6,filter.length)];
+  }
+  //CON BUSQUEDA POR TITULO O CONTENIDO
+  if(filter.slice(0,6) == 'search'){
+    text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts WHERE (LOWER(title)) LIKE LOWER($2) OR LOWER(content_post) LIKE LOWER($2) LIMIT 10 OFFSET $1';
+    values1 = [view,'%'+filter.slice(7,filter.length)+'%'];
+
+    text4 = 'SELECT COUNT(*) FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
+    values4 = ['%'+filter.slice(7,filter.length)+'%'];
+  }
+  
   const text2 = 'SELECT id_users,username FROM users';
 
   const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
 
-  const text4 = 'SELECT COUNT(*) FROM posts';
-
-  /*Ejecucion de Queries en simultaneo*/
+  //Ejecucion de Queries en simultaneo
   Promise.all([
     pool.query(text0),
-    pool.query(text1),
+    pool.query(text1,values1),
     pool.query(text2),
     pool.query(text3),
-    pool.query(text4)
+    pool.query(text4,values4)
   ]).then(function([result, result1, result2, result3, result4]) {
 
     const genre = result.rows;
 
     post = result1.rows;
-    /* Preview del post */
+    //Preview del post
     for(var i = 0; i<post.length; i++){
       post[i].number_words = post[i].content_post.length;
       if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
@@ -139,7 +166,7 @@ app.get("/forum",(req, res) => {
     }
 
     const users = result2.rows;
-    /* Fecha de creacion del post y buscar el username del creador */
+    //Fecha de creacion del post y buscar el username del creador
     for (var i = 0 ; i < post.length; i++) {
       post[i].creation_date = post[i].creation_date.toString();
       post[i].creation_date = post[i].creation_date.slice(0,24);
@@ -152,7 +179,6 @@ app.get("/forum",(req, res) => {
       }
 
       for (var j = 0 ; j < genre.length; j++) {
-        console.log(post[i].id_genre + '=' + genre[j].id_genres);
         if(post[i].id_genre == genre[j].id_genres)
           {
             post[i].genre = genre[j].name;
@@ -163,12 +189,14 @@ app.get("/forum",(req, res) => {
     const answers = result3.rows;
 
     const numberOfPosts = result4.rows[0].count;
-    /* Objeto de resultados */
+    //Objeto de resultados
     var obj = {};
     obj.genre = genre;
     obj.post = post;
     obj.session = req.session;
-    /*Numero de paginas a visualizar*/
+    //Filtro
+    obj.filter = filter;
+    //Numero de paginas a visualizar
     var current = 1;
     var max = 999;
     if(numberOfPosts < 10){max = 1;}
@@ -176,7 +204,7 @@ app.get("/forum",(req, res) => {
     else{max = Math.floor(numberOfPosts/10);}
     obj.view = {current,max};
 
-    /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
+    //Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay
     for(i = 0; i < obj.post.length; i++){
 
       answerProvisional = [];
@@ -206,120 +234,7 @@ app.get("/forum",(req, res) => {
       }
                   
     }
-    /* Renderizado */
-    res.render("./forum.ejs" , {result: obj});
-  }, function(error) {
-    throw error;
-  });
-
-});
-
-/* Visualizacion de otras paginas del foro */
-app.get("/forum/:view",(req, res) => {
-
-  let view = (parseInt(req.params.view)-1) *10;
-  console.log(view);
-  console.log(req.params.view);
-  /*Queries y Valores*/
-  const text0 = 'SELECT * FROM genres';
-
-  const text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts LIMIT 10 OFFSET $1';
-  const values1 = [view];
-
-  const text2 = 'SELECT id_users,username FROM users';
-
-  const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
-
-  const text4 = 'SELECT COUNT(*) FROM posts';
-
-  /*Ejecucion de Queries en simultaneo*/
-  Promise.all([
-    pool.query(text0),
-    pool.query(text1,values1),
-    pool.query(text2),
-    pool.query(text3),
-    pool.query(text4)
-  ]).then(function([result, result1, result2, result3, result4]) {
-
-    const genre = result.rows;
-
-    post = result1.rows;
-    /* Preview del post */
-    for(var i = 0; i<post.length; i++){
-      post[i].number_words = post[i].content_post.length;
-      if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
-      else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
-    }
-
-    const users = result2.rows;
-    /* Fecha de creacion del post y buscar el username del creador */
-    for (var i = 0 ; i < post.length; i++) {
-      post[i].creation_date = post[i].creation_date.toString();
-      post[i].creation_date = post[i].creation_date.slice(0,24);
-
-      for (var j = 0 ; j < users.length; j++) {
-        if(post[i].id_user == users[j].id_users)
-          {
-            post[i].username = users[j].username;
-          }
-      }
-
-      for (var j = 0 ; j < genre.length; j++) {
-        console.log(post[i].id_genre + '=' + genre[j].id_genres);
-        if(post[i].id_genre == genre[j].id_genres)
-          {
-            post[i].genre = genre[j].name;
-          }
-      }
-    }
-
-    const answers = result3.rows;
-
-    const numberOfPosts = result4.rows[0].count;
-    /* Objeto de resultados */
-    var obj = {};
-    obj.genre = genre;
-    obj.post = post;
-    obj.session = req.session;
-    /*Numero de paginas a visualizar*/
-    var current = req.params.view;
-    var max = 999;
-    if(numberOfPosts < 10){max = 1;}
-    else if(numberOfPosts%10 != 0){max = Math.floor((numberOfPosts/10)+1);}
-    else{max = Math.floor(numberOfPosts/10);}
-    obj.view = {current,max};
-
-    /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
-    for(i = 0; i < obj.post.length; i++){
-
-      answerProvisional = [];
-
-      for(j = 0; j< answers.length; j++){
-
-        if(answers[j].id_post == obj.post[i].id_posts){
-
-          answerProvisional.push(answers[j].creation_date);
-
-        }
-
-      }
-      if(answerProvisional.length > 0){
-
-        obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
-        obj.post[i].activity = obj.post[i].activity.slice(0,24);
-        obj.post[i].replies = answerProvisional.length;
-
-      }
-
-      else{
-
-        obj.post[i].activity = obj.post[i].creation_date;
-        obj.post[i].replies = 0;
-
-      }
-                  
-    }
-    /* Renderizado */
+    //Renderizado
     res.render("./forum.ejs" , {result: obj});
   }, function(error) {
     throw error;
@@ -336,6 +251,7 @@ app.get("/signOut",(req, res) => {
   res.redirect('/home');
 
 });
+
 /*Query para mostrar un post, mandando de parametro el id del mismo*/
 app.get("/post/:post_id",(req, res) => {
 
@@ -633,105 +549,12 @@ app.post("/answer",(req, res) => {
 });
 
 /* Funcion para buscar posts que contengan el parametro de busqueda */
-app.post("/search",(req, res) => {
+app.post("/search/",(req, res) => {
 
   /* Parametros del request */
   let search = req.body.search;
-
-  /*Queries y Valores*/
-  const text0 = 'SELECT * FROM genres';
-
-  const text1 = 'SELECT id_posts,id_genre,title,id_user,creation_date,content_post,url_image FROM posts WHERE (LOWER(title)) LIKE LOWER($1) OR LOWER(content_post) LIKE LOWER($1)';
-  const values1 = ['%'+search+'%'];
-
-  const text2 = 'SELECT id_users,username FROM users';
-
-  const text3 = 'SELECT id_post,creation_date FROM answers WHERE id_post IN (SELECT id_posts FROM posts)';
-
-  /*Ejecucion de Queries en simultaneo*/
-  Promise.all([
-    pool.query(text0),
-    pool.query(text1, values1),
-    pool.query(text2),
-    pool.query(text3)
-  ]).then(function([result, result1, result2, result3]) {
-
-
-    const genre = result.rows;
-
-    post = result1.rows;
-    /* Preview del post */
-    for(var i = 0; i<post.length; i++){
-      post[i].number_words = post[i].content_post.length;
-      if(post[i].content_post.length >= 75){post[i].content_post = post[i].content_post.slice(0,75);}
-      else {post[i].content_post = post[i].content_post.slice(0,post[i].content_post.length);}
-    }
-
-    const users = result2.rows;
-    /* Fecha de creacion del post y buscar el username del creador */
-    for (var i = 0 ; i < post.length; i++) {
-      post[i].creation_date = post[i].creation_date.toString();
-      post[i].creation_date = post[i].creation_date.slice(0,24);
-
-      for (var j = 0 ; j < users.length; j++) {
-        if(post[i].id_user == users[j].id_users)
-          {
-            post[i].username = users[j].username;
-          }
-      }
-
-      for (var j = 0 ; j < users.length; j++) {
-        if(post[i].id_user == users[j].id_users)
-          {
-            post[i].username = users[j].username;
-          }
-      }
-
-    }
-
-    const answers = result3.rows;
-    /* Objeto de resultados */
-    var obj = {};
-    obj.genre = genre;
-    obj.post = post;
-    obj.session = req.session;
-
-    /* Buscando la fecha de la ultima actividad, respuesta si hay o el post si no hay */
-    for(i = 0; i < obj.post.length; i++){
-
-      answerProvisional = [];
-
-      for(j = 0; j< answers.length; j++){
-
-        if(answers[j].id_post == obj.post[i].id_posts){
-
-          answerProvisional.push(answers[j].creation_date);
-
-        }
-
-      }
-      if(answerProvisional.length > 0){
-
-        obj.post[i].activity = answerProvisional[answerProvisional.length - 1].toString();
-        obj.post[i].activity = obj.post[i].activity.slice(0,24);
-        obj.post[i].replies = answerProvisional.length;
-
-      }
-
-      else{
-
-        obj.post[i].activity = obj.post[i].creation_date;
-        obj.post[i].replies = 0;
-
-      }
-                  
-    }
-    /* Renderizado */
-    res.render("./forum.ejs" , {result: obj});
-  }, function(error) {
-    throw error;
-  });
-
+  
+  res.redirect("/forum/search="+search+"/1")
 
 });  
 

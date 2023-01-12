@@ -47,6 +47,16 @@
 		</div>
 	</div>
 
+	<div class="flex justify-center">
+		<div class="flex flex-row flex-wrap my-4 w-4/5 text-center fondo-black rounded p-6">
+			<%for (var i = 0; i<result.genre.length; i++){  %>
+					<div class="texto-white mx-4 my-2 fondo-red rounded pb-1">
+						<b><a href="/forum/genre=<%=result.genre[i].id_genres%>/1"><%=result.genre[i].name%></a></b>
+					</div>
+			<%}%>
+		</div>
+	</div>
+
 	<section class="flex flex-col"> 
 		<% var color = 0;
 		for (var i = 0 ; i < result.post.length; i++) { %>
@@ -97,7 +107,7 @@
 		<p class="texto-white fondo-black w-fit rounded p-2">
 			<b>Viewing Page <%=result.view.current%> of
 			<% for (var i = 0 ; i < result.view.max; i++) { %>
-				<a href="/forum/<%=i+1%>" class="texto-red py-0 px-0.5 mr-0.5 border-2 borde-red"><%=i+1%></a>
+				<a href="/forum/<%=result.filter%>/<%=i+1%>" class="texto-red py-0 px-0.5 mr-0.5 border-2 borde-red"><%=i+1%></a>
 			<% } %>
 			</b>
 		</p>
