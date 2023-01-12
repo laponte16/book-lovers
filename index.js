@@ -110,7 +110,6 @@ app.get("/forum/:filter/:view",(req, res) => {
 
   let filter = req.params.filter;
   let view = (parseInt(req.params.view)-1) *10;
-  console.log(filter);
   //Queries y Valores
   const text0 = 'SELECT * FROM genres';
   //CONDICIONES DE FILTRADO
@@ -332,33 +331,7 @@ app.get("/post/:post_id",(req, res) => {
 });
 
 /*Query para mostrar los generos segun el id nota no fiatra*/
-app.get("/showGen/:id_genres",(req, res) => {
-  pool.connect();
 
-  const text = 'SELECT * FROM posts WHERE id_genre = $1';
-  const values = [req.params.id_genres];
-
-  pool.query(text, values, (err, result) => {
-
-    posts = result.rows;
-
-    const text1 = 'SELECT * FROM genres WHERE id_genres = $1';
-    const values1 = [req.params.id_genres];
-
-    pool.query(text1, values1, (err, result1) => {
-
-    genres = result1.rows;
-
-    var obj = {};
-    obj.posts = posts;
-    obj.genres = genres;
-    obj.session = req.session;
- 
-    res.render("./showgen.ejs" , {result: obj} );
-      
-    });
-  });
-});
 /*Query para llevarte a la pagina de creacion de posts*/
 app.get("/addPost",(req, res) => {
   pool.connect();
