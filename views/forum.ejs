@@ -15,10 +15,6 @@
 
 	<%- include('./nav.ejs') %>
 	<div class="flex justify-end flex-row">
-		<div class="text-4xl texto-red my-4 py-6 px-4">
-			<i class="fa-solid fa-square-plus"></i>
-
-		</div>
 		<!--Funcion de busqueda-->
 		<div class="flex justify-end">
 			<form method="post" action="/search" class="flex flex-col texto-white my-4 mr-2 rounded p-2">
@@ -55,6 +51,15 @@
 					</div>
 			<%}%>
 		</div>
+	</div>
+
+	<div class="texto-red text-left mt-4 pl-8">
+		<%if (result.session.username == "") { %>
+			<p class="pb-0">Sign in to create a new discussion...</p>
+			<% }else{ %>
+				<i class="text-4xl mb-4 fa-solid fa-square-plus"></i>
+				<%}%>
+
 	</div>
 
 	<section class="flex flex-col"> 
