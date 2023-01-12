@@ -119,11 +119,13 @@ TO-DO/Pendientes/Bugs/Features:
     
     -Opcion de crear post por aqui? Escondida si no estas loggeado
     -(semi-solved, migrado a /AddPost)ocultar el agregar genero paar usuario no administrador
-    -Hay un genero en minusculas. Tener en cuenta los posts que afecten si se cambia
+    
     -Upvote/Down vote visible en el foro
     -Que clickear el user de un post te lleve a su userpage
     -que solo un administrador pueda agregar generos
     -Tomar en cuenta si hay muchos numeros de paginas
+    -(Solved)Filtrado por genero o busqueda
+    -(Solved)Hay un genero en minusculas. Tener en cuenta los posts que afecten si se cambia
     -(Solved)DEBE MOSTRAR QUE GENERO ES, AHHHHHHHHHH
     -(Solved)Si el tamaño del titulo es muy grande, empuja el width descuadrando el layout
     -(Solved)Limitar numero de paginas visibles, repartir por tandas

@@ -242,6 +242,16 @@ app.get("/forum/:filter/:view",(req, res) => {
 
 });
 
+//Funcion para buscar posts que contengan el parametro de busqueda
+app.post("/search/",(req, res) => {
+
+  //Contenido de la busqueda
+  let search = req.body.search;
+  
+  res.redirect("/forum/search="+search+"/1")
+
+}); 
+
 /*Logout*/
 app.get("/signOut",(req, res) => {
   
@@ -511,8 +521,11 @@ app.post("/create_post",(req, res) => {
   });
   
 });
-
-/*Crear una Answer en un post*/
+//FUNCIONES DEL LOGIN
+//FUNCIONES DEL USER
+//FUNCIONES DEL FORUM
+//FUNCIONES DEL POST
+//Crear una Answer en un post
 app.post("/answer",(req, res) => {
 
   let date_ob = new Date();
@@ -546,20 +559,9 @@ app.post("/answer",(req, res) => {
     console.log(err);
   });
   
-});
+}); 
 
-/* Funcion para buscar posts que contengan el parametro de busqueda */
-app.post("/search/",(req, res) => {
-
-  /* Parametros del request */
-  let search = req.body.search;
-  
-  res.redirect("/forum/search="+search+"/1")
-
-});  
-
-      
-
+//LISTENER CENTRAL DEL NODE
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
 });
