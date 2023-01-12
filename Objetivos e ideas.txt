@@ -155,6 +155,7 @@ TO-DO/Pendientes/Bugs/Features:
 -Node:
     -(Solved)Es posible hacer que la funcion IN de SQL lea un array, solo toca ponerlo creativamente con un algoritmo. Array.prototype.join() Potencialmente
     -(Solved)Que no te deslogeen al entrar a home
+    -Que todos los pool salgan como deban en el codigo, hay unos con pool.connect de sobra
     -Agregar otra columna al usuario que maneje si es administrador o no, para saber si tiene acceso a la pagina donde se editan las funciones hidden de la pagina. Solo se debe ser administrador si te agregan directo por la DB, no creando usuario
 
 -Global:
