@@ -15,10 +15,6 @@
 
 	<%- include('./nav.ejs') %>
 	<div class="flex justify-end flex-row">
-		<div class="text-4xl texto-red my-4 py-6 px-4">
-			<i class="fa-solid fa-square-plus"></i>
-
-		</div>
 		<!--Funcion de busqueda-->
 		<div class="flex justify-end">
 			<form method="post" action="/search" class="flex flex-col texto-white my-4 mr-2 rounded p-2">
@@ -30,7 +26,7 @@
 						<input type="text" name="search" id="search" class="rounded fondo-white texto-black pl-2">
 					</div>
 					<div>
-						<input type="submit" name="buscar" value="Search" class="cursor-pointer rounded fondo-red px-1">
+						<input type="submit" name="buscar" value="Search" class="cursor-pointer rounded fondo-red px-1 hover-white hover-red transition duration-700">
 					</div>
 				</div>
 			</form>
@@ -42,11 +38,20 @@
 	<div class="flex justify-center">
 		<div class="flex flex-row flex-wrap my-4 w-4/5 text-center fondo-black rounded p-6">
 			<%for (var i = 0; i<result.genre.length; i++){  %>
-					<div class="texto-white mx-4 my-2 fondo-red rounded pb-1">
+					<div class="texto-white mx-4 my-2 fondo-red rounded pb-1 hover-white hover-red transition duration-700">
 						<b><a href="/forum/genre=<%=result.genre[i].id_genres%>/1"><%=result.genre[i].name%></a></b>
 					</div>
 			<%}%>
 		</div>
+	</div>
+
+	<div class="flex flex-col items-end text-end w-full mt-4 pr-8">
+		<%if (result.session.username == "") { %>
+			<p class="pb-0 px-3 fondo-red texto-gray rounded-t "><b>Sign in to create a new discussion...</b></p>
+			<% }else{ %>
+				<i class="text-4xl texto-red mb-4 fa-solid fa-square-plus cursor-pointer hover-white2 transition duration-700"></i>
+				<%}%>
+
 	</div>
 
 	<section class="flex flex-col"> 
