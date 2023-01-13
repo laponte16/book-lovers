@@ -62,16 +62,26 @@ app.get("/", (req, res) => {
   var obj = {};
   obj.session = req.session;
 
-  res.render("./home", {result: obj});
+  res.redirect("/home");
   
 });
 /*home*/
 app.get("/home", (req, res) => {
 
-  var obj = {};
-  obj.session = req.session;
+  const text0 = 'SELECT id_posts,title,url_image FROM posts LIMIT 10';
 
-  res.render("./home.ejs", {result: obj});
+  Promise.all([
+    pool.query(text0)
+  ]).then(function([result]) {
+
+    const post = result.rows;
+    console.log(post);
+    var obj = {};
+    obj.session = req.session;
+    obj.post = post;
+
+    res.render("./home.ejs", {result: obj});
+  });
   
 });
 /*About*/

@@ -9,6 +9,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/ca713a058f.js" crossorigin="anonymous"></script>
+  <script src="js/jquery.js"></script>
     <title>Home</title>
 </head>
 <body>
@@ -23,21 +24,23 @@
       <p class="texto-white">Introduccion al sitio titulo</p>
       <p class="texto-white">Introduccion al sitio content</p> 
     </div>
-    <div>
+    <div class="panelHot">
       Hottie hot
     </div>
     <div class="flex flex-row fondo-black rounded my-4 px-4 w-4/5 texto-red justify-between items-center">
       <div class="flex flex-col text-center text-4xl">
-        <i class="fa-solid fa-chevron-left"></i>
+        <i class="fa-solid fa-chevron-left arrowLeftHot"></i>
       </div>
-      <div class="flex flex-row w-10/12 ">
-        <div class="flex flex-col  text-center py-4 w-1/5">
-          <img class="w-32 h-32 rounded" src="/images/accion.jpg" alt="">
-          <p class="w-32">Ñame: The Curious Incident of the Dog in the Night-Time</p>
-        </div>
+      <div class="flex flex-row w-10/12 overflow-hidden">
+        <% for (var i = 0 ; i < result.post.length; i++) { %>
+          <div class="flex flex-col  text-center py-4 w-1/5 mr-3 panelHot relative">
+            <img class="w-32 h-32 rounded" src="<%=result.post[i].url_image%>" alt="">
+            <p class="w-32"><%=result.post[i].title%></p>
+          </div>
+        <% } %>
       </div>
       <div class="flex flex-col text-center text-4xl">
-        <i class="fa-solid fa-chevron-right"></i>
+        <i class="fa-solid fa-chevron-right arrowRightHot"></i>
       </div>
     </div>
     <div>
@@ -45,6 +48,8 @@
     </div>
   </div>
   <%- include('./footer.html') %>
+
+  <script src="js/home.js"></script>
 </body>
 </html>
 
