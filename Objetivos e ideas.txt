@@ -108,7 +108,7 @@ TO-DO/Pendientes/Bugs/Features:
     -(Solved)Que salga bien lo de estar logged/deslogged
 
 -Home:
-    -Habiamos hablado de poner una especie de carrusel para las mas vistas?
+    -Carrusel en proceso, faltaria las vistas para medium(2-4) y small(1)
     -Abiertos a ideas y experimentos
 
 -Login:

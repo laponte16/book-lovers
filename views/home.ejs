@@ -24,8 +24,8 @@
       <p class="texto-white">Introduccion al sitio titulo</p>
       <p class="texto-white">Introduccion al sitio content</p> 
     </div>
-    <div class="">
-      Hottie hot
+    <div class="texto-red text-3xl">
+      <b>Hottie Hots</b>
     </div>
     <div class="flex flex-row fondo-black rounded my-4 p-4 w-4/5 h-64 texto-red justify-between items-center">
       <div class="flex flex-col text-center text-4xl w-1/12">
@@ -42,8 +42,23 @@
         <i class="fa-solid fa-chevron-right arrowRightHot cursor-pointer w-fit"></i>
       </div>
     </div>
-    <div>
-      Recomendaciones de Posts nuevos
+    <div class="texto-red text-3xl">
+      <b>The Newcomers</b>
+    </div>
+    <div class="flex flex-row fondo-black rounded my-4 p-4 w-4/5 h-64 texto-red justify-between items-center">
+      <div class="flex flex-col text-center text-4xl w-1/12">
+        <i class="fa-solid fa-chevron-left arrowLeftHot cursor-pointer w-fit"></i>
+      </div>
+      <div class="flex flex-row flex-nowrap overflow-hidden">
+        <% for (var i = 0 ; i < 10; i++) { %>
+          <div class="panelHot relative">
+            <img class="rounded w-32 h-full mr-4" src="<%=result.post[i].url_image%>" alt="">
+          </div>
+        <% } %>
+      </div>
+      <div class="flex flex-col text-center text-4xl w-1/12">
+        <i class="fa-solid fa-chevron-right arrowRightHot cursor-pointer w-fit"></i>
+      </div>
     </div>
   </div>
   <%- include('./footer.html') %>
