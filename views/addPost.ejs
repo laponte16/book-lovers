@@ -16,61 +16,43 @@
     <%- include('./nav.ejs') %>
     <div class="flex flex-col justify-center align-middle text-center w-full items-center">
         <!--formulario de agregar posts-->
-		<form action="/create_post" method="post" id="create_post">
-            <div class="flex flex-col justify-center align-middle text-center w-96 items-center">
-                <div>
-                    <p class="texto-white">Add a New Review!</p>
+		<form action="/create_post" method="post" id="create_post" class="w-4/5 my-4 fondo-black rounded texto-white">
+            <div class="flex flex-col text-center items-start w-full p-4">
+
+                <p class="texto-red text-2xl borde-red border-2 rounded w-full py-1">Add a New Review!</p>
+
+                <div class="flex flex-col w-full text-start mt-3">
+                    <p class="texto-red">What's the title of the book?</p>
+					<input type="text" name="title" id="title" class="rounded px-2 fondo-white texto-black outline-none">
                 </div>
-                <div class="flex flex-col">
-                    <p class="texto-white">What's the title of the book?</p>
-					<input type="text" name="title" id="title">
-                </div>
-                <div class="flex flex-row mt-3">
-                    <p class="texto-white">What's the Genre of the book? &nbsp;</p>
-                    <select name="id_genres" id="id_genres" form="create_post">
+                <div class="flex flex-col mt-3 w-full items-end">
+                    <p class="texto-red">What's the Genre of the book? &nbsp;</p>
+                    <select name="id_genres" id="id_genres" form="create_post" class="text-center texto-red rounded outline-none">
 						<%for (var i = 0 ; i < result.genre.length; i++) { %>
-							<option value="<%=result.genre[i].id_genres%>">
+							<option value="<%=result.genre[i].id_genres%>" class="">
 								<%=result.genre[i].name%>
 							</option>
 						<% } %>
 					</select>
                 </div>
-                <div class="flex flex-col justify-center align-middle w-full  mt-3">
-                    <p class="texto-white">Character Limit: 0/2000</p>
-                    <textarea name="content_post" id="content_post" cols="30" rows="8" maxlength="2000"></textarea>
+                <div class="flex flex-col w-full mt-3">
+                    <p class="texto-black text-start rounded-t fondo-white w-fit p-1 px-2">Content</p>
+                    <textarea name="content_post" id="content_post" maxlength="2000" class="content_post resize-none rounded-r rounded-b w-full p-2 texto-black fondo-white h-64 outline-none"></textarea>
+                    <p id="wordCounter" class="wordCounter texto-red text-end p-1">0/2000</p>
                 </div>
-                <div class="flex flex-col justify-center align-middle w-full  mt-3">
-                    <p class="texto-white">Add a book cover image(link):</p>
-                    <input type="text" name="image" id="image">
+                <div class="flex flex-col text-start w-full">
+                    <p class="texto-red">Add a book cover image(URL):</p>
+                    <input type="text" name="image" id="image" class="rounded px-2 fondo-white texto-black outline-none">
                 </div>
-                <div class="border-2 rounded-md mt-1 fondo-red texto-white">
-                    <input type="submit" name="Enviar" value="Submit" tabindex="-1" class="cursor-pointer">
+                <div class="border-2 rounded-md mt-2 fondo-red texto-white">
+                    <input type="submit" name="Enviar" value="Submit" tabindex="-1" class="cursor-pointer rounded fondo-red px-2 w-fit hover-white hover-red transition duration-700">
                 </div>
             </div>
 		</form>
 	</div>
-
-    <!--AGREGAR GENEROS-->
-	<div class="agregar" id="agregar">
-		<form  method="post" action="/newgen">
-			<table border="1">
-				<tr><th colspan="2">agregar generos</th></tr>
-				<tr>
-					<th>nombre del genero</th>
-					<th><input type="text" name="gen_name" id="gen_name"></th>
-				</tr>
-				<tr>
-					<th>selecciones una imagen</th>
-					<th><input type="text" name="img_gen" id="img_gen"></th>
-				</tr>
-				<tr>
-					<th><input type="submit" name="Enviar" value="subir"></th>
-					<th><input type="reset" name="borrar" value="borrar"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-
     <%- include('./footer.html') %>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/addPost.js"></script>
 </body>
 </html>
