@@ -29,7 +29,7 @@
 
 		<div class="flex flex-col fondo-black rounded px-4 py-2">
 			<p class="mt-4 text-lg text-justify px-2"><%=result.post.content_post%></p>
-			<p class="text-end"><i><%=result.post.creation_date%></i></p>
+			<p class="text-end texto-red"><i><%=result.post.creation_date%></i></p>
 		</div>
 
 		<form action="/answer" method="post" name="answer_post">
@@ -46,7 +46,7 @@
 
 					<div class="flex flex-row items-center justify-between mt-1">
 						<input type="submit" name="Enviar" value="Answer" class="cursor-pointer rounded fondo-red px-2 w-fit hover-white hover-red transition duration-700 border-2">
-						<p class="texto-white text-end"><i>0/500</i></p>
+						<p class="texto-red text-end"><i>0/500</i></p>
 					</div>
 				</div>
 				
