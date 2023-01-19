@@ -11,6 +11,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/ca713a058f.js" crossorigin="anonymous"></script>
+    <script src="js/jquery.js"></script>
 </head>
 <body>
     <%- include('./nav.ejs') %>
@@ -37,8 +38,8 @@
                 </div>
                 <div class="flex flex-col w-full mt-3">
                     <p class="texto-black text-start rounded-t fondo-white w-fit p-1 px-2">Content</p>
-                    <textarea name="content_post" id="content_post" maxlength="2000" class="content_post resize-none rounded-r rounded-b w-full p-2 texto-black fondo-white h-64 outline-none"></textarea>
-                    <p id="wordCounter" class="wordCounter texto-red text-end p-1">0/2000</p>
+                    <textarea name="content_post" id="content_post" maxlength="2000" class="resize-none rounded-r rounded-b w-full p-2 texto-black fondo-white h-64 outline-none"></textarea>
+                    <p id="wordCounter" class="texto-red text-end p-1">0/2000</p>
                 </div>
                 <div class="flex flex-col text-start w-full">
                     <p class="texto-red">Add a book cover image(URL):</p>
@@ -52,7 +53,6 @@
 	</div>
     <%- include('./footer.html') %>
 
-    <script src="js/jquery.js"></script>
     <script src="js/addPost.js"></script>
 </body>
 </html>
