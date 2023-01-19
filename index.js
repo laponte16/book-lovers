@@ -122,8 +122,11 @@ app.get("/user/:user_id",(req, res) => {
     pool.query(text2,value2)
   ]).then(function([result1,result2]){
 
-    var user = result1.rows;
+    var user = result1.rows[0];
     var posts = result2.rows;
+
+    user.join_date = user.join_date.toString();
+    user.join_date = user.join_date.slice(0,15);
 
     var obj = {};
     obj.session = req.session;

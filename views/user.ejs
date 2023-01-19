@@ -13,14 +13,31 @@
 </head>
 <body>
   <%- include('./nav.ejs') %>
-  <div class="container-body relative z-10">
-    <span class=" texto-white"> Users page</span>
+  <div class="container-body flex flex-col relative m-8 items-center z-10">
+    <div class="p-5 m-5 text-center w-1/3 rounded-md border-y-4 borde-red">
+      <p class="texto-white text-4xl">Profile</p>
+    </div>
 
-    <!--Pruebas de Session-->
-    <h1>Usuario: <%= result.session.username == "" ? "nadie" : result.session.username %></h1>
-    <h1>ID Usuario: <%= result.session.id_users == "" ? "ID nadie" : result.session.id_users %></h1>
-    <br>
-    <a href="/signOut">Logout</a>
+    <!--Info session-->
+    <div class="flex flex-col w-full pl-10 pt-4">
+      <div class="flex flex-col md:flex-row w-full">
+        <div class="flex flex-col w-1/3 texto-white">
+          <div class="w-32 md:w-56 border-4 borde-black rounded">
+            <img class="rounded" src="/images/user_default.jpg">
+          </div>
+          <div class="pl-5 pt-2">
+            <p>Username: <%= result.user.username == "" ? "none" : result.user.username %></p>
+            <p>User since: <%= result.user.join_date == "" ? "none" : result.user.join_date %> </p>
+            <a class="pl-0 w-fit" href="/signOut">Logout</a>
+          </div>
+        </div>
+        
+        <div class="flex w-2/3">
+          <p>Flying ñames</p>
+        </div>
+      </div>
+    </div>
+    
 
   </div>
   <%- include('./footer.html') %>
