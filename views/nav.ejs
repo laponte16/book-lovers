@@ -43,7 +43,7 @@
         <a class="text-xl p-0">/</a>
         <a href="/login" class="text-xl hover-red duration-1000 pl-0">Sign Up</a>
         <% }else{ %>
-            <a class="text-xl pr-0.5">Welcome, </a><a href="/user" class="hover-red duration-1000 text-xl pl-0"><%= result.session.username%></a>
+            <a class="text-xl pr-0.5">Welcome, </a><a href="/user/<%=result.session.id_users%>" class="hover-red duration-1000 text-xl pl-0"><%= result.session.username%></a>
           <li class="inline-block md:my-0 md:mx-0 hover-red duration-1000"><a href="/signOut" class="text-xl"><i class="fa-solid fa-right-from-bracket"></i></a></li> 
             <%}%>
     </li>
