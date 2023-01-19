@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title><%=result.post.title%></title>
-	<link rel="stylesheet" type="text/css" href="js/jquery1.js">
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/css/style.css">
 	<script src="https://cdn.tailwindcss.com"></script>
-	<script type="text/javascript" src="js/jquery1.js">
-		
-	</script>
+
+	<script type="application/javascript" src="/js/jquery.js"></script>
 	
 </head>
 <body>
@@ -46,7 +47,7 @@
 
 					<div class="flex flex-row items-center justify-between mt-1">
 						<input type="submit" name="Enviar" value="Answer" class="cursor-pointer rounded fondo-red px-2 w-fit hover-white hover-red transition duration-700 border-2">
-						<p class="texto-red text-end"><i>0/500</i></p>
+						<p id="wordCounter" class="texto-red text-end"><i>0/500</i></p>
 					</div>
 				</div>
 				
@@ -71,5 +72,7 @@
 	</div>
 
 	<%- include('./footer.html') %>
+
+    <script type="application/javascript" src="/js/post.js"></script>
 </body>
 </html>
