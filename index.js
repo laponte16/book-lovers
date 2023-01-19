@@ -17,6 +17,7 @@ const pool = new Pool({
 
 /*ENCRYPTION*/
 const bcrypt = require('bcrypt');
+const { promiseImpl } = require("ejs");
 const saltRounds = 10;
 
 
@@ -106,13 +107,32 @@ app.get("/login", (req, res) => {
 /*QUERIES A LA DATABASE*/
 /*GET*/
 /*Pagina de Usuario - Usando valores de session*/
-app.get("/user",(req, res) => {
+app.get("/user/:user_id",(req, res) => {
 
-  var obj = {};
-  obj.session = req.session;
+  let user_id = req.params.user_id;
+
+  text1 = 'SELECT username,join_date FROM users WHERE id_users = $1';
+  value1 = [user_id];
+
+  text2 = 'SELECT id_posts,title FROM posts WHERE id_user = $1';
+  value2 = [user_id];
+
+  Promise.all([
+    pool.query(text1,value1),
+    pool.query(text2,value2)
+  ]).then(function([result1,result2]){
+
+    var user = result1.rows;
+    var posts = result2.rows;
+
+    var obj = {};
+    obj.session = req.session;
+    obj.user = user;
+    obj.posts = posts;
    
   res.render("./user.ejs" , {result: obj} );
 
+  });
 });
 //La vista principal del foro
 app.get("/forum/:filter/:view",(req, res) => {
