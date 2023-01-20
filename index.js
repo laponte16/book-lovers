@@ -71,7 +71,12 @@ app.get("/home", (req, res) => {
 
   const text0 = 'SELECT id_posts,title,url_image FROM posts ORDER BY creation_date DESC LIMIT 10';
 
-  const text1 = 'SELECT id_posts,title,url_image FROM posts ORDER BY creation_date DESC LIMIT 10'
+  const text1 = 'SELECT a.id_posts,a.title,a.url_image,COUNT(b.id_post) as count'+
+  ' FROM posts a' +
+  ' LEFT OUTER JOIN answers b' +
+  ' ON a.id_posts = b.id_post'+
+  ' GROUP BY a.id_posts'+
+  ' ORDER BY count DESC LIMIT 10';
 
   Promise.all([
     pool.query(text0),
@@ -80,6 +85,8 @@ app.get("/home", (req, res) => {
 
     const postNew = result.rows;
     const postHot = result1.rows;
+
+    console.log(postHot);
 
     var obj = {};
     obj.session = req.session;
