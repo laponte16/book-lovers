@@ -32,7 +32,13 @@
 			<p class="mt-4 text-lg text-justify px-2"><%=result.post.content_post%></p>
 			<p class="text-end texto-red"><i><%=result.post.creation_date%></i></p>
 		</div>
-
+		<%if(result.session.username == ""){%>
+			<div class="w-full text-center my-4">
+				<a href="/login" class="w-fit texto-red text-2xl p-0 hover-white2 duration-1000">Sign Up to contribute!</a>
+			</div>
+	
+			<%} else{%>
+		
 		<form action="/answer" method="post" name="answer_post">
 			<div class="pt-4 flex flex-col justify-center">
 				<div>
@@ -53,7 +59,7 @@
 				
 			</div>
 		</form>
-
+		<%}%>
 	</div>
 
 	<div class="flex flex-col">

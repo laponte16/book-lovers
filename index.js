@@ -384,7 +384,6 @@ app.get("/addPost",(req, res) => {
 /*POST*/
 /*Loggearse*/
 app.post("/signIn",(req, res) => {
-  pool.connect();
 
   let email = req.body.email;
   let password = req.body.password;
@@ -403,7 +402,7 @@ app.post("/signIn",(req, res) => {
         var obj = {};
         obj.session = req.session;
 
-        res.render("./user.ejs", {result: obj});
+        res.redirect("/home");
 
       }
       else
@@ -419,7 +418,6 @@ app.post("/signIn",(req, res) => {
 });
 /*Registrarse*/
 app.post("/signUp",(req, res) => {
-  pool.connect();
 
   let date_ob = new Date();
 
@@ -467,7 +465,6 @@ let seconds = date_ob.getSeconds();
 
 //agregar nuevo genero a los ya existentes 
 app.post("/newGen",(req, res) => {
-  pool.connect();
 
   let gen_name = req.body.gen_name;
   let img_gen = req.body.img_gen;
@@ -488,8 +485,6 @@ app.post("/newGen",(req, res) => {
 //Crear un Post  res.render
 app.post("/create_post",(req, res) => {
   
-  pool.connect();
-
   let date_ob = new Date();
 
   // current date
