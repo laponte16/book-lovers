@@ -111,6 +111,7 @@ TO-DO/Pendientes/Bugs/Features:
 -Login:
     -Hacia falta hacer las validaciones bien. Confirmar password, meterse con AJAX para que lance un popup diciendo si algo esta mal, que el campo email sea un email valido, etc etc.
     -Integracion con google y/facebook
+    -Que si no coinciden los datos al loggear te muestre un error claro
 
 -En generos/foro:
     -Tomar en cuenta si hay muchos numeros de paginas
@@ -151,6 +152,7 @@ TO-DO/Pendientes/Bugs/Features:
 -Posts:
     -(Solved!)Dios santo, protect us. Todo el estilado y layout
     -(Solved)Hm hm. Que haya un contador de palabras para las respuestas.
+    -(Solved)No puedes meter respuesta sin estar logged
 -Global:
     -(Solved)Que haya una sola userpage y que el user del nav te mande para la tuya(usar session)
     -(Solved, se quito simplemente lo que no debe estar)Mover todas las cosas a las que el usuario no supone tener acceso a una pagina hidden sin ruta mas que meter el link directamente
@@ -158,3 +160,6 @@ TO-DO/Pendientes/Bugs/Features:
     -Estilado y contador de palabras para el contenido.
 -Userpage:
     -(Solved)Hacerla de manera correcta. Entiendase, que sea disponible para cualquier usuario y muestre lo que deba mostrar.
+-Login:
+    -(Solved)Quitados viejos remanentes
+    -(Solved)Te redirecciona a login al loggear

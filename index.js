@@ -69,16 +69,22 @@ app.get("/", (req, res) => {
 /*home*/
 app.get("/home", (req, res) => {
 
-  const text0 = 'SELECT id_posts,title,url_image FROM posts LIMIT 10';
+  const text0 = 'SELECT id_posts,title,url_image FROM posts ORDER BY creation_date DESC LIMIT 10';
+
+  const text1 = 'SELECT id_posts,title,url_image FROM posts ORDER BY creation_date DESC LIMIT 10'
 
   Promise.all([
-    pool.query(text0)
-  ]).then(function([result]) {
+    pool.query(text0),
+    pool.query(text1)
+  ]).then(function([result,result1]) {
 
-    const post = result.rows;
+    const postNew = result.rows;
+    const postHot = result1.rows;
+
     var obj = {};
     obj.session = req.session;
-    obj.post = post;
+    obj.postNew = postNew;
+    obj.postHot = postHot;
 
     res.render("./home.ejs", {result: obj});
   });
