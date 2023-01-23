@@ -86,8 +86,6 @@ app.get("/home", (req, res) => {
     const postNew = result.rows;
     const postHot = result1.rows;
 
-    console.log(postHot);
-
     var obj = {};
     obj.session = req.session;
     obj.postNew = postNew;

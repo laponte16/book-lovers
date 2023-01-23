@@ -163,3 +163,9 @@ TO-DO/Pendientes/Bugs/Features:
 -Login:
     -(Solved)Quitados viejos remanentes
     -(Solved)Te redirecciona a login al loggear
+
+    7 
+    8
+    9
+    0
+    1 
