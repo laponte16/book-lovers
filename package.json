@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js --omit=dev",
     "development": "nodemon -e js,ejs,html,css"
   },
   "repository": {
