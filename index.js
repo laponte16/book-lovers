@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+
+const PORT = process.env.PORT || 3000;
+
 var path = require('path');
 var useragent = require('express-useragent');
 const bodyParser = require('body-parser');
@@ -573,7 +576,7 @@ app.post("/answer",(req, res) => {
 }); 
 
 //LISTENER CENTRAL DEL NODE
-app.listen(3000, () => {
-  console.log("Application started and Listening on port 3000");
+app.listen(PORT, () => {
+  console.log("Application started and Listening on port " + PORT);
 });
 
